@@ -118,10 +118,12 @@ class ColorConverter extends HTMLElement {
 
     _getColorDistanceSquared(r1, g1, b1, r2, g2, b2) {
         function RGBtoL(red,green,blue) {
-            return 0.30 * red + 0.59 * green + 0.11 * blue;
+            return Math.pow((0.2126 * red),2) + 
+		   Math.pow((0.7152 * green),2) + 
+		   Math.pow((0.0722 * blue),2);
         }
-
-        return Math.pow(RGBtoL(r1,g1,b1) - RGBtoL(r2,g2,b2),2);
+	let l = Math.abs(RGBtoL(r1,g1,b1) - RGBtoL(r2,g2,b2));
+        return l;
     }
 }
 customElements.define('color-converter',ColorConverter)
