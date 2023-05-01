@@ -28,7 +28,7 @@ body {
 
 body {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 1.1em;
+  font-size: 1.3em;
   line-height: 1.5;
   color: #FFF;
   -webkit-font-smoothing: antialiased;
@@ -152,13 +152,14 @@ section h2{
 
 nav {
 	display: flex;
+	justify-content: space-between; 
 	background-color: rgb(0,43,54);
 	color: grey;
 	width: 10em;
 	padding: 2.125em;
 	flex-direction: column;
-	justify-content: space-between;
-	overflow-y: hidden;
+	overflow-x: auto;
+	overflow-y: hidden
 }
 
 .menu li {
@@ -499,9 +500,6 @@ ul.post-list > li > .third {
 	padding-bottom: 1em;
 }
 
-#disqus_thread {
-}
-
 .blurb {
 	color: rgba(0, 0, 0, 0.5);
 	font-size: 0.9em;
@@ -595,14 +593,12 @@ ul.post-list > li > .third {
 }
 
 @media (max-width: 45em) {
-
-
 	.cover iframe {
 		display: none;
 	}
 
 	body {
-	flex-direction: column;
+		flex-direction: column;
 	}
 
 	nav {
