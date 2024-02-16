@@ -27,7 +27,6 @@ html {
 
 html,body {
   height: 100%;
-  min-height: 100%;
   background-color: rgb(0,43,54);
 }
 
@@ -71,50 +70,6 @@ p, blockquote {
 }
 
 
-#cv {
-  -webkit-font-smoothing: subpixel-antialiased;
-  font-size: 1em;
-}
-
-#cv h1 {
-	font-size: 1.75em;
-}
-
-#cv a {
-	color: midnightblue;
-}
-
-#cv li {
-	margin: 1em 0;
-  line-height: 1.5;
-}
-
-#cv p {
-	max-width: none;
-  font-family: Helvetica, Arial, sans-serif;
-  margin: 0.5em 0;
-  line-height: 1.5;
-
-}
-
-blockquote {
-	color: rgba(255,255,255,0.5);
-	font-style: italic;
-	font-size: 1.5em;
-	padding-left: 20px;
-	margin-left: -24px;
-	border-left: 4px solid rgba(51, 51, 51, 0.7);
-}
-
-strong, b {
-	font-weight: bold;
-}
-
-em, i {
-    font-style: italic;
-}
-
-
 a {
 	color: #FFF;
 	text-decoration: none;
@@ -128,10 +83,9 @@ p a {
 	border-bottom: 1px solid black;
 }
 
-a.image
+a , img
 {
-  border: 0 none;
-  margin: 0 auto;
+    width: 10em;
 }
 
 p a:hover {
@@ -172,80 +126,6 @@ section h2{
 	margin-top: 1em;
 }
 
-/* Nav bar */
-
-nav {
-	display: flex;
-	justify-content: space-between; 
-	background-color: rgb(0,43,54);
-	color: grey;
-	width: 10em;
-	padding: 2.125em;
-	flex-direction: column;
-	overflow-x: auto;
-	overflow-y: hidden
-}
-
-.menu li {
-	margin-bottom: 0.9em;
-}
-
-.social li{
-	display: inline;
-	padding-right: 12px;
-}
-
-.subnav li{
-	display: inline;
-	margin-right: 1em;
-}
-
-.subnav a:hover {
-	text-decoration: none;
-	border-bottom: 2px solid rgba(0, 0, 0, 0.25);
-}
-
-.subnav a:active {
-	border-bottom: 2px solid dodgerblue;
-}
-
-nav .info  {
-	flex: none; /* doesn't expand or shrink */
-	color: rgb(255,255,255);
-	font-weight: bold;
-}
-
-nav .info > aside {
-	font-weight: normal;
-	color: rgba(255,255,255,0.5);
-}
-
-header aside {
-	font-weight: normal;
-	color: rgba(200,200,200,0.6);
-}
-
-/* overwrite link properties for the nav bar */
-
-nav a {
-	color: rgba(255, 255, 255, 0.8);
-}
-nav a:hover {
-	text-decoration: none;
-	border-bottom: 2px solid rgba(255, 255, 255, 0.25);
-}
-.name a {
-	color: rgb(255,255,255);
-}
-
-.name a:hover {
-	border-bottom: 0px;
-}
-
-.social a:hover {
-	border-bottom: 0px;
-}
-
 
 iframe {
 	flex: 1;
@@ -253,6 +133,8 @@ iframe {
 	left: 0; top: 0; right: 0; bottom: 0;
 	width: 100%;
 	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 	/*
 	box-sizing: border-box;
 	overflow: hidden;
