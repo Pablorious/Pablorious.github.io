@@ -20,10 +20,28 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-html,
-body {
+html,body {
   height: 100%;
   background-color: rgb(0,43,54);
+}
+
+article {
+	padding: 2.125em 6em;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	overflow-y:scroll;
+}
+
+.grid {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: baseline;
+}
+
+img {
+    max-width: 100%;
 }
 
 body {
@@ -222,18 +240,8 @@ nav a:hover {
 	border-bottom: 0px;
 }
 
-/* splash page */
 
-.splash {
-	flex: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	position: relative;
-}
-
-.splash iframe {
+iframe {
 	flex: 1;
 	position: absolute;
 	left: 0; top: 0; right: 0; bottom: 0;
@@ -333,13 +341,7 @@ nav a:hover {
     height: 100%;
 }
 
-article {
-	padding: 2.125em 6em;
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	overflow-y:scroll;
-}
+
 
 header, section {
     padding-bottom: 1.125em;
@@ -354,8 +356,9 @@ header, section {
 }
 
 footer {
-    padding-top: 1.125em;
-    margin-top: 2.25em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -363,11 +366,10 @@ footer > p {
 	max-width: 100%;
 }
 
-/*
-.splash {
-	padding: 2.125em;
+footer > a > img {
+    width: 20px;
+    height:20px;
 }
-*/
 
 .content {
 	flex: 1;
@@ -384,12 +386,7 @@ footer > p {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.grid {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-around;
-	align-items: baseline;
-}
+
 
 .grid > .item {
   box-sizing: border-box;
@@ -403,10 +400,11 @@ footer > p {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
-.grid > .item > img {
-	width: 100%;
-	margin-bottom: 1em;
+
+.grid > .item > a > img {
+    border-radius: 25%;
 }
+
 
 .grid > .item > small {
 	color: rgba(200,200,200,0.5);
@@ -440,9 +438,6 @@ footer > p {
 	flex: 1;
 }
 
-img {
-	max-width: 100%;
-}
 
 ul.post-list > li > h2 {
 	font-size: 1.5em;
@@ -508,11 +503,6 @@ ul.post-list > li > .third {
 .caption {
 	color: rgba(0, 0, 0, 0.5);
 	font-size: 0.9em;
-}
-
-.caption a {
-	/*color: rgba(0, 0, 0, 0.5);*/
-	/*font-size: 0.9em;*/
 }
 
 
@@ -675,17 +665,16 @@ ul.post-list > li > .third {
 
 
 @media print {
-
 	::-webkit-scrollbar {
 	    display: none;
 	}
 
 	body {
-	  font-size: 0.9em;
-  	line-height: 1.25;
-  	display: block;
-    overflow-y: hidden;
-  }
+	    font-size: 0.9em;
+	    line-height: 1.25;
+	    display: block;
+	    overflow-y: hidden;
+	}
 
 	nav {
 		display: none;
@@ -693,6 +682,6 @@ ul.post-list > li > .third {
 
   article {
 		display: block;
-		padding: 2.125em 3em;
+		padding: 2em 2em;
   }
 }
