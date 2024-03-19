@@ -1,0 +1,293 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <script src="main.js"></script>
+    <script>
+        class ColorConverter extends HTMLElement {
+            constructor() {
+                super();
+                this.shadow = this.attachShadow({mode: 'open'})
+                this.shadowRoot.innerHTML = `
+                    <style> 
+                        #buttonContainer {
+                            display: flex;
+                            flex-wrap: wrap;
+                        }
+
+                        #fileInput,#colorsInput{
+			    font-size: 20;
+                            background-color: rgb(133,153,  0);
+                            margin-right: 10px; /* add a margin to the buttons */
+                            color: white;
+			    border: 1px solid rgb(133,153,  0);
+			    border-radius: 5px;
+                            cursor: pointer;
+                        }
+
+                        #canvas {
+                            flex-grow: 1;
+			    width: 50%;
+                        }
+
+                    </style>
+         
+                    <div id="buttonContainer">
+                      <button id="fileInput">Choose Image</button>
+                      <select id="colorsInput">
+                          <option value="solarized">Solarized</option>
+                          <option value="grayscale">Grayscale</option>
+                          <option value="neons">Neons</option>
+                          <option value="black and white">Black and White</option>
+                      </select>
+                    </div>
+                    <input type="file" id="inputFile" accept="*" style="display:none"/>
+                    <canvas id="canvas"></canvas>
+                    `;        
+
+		this._colors = 
+		    {
+		      neons: [[0,0,0],[255,0,0],[0,255,0],[0,0,255],[0,255,255],[255,0,255],[255,255,0],[255,255,255]]
+		    , solarized : [ [131,148,150]
+				  , [  0, 43, 54]
+				  , [  7, 54, 66]
+				  , [ 88,110,117]
+				  , [101,123,131]
+				  , [131,148,150]
+				  , [147,161,161]
+				  , [238,232,213]
+				  , [253,246,227]
+				  , [181,137,  0]
+				  , [203, 75, 22]
+				  , [220, 50, 47]
+				  , [211, 54,130]
+				  , [108,113,196]
+				  , [ 38,139,210]
+				  , [ 42,161,152]
+				  , [133,153,  0]
+				  ]
+		    , grayscale : [[0,0,0],[255,255,255],[127,127,127],[63,63,63],[191,191,191]]
+		    , "black and white" : [[0,0,0],[255,255,255]]
+		    }
+                
+                this.fileInputButton = this.shadow.querySelector("#fileInput");
+                this.colorSelector = this.shadow.querySelector("#colorsInput");
+                this.imageCanvas = this.shadow.querySelector("canvas");
+                this.fileInputButton.addEventListener("click", this.openFileDialog.bind(this));
+                this.colorSelector.addEventListener("change", this.updateCanvas.bind(this));
+                this.image = null;
+            }
+             
+            updateCanvas(){
+                console.log(this.colorSelector.value);
+                console.log(this._colors);
+                console.log(this._colors[this.colorSelector.value]);
+                const selectedColorScheme = this._colors[this.colorSelector.value];
+                
+		const ctx = this.imageCanvas.getContext("2d");
+                ctx.drawImage(this.image, 0, 0, this.image.width, this.image.height);
+                
+		const imageData = ctx.getImageData(0, 0, this.imageCanvas.width, this.imageCanvas.height);
+                
+		const data = imageData.data;
+
+                for (let i = 0; i < data.length; i += 4) {
+                    let r = data[i];
+                    let g = data[i + 1];
+                    let b = data[i + 2];
+                    let nearestColor = this._getNearestColor(r, g, b, selectedColorScheme.palette);
+
+                    data[i] = nearestColor[0];
+                    data[i + 1] = nearestColor[1];
+                    data[i + 2] = nearestColor[2];
+                }
+            ctx.putImageData(imageData, 0, 0);
+            }
+
+            openFileDialog(){
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+
+                fileInput.addEventListener("change", (event) => {
+                    const file = event.target.files[0];
+                    const reader = new FileReader();
+                    
+                    reader.addEventListener("load", (event) => {
+                        this.image = new Image();
+                        this.image.src = event.target.result;
+
+                        this.image.addEventListener("load", () => {
+                            this.imageCanvas.width = this.image.width;
+                            this.imageCanvas.height = this.image.height;
+                            
+                            const ctx = this.imageCanvas.getContext("2d");
+                            ctx.drawImage(this.image, 0, 0,this.image.width,this.image.height);
+                            this.updateCanvas();
+                        });
+                    });
+                    reader.readAsDataURL(file);
+                });
+                fileInput.click();
+            }
+
+            _getNearestColor(r,g,b){
+                let palette = this._colors[this.colorSelector.value]
+                let nearestColor = palette[0];
+                let nearestDistance = Number.MAX_SAFE_INTEGER;
+                for (let color of palette){
+                    let distance = this._getColorDistanceSquared(r,g,b,color[0],color[1],color[2]);
+                    if (distance < nearestDistance){
+                        nearestColor = color;
+                        nearestDistance = distance;
+                    }
+                }
+                return nearestColor;
+            }
+
+            _getColorDistanceSquared(r1, g1, b1, r2, g2, b2) {
+                function RGBtoL(red,green,blue) {
+                    return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
+                }
+            let l = Math.abs(RGBtoL(r1,g1,b1) - RGBtoL(r2,g2,b2));
+                return l;
+            }
+        }
+        customElements.define('color-converter',ColorConverter)
+    </script>
+    <script>
+      class FractalMountain extends HTMLElement {
+        constructor() {
+	    super();
+	    this.shadow = this.attachShadow({mode: 'open'})
+	    this.shadowRoot.innerHTML = `
+                    <style> 
+                        #generateMountain{
+                            background-color: rgb(42,161,152);
+                            padding: 1em;
+                            margin-top: 1em;
+                            margin-right: 5px; /* add a margin to the buttons */
+                            color: white;
+                            border: none;
+                            cursor: pointer;
+                        }
+
+                        #canvas {
+                            flex-grow: 1;
+                            vertical-align: top;
+			    width:100%;
+			    max-width: 100%;
+			    max-height: 100%;
+                        }
+                    </style>
+		    <button id="generateMountain">Generate Mountain</button>
+		    <canvas id="canvas"></canvas>
+                    `; 
+	    
+	    const canvas = this.shadow.querySelector("#canvas");
+	    canvas.imageSmoothingEnabled =  false;
+	    const ctx = canvas.getContext('2d');
+
+	    let img = new Image;
+	    let source = canvas.toDataURL();
+
+
+	    let temp_canvas = document.createElement('canvas');
+	    const temp_canvas_context = temp_canvas.getContext("2d");
+	    temp_canvas.width = 1080;
+	    temp_canvas.height = 768;
+
+	    function _generateMountain(height,color,amplitude) {
+
+		let ratio = canvas.width/canvas.height;
+
+		let starting_height = height;
+		let start_point = [0, starting_height];
+		let end_point = [temp_canvas.width, starting_height];
+		let points = [start_point, end_point];
+		let iterations = 10;
+
+		function rand(min, max) {
+		    return Math.floor(Math.random() * (max - min + 1) + min);
+		}
+
+		function _genVariantPoint(p1, p2, amount) {
+		    let x = (p1[0] + p2[0]) / 2;
+		    let y = (p1[1] + p2[1]) / 2 + rand(-amount, amount);
+		    return [x, y];
+		}
+		    
+		function _genVariantPointList(point_list, amount) {
+		    let new_point_list = [point_list[0]];
+		    for (let i = 0; i < point_list.length - 1; i++) {
+			let p1 = point_list[i];
+			let p2 = point_list[i + 1];
+			new_point_list.push(_genVariantPoint(p1, p2, amount));
+			new_point_list.push(p2);
+		    }
+		    return new_point_list;
+		}
+
+		for (let i = 0; i < iterations; i++) {
+		    points = _genVariantPointList(points, amplitude / Math.pow(2,i));
+		}
+
+		temp_canvas_context.beginPath();
+		temp_canvas_context.moveTo(points[0][0], points[0][1]);
+		for (let i = 1; i < points.length; i++) {
+		    let x = points[i][0];
+		    let y = points[i][1];
+		    temp_canvas_context.lineTo(x, y);
+		}
+		temp_canvas_context.lineTo(temp_canvas.width, temp_canvas.height);
+		temp_canvas_context.lineTo(0, temp_canvas.height);
+		temp_canvas_context.fillStyle = color;
+		temp_canvas_context.fill();
+		temp_canvas_context.stroke();
+
+		source = temp_canvas.toDataURL();
+	    }
+	    
+	    function render() {
+		img.onload = () => {
+		    ctx.imageSmoothingEnabled = false;
+		    ctx.drawImage(img,0,0,canvas.width,canvas.height)
+		}
+		img.src = source;
+	    }
+
+	    function flexCanvasSize() {
+		setSize();
+		render();
+	    }
+
+	    window.onresize = flexCanvasSize;
+
+	    let button = this.shadow.querySelector("#generateMountain");
+	    
+	    button.addEventListener('click', function() {
+		let starting_height = temp_canvas.height * 1/3;
+
+		_generateMountain(starting_height+0,'#38004F',50)
+		_generateMountain(starting_height+100,'#300048',125);
+		_generateMountain(starting_height+200,'#200040',150);
+		
+		render();
+	    });
+        }
+      }
+      customElements.define('fractal-mountain', FractalMountain);
+    </script>
+</head>
+<body>
+  <div id="myapp"></div>
+  <script>
+  let app = Elm.Main.init({
+    node: document.getElementById('myapp')
+  });
+  </script>
+</body>
+</html>
