@@ -13,18 +13,26 @@ import Html exposing(node)
 type SolarizedStyle = Dark | Light
 type Language = Eng | Span
 
+type alias Px = Int
+type alias Vu = Int
+
 type alias Model =
     { style: SolarizedStyle
     , color_converter_visible: Bool
     , language: Language
-    , width : Int
-    , height: Int
+    , width : Px
+    , height: Px
+    , vu: Vu
     }
 
 type alias Flags =
-    { width: Int
-    , height: Int
+    { width: Px
+    , height: Px
     }
+
+calculatevu : Px -> Px -> Vu
+calculatevu w h =
+    (min w h) // 100
 
 initialModel : Flags -> (Model, Cmd a)
 initialModel flags =
@@ -33,6 +41,7 @@ initialModel flags =
     , language = Eng
     , width = flags.width
     , height = flags.height
+    , vu = calculatevu flags.width flags.height
     }, Cmd.none)
 
 
@@ -40,7 +49,7 @@ type Msg = NoAction
          | ToggleStyle
          | ToggleLanguage
          | ToggleColorConverterVisible
-         | NewViewportSize Int Int
+         | NewViewportSize Px Px
          | GotInitialViewport D.Viewport
 
 
@@ -76,7 +85,7 @@ view model =
                 [ style_toggle_button model.language
                 , language_toggle_button model.language
                 ]
-            , title_card  model.style model.language
+            , title_card model.vu model.style model.language
             , resume model.style model.language
             , color_converter model.style model.language model.color_converter_visible
             , github_link model.style model.language
@@ -204,8 +213,8 @@ title_image language =
             language
         }
 
-title_card : SolarizedStyle -> Language -> Element Msg
-title_card style language = 
+title_card : Vu -> SolarizedStyle -> Language -> Element Msg
+title_card vu style language = 
     column 
         [ centerX
         , Border.width 1
@@ -217,7 +226,7 @@ title_card style language =
         , spacing 10
         , inFront <| column [ centerY
                             , width fill
-                            , below <| name style
+                            , below <| name vu style
                             , padding 10
                             ] 
                             [profile_pic style language]
@@ -243,12 +252,12 @@ profile_pic style language =
             language
         }
 
-name: SolarizedStyle -> Element Msg
-name style = el 
+name: Vu -> SolarizedStyle -> Element Msg
+name vu style = el 
     [ centerX
     , centerY
     , padding 5 
-    , Font.size 30
+    , Font.size (6 * vu)
     , Font.center
     , Font.color <| solarized_color_to_color Green
     , Background.color <| translate_color style Header
@@ -310,7 +319,7 @@ update msg model =
             else
                 ({model | color_converter_visible = True}, Cmd.none)
         NewViewportSize w h ->
-            ({model | width = w, height = h}, Cmd.none)
+            ({model | width = w, height = h, vu = calculatevu w h}, Cmd.none)
         GotInitialViewport vp ->
             let 
                 w =  round vp.scene.width

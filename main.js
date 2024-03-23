@@ -5200,11 +5200,26 @@ var $elm$browser$Browser$element = _Browser_element;
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $author$project$Main$Dark = {$: 'Dark'};
 var $author$project$Main$Eng = {$: 'Eng'};
+var $elm$core$Basics$min = F2(
+	function (x, y) {
+		return (_Utils_cmp(x, y) < 0) ? x : y;
+	});
+var $author$project$Main$calculatevu = F2(
+	function (w, h) {
+		return (A2($elm$core$Basics$min, w, h) / 100) | 0;
+	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$initialModel = function (flags) {
 	return _Utils_Tuple2(
-		{color_converter_visible: false, height: flags.height, language: $author$project$Main$Eng, style: $author$project$Main$Dark, width: flags.width},
+		{
+			color_converter_visible: false,
+			height: flags.height,
+			language: $author$project$Main$Eng,
+			style: $author$project$Main$Dark,
+			vu: A2($author$project$Main$calculatevu, flags.width, flags.height),
+			width: flags.width
+		},
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$json$Json$Decode$int = _Json_decodeInt;
@@ -5687,7 +5702,11 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{height: h, width: w}),
+						{
+							height: h,
+							vu: A2($author$project$Main$calculatevu, w, h),
+							width: w
+						}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				var vp = msg.a;
@@ -8458,10 +8477,6 @@ var $mdgriffith$elm_ui$Internal$Model$hasSmallCaps = function (typeface) {
 		return false;
 	}
 };
-var $elm$core$Basics$min = F2(
-	function (x, y) {
-		return (_Utils_cmp(x, y) < 0) ? x : y;
-	});
 var $elm$core$Basics$negate = function (n) {
 	return -n;
 };
@@ -12221,23 +12236,24 @@ var $mdgriffith$elm_ui$Element$inFront = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
 };
 var $author$project$Main$Green = {$: 'Green'};
-var $author$project$Main$name = function (style) {
-	return A2(
-		$mdgriffith$elm_ui$Element$el,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$centerX,
-				$mdgriffith$elm_ui$Element$centerY,
-				$mdgriffith$elm_ui$Element$padding(5),
-				$mdgriffith$elm_ui$Element$Font$size(30),
-				$mdgriffith$elm_ui$Element$Font$center,
-				$mdgriffith$elm_ui$Element$Font$color(
-				$author$project$Main$solarized_color_to_color($author$project$Main$Green)),
-				$mdgriffith$elm_ui$Element$Background$color(
-				A2($author$project$Main$translate_color, style, $author$project$Main$Header))
-			]),
-		$mdgriffith$elm_ui$Element$text('Pablo Reboredo-Segovia'));
-};
+var $author$project$Main$name = F2(
+	function (vu, style) {
+		return A2(
+			$mdgriffith$elm_ui$Element$el,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$centerX,
+					$mdgriffith$elm_ui$Element$centerY,
+					$mdgriffith$elm_ui$Element$padding(5),
+					$mdgriffith$elm_ui$Element$Font$size(6 * vu),
+					$mdgriffith$elm_ui$Element$Font$center,
+					$mdgriffith$elm_ui$Element$Font$color(
+					$author$project$Main$solarized_color_to_color($author$project$Main$Green)),
+					$mdgriffith$elm_ui$Element$Background$color(
+					A2($author$project$Main$translate_color, style, $author$project$Main$Header))
+				]),
+			$mdgriffith$elm_ui$Element$text('Pablo Reboredo-Segovia'));
+	});
 var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
 var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
 var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
@@ -12281,8 +12297,8 @@ var $author$project$Main$title_image = function (language) {
 			src: 'images/solarized_butterfly.png'
 		});
 };
-var $author$project$Main$title_card = F2(
-	function (style, language) {
+var $author$project$Main$title_card = F3(
+	function (vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
@@ -12305,7 +12321,7 @@ var $author$project$Main$title_card = F2(
 								$mdgriffith$elm_ui$Element$centerY,
 								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 								$mdgriffith$elm_ui$Element$below(
-								$author$project$Main$name(style)),
+								A2($author$project$Main$name, vu, style)),
 								$mdgriffith$elm_ui$Element$padding(10)
 							]),
 						_List_fromArray(
@@ -12358,7 +12374,7 @@ var $author$project$Main$view = function (model) {
 							$author$project$Main$style_toggle_button(model.language),
 							$author$project$Main$language_toggle_button(model.language)
 						])),
-					A2($author$project$Main$title_card, model.style, model.language),
+					A3($author$project$Main$title_card, model.vu, model.style, model.language),
 					A2($author$project$Main$resume, model.style, model.language),
 					A3($author$project$Main$color_converter, model.style, model.language, model.color_converter_visible),
 					A2($author$project$Main$github_link, model.style, model.language)
