@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Main</title>
+  <title>Pablo's Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -286,7 +286,17 @@
   <div id="myapp"></div>
   <script>
   let app = Elm.Main.init({
-    node: document.getElementById('myapp')
+    node: document.getElementById('myapp'),
+      flags:  
+      { width: Math.max
+	( document.documentElement.clientWidth || 0
+	, window.innerWidth || 0
+	)
+      , height: Math.max
+	( document.documentElement.clientHeight || 0
+	, window.innerHeight || 0
+	)
+      }
   });
   </script>
 </body>

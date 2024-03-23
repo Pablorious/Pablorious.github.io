@@ -6,6 +6,8 @@ import Element.Font as Font
 import Element.Background as Background
 import Element.Border as Border
 import Element.Input
+import Browser.Events as E
+import Browser.Dom as D
 import Html exposing(node)
 
 type SolarizedStyle = Dark | Light
@@ -15,7 +17,36 @@ type alias Model =
     { style: SolarizedStyle
     , color_converter_visible: Bool
     , language: Language
-    }        
+    , width : Int
+    , height: Int
+    }
+
+type alias Flags =
+    { width: Int
+    , height: Int
+    }
+
+initialModel : Flags -> (Model, Cmd a)
+initialModel flags =
+    ( { style = Dark
+    , color_converter_visible = False
+    , language = Eng
+    , width = flags.width
+    , height = flags.height
+    }, Cmd.none)
+
+
+type Msg = NoAction 
+         | ToggleStyle
+         | ToggleLanguage
+         | ToggleColorConverterVisible
+         | NewViewportSize Int Int
+         | GotInitialViewport D.Viewport
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    E.onResize (\w h -> NewViewportSize w h)
 
 bilingualstring : String -> String -> Language -> String
 bilingualstring english spanish language = 
@@ -33,7 +64,10 @@ view model =
             <| translate_color model.style Background
         ]
         <| column
-            [ width (fill |> maximum 768)
+            [ width (if model.width > model.height then 
+                    (fill |> maximum 768)
+                else
+                    fill)
             , centerX
             , Font.color <| translate_color model.style Foreground
             , spacing 5
@@ -49,13 +83,34 @@ view model =
             ]
 
 style_toggle_button: Language -> Element Msg
-style_toggle_button language = Element.Input.button [] {onPress = Just ToggleStyle, label = image [width <| px 20, height <| px 20] { src = "images/solarized.png" , description =  bilingualstring "toggle style" "alternar estilo" language}}
+style_toggle_button language = 
+    Element.Input.button 
+        [] 
+        { onPress = Just ToggleStyle
+        , label = image 
+            [ width <| px 20 
+            , height <| px 20] 
+            { src = "images/solarized.png" 
+            , description = 
+                bilingualstring 
+                    "toggle style" 
+                    "alternar estilo" 
+                    language
+            }
+        }
 
 language_toggle_button: Language -> Element Msg
 language_toggle_button language = 
     case language of 
-        Eng -> Element.Input.button [] {onPress = Just ToggleLanguage, label = text "🇦🇷"}
-        Span -> Element.Input.button [] {onPress = Just ToggleLanguage, label = text "🇺🇸"}
+        Eng -> Element.Input.button [] 
+            { onPress = Just ToggleLanguage
+            , label = text "🇦🇷"
+            }
+
+        Span -> Element.Input.button [] 
+            { onPress = Just ToggleLanguage
+            , label = text "🇺🇸"
+            }
 
 color_converter_toggle_button: Language -> Element Msg
 color_converter_toggle_button language = 
@@ -67,18 +122,27 @@ color_converter_toggle_button language =
         , description = 
             bilingualstring 
             "Hammer icon" 
-            "Icono de un martillo" 
+            "Icono de martillo" 
             language 
         }
         ,
-        Element.Input.button [width fill, centerX, Font.center] {onPress = Just ToggleColorConverterVisible, label = el [centerX] (text <| bilingualstring "Color Converter" "Convertidor de Colores" language)}
+        Element.Input.button 
+            [ width fill
+            , centerX
+            , Font.center
+            ] 
+            { onPress = Just ToggleColorConverterVisible
+            , label = el [ centerX] (text 
+                <| bilingualstring "Color Converter" "Convertidor de Colores" language)
+            }
     ]
 
 color_converter style language visible =
     if visible then
         column (main_column_element style)
         [ color_converter_toggle_button language
-        , el [width fill ] <| html <| node "color-converter" [] [] 
+        , el [width fill ] 
+            <| html <| node "color-converter" [] [] 
         ]
     else
         el (main_column_element style) <| color_converter_toggle_button language
@@ -158,7 +222,7 @@ title_card style language =
                             ] 
                             [profile_pic style language]
         ]
-        [ title_image language, el [  height <| px 150] Element.none ]
+        [ title_image language, el [ height <| px 150] Element.none ]
 
 profile_pic: SolarizedStyle -> Language -> Element Msg
 profile_pic style language = 
@@ -190,10 +254,6 @@ name style = el
     , Background.color <| translate_color style Header
     ]
     (text "Pablo Reboredo-Segovia")
-
-h1_elem: String -> Element Msg
-h1_elem string =
-    el [centerX, Font.size 20] (text string)
 
 main_column_element: SolarizedStyle -> List (Attribute Msg)
 main_column_element style = 
@@ -231,36 +291,32 @@ solarized_color_to_color color =
         Cyan    -> Element.rgb255  42 161 152 
         Green   -> Element.rgb255 133 153   0 
 
-initialModel : Model
-initialModel =
-    { style = Dark
-    , color_converter_visible = False
-    , language = Eng
-    }
-
-type Msg = NoAction 
-         | ToggleStyle
-         | ToggleLanguage
-         | ToggleColorConverterVisible
-
-update : Msg -> Model -> Model
+update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         NoAction ->
-            model
+            (model, Cmd.none)
         ToggleStyle ->
             case model.style of
-                Dark -> {model | style = Light}
-                Light -> {model | style = Dark}
+                Dark -> ({model | style = Light}, Cmd.none)
+                Light -> ({model | style = Dark}, Cmd.none)
         ToggleLanguage ->
             case model.language of
-                Eng -> {model | language = Span}
-                Span -> {model | language = Eng}
+                Eng -> ({model | language = Span}, Cmd.none)
+                Span -> ({model | language = Eng}, Cmd.none)
         ToggleColorConverterVisible ->
             if model.color_converter_visible then
-                {model | color_converter_visible = False}
+                ({model | color_converter_visible = False}, Cmd.none)
             else
-                {model | color_converter_visible = True}
+                ({model | color_converter_visible = True}, Cmd.none)
+        NewViewportSize w h ->
+            ({model | width = w, height = h}, Cmd.none)
+        GotInitialViewport vp ->
+            let 
+                w =  round vp.scene.width
+                h = round vp.scene.height
+            in
+            ({model | width = w, height = h}, Cmd.none)
 
 type SolarizedColor =
     Base03 | Base02 | Base01 | Base00 | Base0 |
@@ -289,10 +345,11 @@ swappingcolor_to_solarized_color style swap =
                 Comment -> Base1
 
 
-main : Program () Model Msg
+main : Program Flags Model Msg
 main =
-    Browser.sandbox
-        { init = initialModel
+    Browser.element
+        { init =  initialModel
         , view = view
         , update = update
+        , subscriptions = subscriptions
         }
