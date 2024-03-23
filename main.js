@@ -12258,8 +12258,8 @@ var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
 var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
 var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
 var $mdgriffith$elm_ui$Element$clip = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clip);
-var $author$project$Main$profile_pic = F2(
-	function (style, language) {
+var $author$project$Main$profile_pic = F3(
+	function (vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$image,
 			_List_fromArray(
@@ -12267,9 +12267,9 @@ var $author$project$Main$profile_pic = F2(
 					$mdgriffith$elm_ui$Element$centerX,
 					$mdgriffith$elm_ui$Element$centerY,
 					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(150)),
+					$mdgriffith$elm_ui$Element$px(25 * vu)),
 					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(150)),
+					$mdgriffith$elm_ui$Element$px(25 * vu)),
 					$mdgriffith$elm_ui$Element$Border$rounded(150),
 					$mdgriffith$elm_ui$Element$Border$width(1),
 					$mdgriffith$elm_ui$Element$Border$color(
@@ -12281,22 +12281,23 @@ var $author$project$Main$profile_pic = F2(
 				src: 'images/my_face.jpg'
 			});
 	});
-var $author$project$Main$title_image = function (language) {
-	return A2(
-		$mdgriffith$elm_ui$Element$image,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$centerX,
-				$mdgriffith$elm_ui$Element$centerY,
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$height(
-				$mdgriffith$elm_ui$Element$px(150))
-			]),
-		{
-			description: A3($author$project$Main$bilingualstring, 'Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme.', 'Fotografía de la NASA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados.', language),
-			src: 'images/solarized_butterfly.png'
-		});
-};
+var $author$project$Main$title_image = F2(
+	function (vu, language) {
+		return A2(
+			$mdgriffith$elm_ui$Element$image,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$centerX,
+					$mdgriffith$elm_ui$Element$centerY,
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$height(
+					$mdgriffith$elm_ui$Element$px(25 * vu))
+				]),
+			{
+				description: A3($author$project$Main$bilingualstring, 'Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme.', 'Fotografía de la NASA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados.', language),
+				src: 'images/solarized_butterfly.png'
+			});
+	});
 var $author$project$Main$title_card = F3(
 	function (vu, style, language) {
 		return A2(
@@ -12326,18 +12327,18 @@ var $author$project$Main$title_card = F3(
 							]),
 						_List_fromArray(
 							[
-								A2($author$project$Main$profile_pic, style, language)
+								A3($author$project$Main$profile_pic, vu, style, language)
 							])))
 				]),
 			_List_fromArray(
 				[
-					$author$project$Main$title_image(language),
+					A2($author$project$Main$title_image, vu, language),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(150))
+							$mdgriffith$elm_ui$Element$px(25 * vu))
 						]),
 					$mdgriffith$elm_ui$Element$none)
 				]));

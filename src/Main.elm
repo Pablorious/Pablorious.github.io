@@ -199,13 +199,13 @@ github_link style language = row (main_column_element style)
         }
     ]
 
-title_image: Language -> Element Msg
-title_image language = 
+title_image: Vu -> Language -> Element Msg
+title_image vu language = 
     image 
         [ centerX
         , centerY
         , width fill
-        , height <| px 150] 
+        , height <| px (25 * vu)] 
         { src = "images/solarized_butterfly.png"
         , description = bilingualstring 
             "Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme."
@@ -229,17 +229,17 @@ title_card vu style language =
                             , below <| name vu style
                             , padding 10
                             ] 
-                            [profile_pic style language]
+                            [profile_pic vu style language]
         ]
-        [ title_image language, el [ height <| px 150] Element.none ]
+        [ title_image vu language, el [ height <| px (25 * vu)] Element.none ]
 
-profile_pic: SolarizedStyle -> Language -> Element Msg
-profile_pic style language = 
+profile_pic: Vu -> SolarizedStyle -> Language -> Element Msg
+profile_pic vu style language = 
     image 
         [ centerX
         , centerY
-        , width <| px 150
-        , height <| px 150
+        , width <| px (25 * vu)
+        , height <| px (25 * vu)
         , Border.rounded 150
         , Border.width 1
         , Border.color <| translate_color style Comment
