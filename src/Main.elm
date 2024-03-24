@@ -82,23 +82,25 @@ view model =
             , spacing 5
             ]
             [ row (main_column_element model.style) 
-                [ style_toggle_button model.language
-                , language_toggle_button model.language
+                [ style_toggle_button model.vu model.language
+                , language_toggle_button model.vu model.language
                 ]
             , title_card model.vu model.style model.language
-            , resume model.style model.language
-            , color_converter model.style model.language model.color_converter_visible
-            , github_link model.style model.language
+            , resume model.vu model.style model.language
+            , color_converter model.vu model.style model.language model.color_converter_visible
+            , github_link model.vu model.style model.language
             ]
 
-style_toggle_button: Language -> Element Msg
-style_toggle_button language = 
+style_toggle_button: Vu -> Language -> Element Msg
+style_toggle_button vu language = 
     Element.Input.button 
         [] 
         { onPress = Just ToggleStyle
         , label = image 
-            [ width <| px 20 
-            , height <| px 20] 
+            [ width <| px (4 * vu)
+            , height <| px (4 * vu)
+            , rotate 3.141592
+            ] 
             { src = "images/solarized.png" 
             , description = 
                 bilingualstring 
@@ -108,10 +110,10 @@ style_toggle_button language =
             }
         }
 
-language_toggle_button: Language -> Element Msg
-language_toggle_button language = 
+language_toggle_button: Vu -> Language -> Element Msg
+language_toggle_button vu language = 
     case language of 
-        Eng -> Element.Input.button [] 
+        Eng -> Element.Input.button [Font.size <| (4 * vu)] 
             { onPress = Just ToggleLanguage
             , label = text "🇦🇷"
             }
@@ -121,12 +123,14 @@ language_toggle_button language =
             , label = text "🇺🇸"
             }
 
-color_converter_toggle_button: Language -> Element Msg
-color_converter_toggle_button language = 
+color_converter_toggle_button: Vu -> Language -> Element Msg
+color_converter_toggle_button vu language = 
     row [width fill]
     [
         image 
-        []
+        [ width <| px (4 * vu)
+        , height <| px (4 * vu)
+        ]
         { src = "images/hammer.svg"
         , description = 
             bilingualstring 
@@ -141,27 +145,35 @@ color_converter_toggle_button language =
             , Font.center
             ] 
             { onPress = Just ToggleColorConverterVisible
-            , label = el [ centerX] (text 
-                <| bilingualstring "Color Converter" "Convertidor de Colores" language)
+            , label = el 
+                [ centerX 
+                , Font.size (4 * vu)
+                ] 
+                (text 
+                    <| bilingualstring 
+                        "Color Converter" 
+                        "Convertidor de Colores" 
+                        language
+                )
             }
     ]
 
-color_converter style language visible =
+color_converter vu style language visible =
     if visible then
         column (main_column_element style)
-        [ color_converter_toggle_button language
+        [ color_converter_toggle_button vu language
         , el [width fill ] 
             <| html <| node "color-converter" [] [] 
         ]
     else
-        el (main_column_element style) <| color_converter_toggle_button language
+        el (main_column_element style) <| color_converter_toggle_button vu language
 
-resume style language = 
+resume vu style language = 
     row 
     ( main_column_element style ) 
     [ image 
-        [ width <| px 20
-        , height <| px 20
+        [ width <| px (4 * vu)
+        , height <| px (4 * vu)
         ]
         { src = "images/resume.png"
         , description = bilingualstring
@@ -172,7 +184,7 @@ resume style language =
     , Element.newTabLink 
         [ width fill
         , centerX
-        , Font.size 20
+        , Font.size (4 * vu)
         , Font.center
         ] 
         { url = "documents/resume.pdf"
@@ -181,7 +193,7 @@ resume style language =
         }
     ]
 
-github_link style language = row (main_column_element style)
+github_link vu style language = row (main_column_element style)
     [ image 
         [ width <| px 20
         , height <| px 20
@@ -190,7 +202,7 @@ github_link style language = row (main_column_element style)
         , description = bilingualstring "Github Icon" "Icono de github" language
         }
     , Element.newTabLink 
-        [ Font.size 20
+        [ Font.size (4 * vu)
         , Font.center
         , width fill
         ] 

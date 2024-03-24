@@ -11494,6 +11494,10 @@ var $mdgriffith$elm_ui$Element$image = F2(
 						$mdgriffith$elm_ui$Internal$Model$Unkeyed(_List_Nil))
 					])));
 	});
+var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
+	return {$: 'Px', a: a};
+};
+var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
 var $mdgriffith$elm_ui$Internal$Model$AsRow = {$: 'AsRow'};
 var $mdgriffith$elm_ui$Internal$Model$asRow = $mdgriffith$elm_ui$Internal$Model$AsRow;
 var $mdgriffith$elm_ui$Element$row = F2(
@@ -11514,47 +11518,67 @@ var $mdgriffith$elm_ui$Element$row = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
+var $mdgriffith$elm_ui$Internal$Model$FontSize = function (a) {
+	return {$: 'FontSize', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Flag$fontSize = $mdgriffith$elm_ui$Internal$Flag$flag(4);
+var $mdgriffith$elm_ui$Element$Font$size = function (i) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontSize,
+		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
+};
 var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
 	return {$: 'Text', a: a};
 };
 var $mdgriffith$elm_ui$Element$text = function (content) {
 	return $mdgriffith$elm_ui$Internal$Model$Text(content);
 };
-var $author$project$Main$color_converter_toggle_button = function (language) {
-	return A2(
-		$mdgriffith$elm_ui$Element$row,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$mdgriffith$elm_ui$Element$image,
-				_List_Nil,
-				{
-					description: A3($author$project$Main$bilingualstring, 'Hammer icon', 'Icono de martillo', language),
-					src: 'images/hammer.svg'
-				}),
-				A2(
-				$mdgriffith$elm_ui$Element$Input$button,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$centerX,
-						$mdgriffith$elm_ui$Element$Font$center
-					]),
-				{
-					label: A2(
-						$mdgriffith$elm_ui$Element$el,
-						_List_fromArray(
-							[$mdgriffith$elm_ui$Element$centerX]),
-						$mdgriffith$elm_ui$Element$text(
-							A3($author$project$Main$bilingualstring, 'Color Converter', 'Convertidor de Colores', language))),
-					onPress: $elm$core$Maybe$Just($author$project$Main$ToggleColorConverterVisible)
-				})
-			]));
-};
+var $author$project$Main$color_converter_toggle_button = F2(
+	function (vu, language) {
+		return A2(
+			$mdgriffith$elm_ui$Element$row,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$image,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width(
+							$mdgriffith$elm_ui$Element$px(4 * vu)),
+							$mdgriffith$elm_ui$Element$height(
+							$mdgriffith$elm_ui$Element$px(4 * vu))
+						]),
+					{
+						description: A3($author$project$Main$bilingualstring, 'Hammer icon', 'Icono de martillo', language),
+						src: 'images/hammer.svg'
+					}),
+					A2(
+					$mdgriffith$elm_ui$Element$Input$button,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$centerX,
+							$mdgriffith$elm_ui$Element$Font$center
+						]),
+					{
+						label: A2(
+							$mdgriffith$elm_ui$Element$el,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$Font$size(4 * vu)
+								]),
+							$mdgriffith$elm_ui$Element$text(
+								A3($author$project$Main$bilingualstring, 'Color Converter', 'Convertidor de Colores', language))),
+						onPress: $elm$core$Maybe$Just($author$project$Main$ToggleColorConverterVisible)
+					})
+				]));
+	});
 var $mdgriffith$elm_ui$Internal$Model$AsColumn = {$: 'AsColumn'};
 var $mdgriffith$elm_ui$Internal$Model$asColumn = $mdgriffith$elm_ui$Internal$Model$AsColumn;
 var $mdgriffith$elm_ui$Element$column = F2(
@@ -11761,14 +11785,14 @@ var $author$project$Main$main_column_element = function (style) {
 		]);
 };
 var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
-var $author$project$Main$color_converter = F3(
-	function (style, language, visible) {
+var $author$project$Main$color_converter = F4(
+	function (vu, style, language, visible) {
 		return visible ? A2(
 			$mdgriffith$elm_ui$Element$column,
 			$author$project$Main$main_column_element(style),
 			_List_fromArray(
 				[
-					$author$project$Main$color_converter_toggle_button(language),
+					A2($author$project$Main$color_converter_toggle_button, vu, language),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
@@ -11780,7 +11804,7 @@ var $author$project$Main$color_converter = F3(
 				])) : A2(
 			$mdgriffith$elm_ui$Element$el,
 			$author$project$Main$main_column_element(style),
-			$author$project$Main$color_converter_toggle_button(language));
+			A2($author$project$Main$color_converter_toggle_button, vu, language));
 	});
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
@@ -11824,22 +11848,8 @@ var $mdgriffith$elm_ui$Element$newTabLink = F2(
 				_List_fromArray(
 					[label])));
 	});
-var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
-	return {$: 'Px', a: a};
-};
-var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
-var $mdgriffith$elm_ui$Internal$Model$FontSize = function (a) {
-	return {$: 'FontSize', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Flag$fontSize = $mdgriffith$elm_ui$Internal$Flag$flag(4);
-var $mdgriffith$elm_ui$Element$Font$size = function (i) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontSize,
-		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
-};
-var $author$project$Main$github_link = F2(
-	function (style, language) {
+var $author$project$Main$github_link = F3(
+	function (vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
 			$author$project$Main$main_column_element(style),
@@ -11862,7 +11872,7 @@ var $author$project$Main$github_link = F2(
 					$mdgriffith$elm_ui$Element$newTabLink,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(20),
+							$mdgriffith$elm_ui$Element$Font$size(4 * vu),
 							$mdgriffith$elm_ui$Element$Font$center,
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 						]),
@@ -11873,25 +11883,29 @@ var $author$project$Main$github_link = F2(
 				]));
 	});
 var $author$project$Main$ToggleLanguage = {$: 'ToggleLanguage'};
-var $author$project$Main$language_toggle_button = function (language) {
-	if (language.$ === 'Eng') {
-		return A2(
-			$mdgriffith$elm_ui$Element$Input$button,
-			_List_Nil,
-			{
-				label: $mdgriffith$elm_ui$Element$text('🇦🇷'),
-				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
-			});
-	} else {
-		return A2(
-			$mdgriffith$elm_ui$Element$Input$button,
-			_List_Nil,
-			{
-				label: $mdgriffith$elm_ui$Element$text('🇺🇸'),
-				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
-			});
-	}
-};
+var $author$project$Main$language_toggle_button = F2(
+	function (vu, language) {
+		if (language.$ === 'Eng') {
+			return A2(
+				$mdgriffith$elm_ui$Element$Input$button,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$size(4 * vu)
+					]),
+				{
+					label: $mdgriffith$elm_ui$Element$text('🇦🇷'),
+					onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
+				});
+		} else {
+			return A2(
+				$mdgriffith$elm_ui$Element$Input$button,
+				_List_Nil,
+				{
+					label: $mdgriffith$elm_ui$Element$text('🇺🇸'),
+					onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
+				});
+		}
+	});
 var $mdgriffith$elm_ui$Internal$Model$OnlyDynamic = F2(
 	function (a, b) {
 		return {$: 'OnlyDynamic', a: a, b: b};
@@ -12152,8 +12166,8 @@ var $mdgriffith$elm_ui$Element$maximum = F2(
 	function (i, l) {
 		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
 	});
-var $author$project$Main$resume = F2(
-	function (style, language) {
+var $author$project$Main$resume = F3(
+	function (vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
 			$author$project$Main$main_column_element(style),
@@ -12164,9 +12178,9 @@ var $author$project$Main$resume = F2(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(20)),
+							$mdgriffith$elm_ui$Element$px(4 * vu)),
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(20))
+							$mdgriffith$elm_ui$Element$px(4 * vu))
 						]),
 					{
 						description: A3($author$project$Main$bilingualstring, 'Resume Icon', 'Icono de un Currículum', language),
@@ -12178,7 +12192,7 @@ var $author$project$Main$resume = F2(
 						[
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$Font$size(20),
+							$mdgriffith$elm_ui$Element$Font$size(4 * vu),
 							$mdgriffith$elm_ui$Element$Font$center
 						]),
 					{
@@ -12189,27 +12203,47 @@ var $author$project$Main$resume = F2(
 				]));
 	});
 var $author$project$Main$ToggleStyle = {$: 'ToggleStyle'};
-var $author$project$Main$style_toggle_button = function (language) {
+var $mdgriffith$elm_ui$Internal$Model$Rotate = F2(
+	function (a, b) {
+		return {$: 'Rotate', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Model$TransformComponent = F2(
+	function (a, b) {
+		return {$: 'TransformComponent', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$rotate = $mdgriffith$elm_ui$Internal$Flag$flag(24);
+var $mdgriffith$elm_ui$Element$rotate = function (angle) {
 	return A2(
-		$mdgriffith$elm_ui$Element$Input$button,
-		_List_Nil,
-		{
-			label: A2(
-				$mdgriffith$elm_ui$Element$image,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width(
-						$mdgriffith$elm_ui$Element$px(20)),
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(20))
-					]),
-				{
-					description: A3($author$project$Main$bilingualstring, 'toggle style', 'alternar estilo', language),
-					src: 'images/solarized.png'
-				}),
-			onPress: $elm$core$Maybe$Just($author$project$Main$ToggleStyle)
-		});
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$rotate,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$Rotate,
+			_Utils_Tuple3(0, 0, 1),
+			angle));
 };
+var $author$project$Main$style_toggle_button = F2(
+	function (vu, language) {
+		return A2(
+			$mdgriffith$elm_ui$Element$Input$button,
+			_List_Nil,
+			{
+				label: A2(
+					$mdgriffith$elm_ui$Element$image,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width(
+							$mdgriffith$elm_ui$Element$px(4 * vu)),
+							$mdgriffith$elm_ui$Element$height(
+							$mdgriffith$elm_ui$Element$px(4 * vu)),
+							$mdgriffith$elm_ui$Element$rotate(3.141592)
+						]),
+					{
+						description: A3($author$project$Main$bilingualstring, 'toggle style', 'alternar estilo', language),
+						src: 'images/solarized.png'
+					}),
+				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleStyle)
+			});
+	});
 var $mdgriffith$elm_ui$Internal$Model$Below = {$: 'Below'};
 var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
 	function (a, b) {
@@ -12372,13 +12406,13 @@ var $author$project$Main$view = function (model) {
 					$author$project$Main$main_column_element(model.style),
 					_List_fromArray(
 						[
-							$author$project$Main$style_toggle_button(model.language),
-							$author$project$Main$language_toggle_button(model.language)
+							A2($author$project$Main$style_toggle_button, model.vu, model.language),
+							A2($author$project$Main$language_toggle_button, model.vu, model.language)
 						])),
 					A3($author$project$Main$title_card, model.vu, model.style, model.language),
-					A2($author$project$Main$resume, model.style, model.language),
-					A3($author$project$Main$color_converter, model.style, model.language, model.color_converter_visible),
-					A2($author$project$Main$github_link, model.style, model.language)
+					A3($author$project$Main$resume, model.vu, model.style, model.language),
+					A4($author$project$Main$color_converter, model.vu, model.style, model.language, model.color_converter_visible),
+					A3($author$project$Main$github_link, model.vu, model.style, model.language)
 				])));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
