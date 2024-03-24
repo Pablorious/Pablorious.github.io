@@ -113,12 +113,12 @@ style_toggle_button vu language =
 language_toggle_button: Vu -> Language -> Element Msg
 language_toggle_button vu language = 
     case language of 
-        Eng -> Element.Input.button [Font.size <| (5 * vu)] 
+        Eng -> Element.Input.button [Font.size <| (6 * vu)] 
             { onPress = Just ToggleLanguage
             , label = text "🇦🇷"
             }
 
-        Span -> Element.Input.button [Font.size <| (5 * vu)] 
+        Span -> Element.Input.button [Font.size <| (6 * vu)] 
             { onPress = Just ToggleLanguage
             , label = text "🇺🇸"
             }
@@ -128,8 +128,8 @@ color_converter_toggle_button vu language =
     row [width fill]
     [
         image 
-        [ width <| px (5 * vu)
-        , height <| px (5 * vu)
+        [ width <| px (6 * vu)
+        , height <| px (6 * vu)
         ]
         { src = "images/hammer.svg"
         , description = 
@@ -147,7 +147,7 @@ color_converter_toggle_button vu language =
             { onPress = Just ToggleColorConverterVisible
             , label = el 
                 [ centerX 
-                , Font.size (5 * vu)
+                , Font.size (6 * vu)
                 ] 
                 (text 
                     <| bilingualstring 
@@ -172,8 +172,8 @@ resume vu style language =
     row 
     ( main_column_element style ) 
     [ image 
-        [ width <| px (5 * vu)
-        , height <| px (5 * vu)
+        [ width <| px (6 * vu)
+        , height <| px (6 * vu)
         ]
         { src = "images/resume.png"
         , description = bilingualstring
@@ -184,7 +184,7 @@ resume vu style language =
     , Element.newTabLink 
         [ width fill
         , centerX
-        , Font.size (5 * vu)
+        , Font.size (6 * vu)
         , Font.center
         ] 
         { url = "documents/resume.pdf"
@@ -195,14 +195,14 @@ resume vu style language =
 
 github_link vu style language = row (main_column_element style)
     [ image 
-        [ width <| px (5 * vu)
-        , height <| px (5 * vu)
+        [ width <| px (6 * vu)
+        , height <| px (6 * vu)
         ] 
         { src = "images/github.svg" 
         , description = bilingualstring "Github Icon" "Icono de github" language
         }
     , Element.newTabLink 
-        [ Font.size (5 * vu)
+        [ Font.size (6 * vu)
         , Font.center
         , width fill
         ] 
@@ -217,7 +217,7 @@ title_image vu language =
         [ centerX
         , centerY
         , width fill
-        , height <| px (25 * vu)] 
+        , height <| px (27 * vu)] 
         { src = "images/solarized_butterfly.png"
         , description = bilingualstring 
             "Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme."
@@ -250,8 +250,8 @@ profile_pic vu style language =
     image 
         [ centerX
         , centerY
-        , width <| px (25 * vu)
-        , height <| px (25 * vu)
+        , width <| px (27 * vu)
+        , height <| px (27 * vu)
         , Border.rounded 150
         , Border.width 1
         , Border.color <| translate_color style Comment
@@ -269,7 +269,7 @@ name vu style = el
     [ centerX
     , centerY
     , padding 5 
-    , Font.size (6 * vu)
+    , Font.size (8 * vu)
     , Font.center
     , Font.color <| solarized_color_to_color Green
     , Background.color <| translate_color style Header

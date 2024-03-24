@@ -11549,9 +11549,9 @@ var $author$project$Main$color_converter_toggle_button = F2(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(5 * vu)),
+							$mdgriffith$elm_ui$Element$px(6 * vu)),
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(5 * vu))
+							$mdgriffith$elm_ui$Element$px(6 * vu))
 						]),
 					{
 						description: A3($author$project$Main$bilingualstring, 'Hammer icon', 'Icono de martillo', language),
@@ -11571,7 +11571,7 @@ var $author$project$Main$color_converter_toggle_button = F2(
 							_List_fromArray(
 								[
 									$mdgriffith$elm_ui$Element$centerX,
-									$mdgriffith$elm_ui$Element$Font$size(5 * vu)
+									$mdgriffith$elm_ui$Element$Font$size(6 * vu)
 								]),
 							$mdgriffith$elm_ui$Element$text(
 								A3($author$project$Main$bilingualstring, 'Color Converter', 'Convertidor de Colores', language))),
@@ -11860,9 +11860,9 @@ var $author$project$Main$github_link = F3(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(5 * vu)),
+							$mdgriffith$elm_ui$Element$px(6 * vu)),
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(5 * vu))
+							$mdgriffith$elm_ui$Element$px(6 * vu))
 						]),
 					{
 						description: A3($author$project$Main$bilingualstring, 'Github Icon', 'Icono de github', language),
@@ -11872,7 +11872,7 @@ var $author$project$Main$github_link = F3(
 					$mdgriffith$elm_ui$Element$newTabLink,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(5 * vu),
+							$mdgriffith$elm_ui$Element$Font$size(6 * vu),
 							$mdgriffith$elm_ui$Element$Font$center,
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 						]),
@@ -11890,7 +11890,7 @@ var $author$project$Main$language_toggle_button = F2(
 				$mdgriffith$elm_ui$Element$Input$button,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Font$size(5 * vu)
+						$mdgriffith$elm_ui$Element$Font$size(6 * vu)
 					]),
 				{
 					label: $mdgriffith$elm_ui$Element$text('🇦🇷'),
@@ -11901,7 +11901,7 @@ var $author$project$Main$language_toggle_button = F2(
 				$mdgriffith$elm_ui$Element$Input$button,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Font$size(5 * vu)
+						$mdgriffith$elm_ui$Element$Font$size(6 * vu)
 					]),
 				{
 					label: $mdgriffith$elm_ui$Element$text('🇺🇸'),
@@ -12181,9 +12181,9 @@ var $author$project$Main$resume = F3(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(5 * vu)),
+							$mdgriffith$elm_ui$Element$px(6 * vu)),
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(5 * vu))
+							$mdgriffith$elm_ui$Element$px(6 * vu))
 						]),
 					{
 						description: A3($author$project$Main$bilingualstring, 'Resume Icon', 'Icono de un Currículum', language),
@@ -12195,7 +12195,7 @@ var $author$project$Main$resume = F3(
 						[
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$Font$size(5 * vu),
+							$mdgriffith$elm_ui$Element$Font$size(6 * vu),
 							$mdgriffith$elm_ui$Element$Font$center
 						]),
 					{
@@ -12282,7 +12282,7 @@ var $author$project$Main$name = F2(
 					$mdgriffith$elm_ui$Element$centerX,
 					$mdgriffith$elm_ui$Element$centerY,
 					$mdgriffith$elm_ui$Element$padding(5),
-					$mdgriffith$elm_ui$Element$Font$size(6 * vu),
+					$mdgriffith$elm_ui$Element$Font$size(8 * vu),
 					$mdgriffith$elm_ui$Element$Font$center,
 					$mdgriffith$elm_ui$Element$Font$color(
 					$author$project$Main$solarized_color_to_color($author$project$Main$Green)),
@@ -12304,9 +12304,9 @@ var $author$project$Main$profile_pic = F3(
 					$mdgriffith$elm_ui$Element$centerX,
 					$mdgriffith$elm_ui$Element$centerY,
 					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(25 * vu)),
+					$mdgriffith$elm_ui$Element$px(27 * vu)),
 					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(25 * vu)),
+					$mdgriffith$elm_ui$Element$px(27 * vu)),
 					$mdgriffith$elm_ui$Element$Border$rounded(150),
 					$mdgriffith$elm_ui$Element$Border$width(1),
 					$mdgriffith$elm_ui$Element$Border$color(
@@ -12328,7 +12328,7 @@ var $author$project$Main$title_image = F2(
 					$mdgriffith$elm_ui$Element$centerY,
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(25 * vu))
+					$mdgriffith$elm_ui$Element$px(27 * vu))
 				]),
 			{
 				description: A3($author$project$Main$bilingualstring, 'Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme.', 'Fotografía de la NASA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados.', language),
