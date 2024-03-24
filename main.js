@@ -11549,9 +11549,9 @@ var $author$project$Main$color_converter_toggle_button = F2(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(4 * vu)),
+							$mdgriffith$elm_ui$Element$px(5 * vu)),
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(4 * vu))
+							$mdgriffith$elm_ui$Element$px(5 * vu))
 						]),
 					{
 						description: A3($author$project$Main$bilingualstring, 'Hammer icon', 'Icono de martillo', language),
@@ -11571,7 +11571,7 @@ var $author$project$Main$color_converter_toggle_button = F2(
 							_List_fromArray(
 								[
 									$mdgriffith$elm_ui$Element$centerX,
-									$mdgriffith$elm_ui$Element$Font$size(4 * vu)
+									$mdgriffith$elm_ui$Element$Font$size(5 * vu)
 								]),
 							$mdgriffith$elm_ui$Element$text(
 								A3($author$project$Main$bilingualstring, 'Color Converter', 'Convertidor de Colores', language))),
@@ -11860,9 +11860,9 @@ var $author$project$Main$github_link = F3(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(20)),
+							$mdgriffith$elm_ui$Element$px(5 * vu)),
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(20))
+							$mdgriffith$elm_ui$Element$px(5 * vu))
 						]),
 					{
 						description: A3($author$project$Main$bilingualstring, 'Github Icon', 'Icono de github', language),
@@ -11872,7 +11872,7 @@ var $author$project$Main$github_link = F3(
 					$mdgriffith$elm_ui$Element$newTabLink,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(4 * vu),
+							$mdgriffith$elm_ui$Element$Font$size(5 * vu),
 							$mdgriffith$elm_ui$Element$Font$center,
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 						]),
@@ -11890,7 +11890,7 @@ var $author$project$Main$language_toggle_button = F2(
 				$mdgriffith$elm_ui$Element$Input$button,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Font$size(4 * vu)
+						$mdgriffith$elm_ui$Element$Font$size(5 * vu)
 					]),
 				{
 					label: $mdgriffith$elm_ui$Element$text('🇦🇷'),
@@ -11899,7 +11899,10 @@ var $author$project$Main$language_toggle_button = F2(
 		} else {
 			return A2(
 				$mdgriffith$elm_ui$Element$Input$button,
-				_List_Nil,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$size(5 * vu)
+					]),
 				{
 					label: $mdgriffith$elm_ui$Element$text('🇺🇸'),
 					onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
@@ -12178,9 +12181,9 @@ var $author$project$Main$resume = F3(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(4 * vu)),
+							$mdgriffith$elm_ui$Element$px(5 * vu)),
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(4 * vu))
+							$mdgriffith$elm_ui$Element$px(5 * vu))
 						]),
 					{
 						description: A3($author$project$Main$bilingualstring, 'Resume Icon', 'Icono de un Currículum', language),
@@ -12192,7 +12195,7 @@ var $author$project$Main$resume = F3(
 						[
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$Font$size(4 * vu),
+							$mdgriffith$elm_ui$Element$Font$size(5 * vu),
 							$mdgriffith$elm_ui$Element$Font$center
 						]),
 					{
@@ -12232,9 +12235,9 @@ var $author$project$Main$style_toggle_button = F2(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(4 * vu)),
+							$mdgriffith$elm_ui$Element$px(5 * vu)),
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(4 * vu)),
+							$mdgriffith$elm_ui$Element$px(5 * vu)),
 							$mdgriffith$elm_ui$Element$rotate(3.141592)
 						]),
 					{

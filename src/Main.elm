@@ -97,8 +97,8 @@ style_toggle_button vu language =
         [] 
         { onPress = Just ToggleStyle
         , label = image 
-            [ width <| px (4 * vu)
-            , height <| px (4 * vu)
+            [ width <| px (5 * vu)
+            , height <| px (5 * vu)
             , rotate 3.141592
             ] 
             { src = "images/solarized.png" 
@@ -113,12 +113,12 @@ style_toggle_button vu language =
 language_toggle_button: Vu -> Language -> Element Msg
 language_toggle_button vu language = 
     case language of 
-        Eng -> Element.Input.button [Font.size <| (4 * vu)] 
+        Eng -> Element.Input.button [Font.size <| (5 * vu)] 
             { onPress = Just ToggleLanguage
             , label = text "🇦🇷"
             }
 
-        Span -> Element.Input.button [] 
+        Span -> Element.Input.button [Font.size <| (5 * vu)] 
             { onPress = Just ToggleLanguage
             , label = text "🇺🇸"
             }
@@ -128,8 +128,8 @@ color_converter_toggle_button vu language =
     row [width fill]
     [
         image 
-        [ width <| px (4 * vu)
-        , height <| px (4 * vu)
+        [ width <| px (5 * vu)
+        , height <| px (5 * vu)
         ]
         { src = "images/hammer.svg"
         , description = 
@@ -147,7 +147,7 @@ color_converter_toggle_button vu language =
             { onPress = Just ToggleColorConverterVisible
             , label = el 
                 [ centerX 
-                , Font.size (4 * vu)
+                , Font.size (5 * vu)
                 ] 
                 (text 
                     <| bilingualstring 
@@ -172,8 +172,8 @@ resume vu style language =
     row 
     ( main_column_element style ) 
     [ image 
-        [ width <| px (4 * vu)
-        , height <| px (4 * vu)
+        [ width <| px (5 * vu)
+        , height <| px (5 * vu)
         ]
         { src = "images/resume.png"
         , description = bilingualstring
@@ -184,7 +184,7 @@ resume vu style language =
     , Element.newTabLink 
         [ width fill
         , centerX
-        , Font.size (4 * vu)
+        , Font.size (5 * vu)
         , Font.center
         ] 
         { url = "documents/resume.pdf"
@@ -195,14 +195,14 @@ resume vu style language =
 
 github_link vu style language = row (main_column_element style)
     [ image 
-        [ width <| px 20
-        , height <| px 20
+        [ width <| px (5 * vu)
+        , height <| px (5 * vu)
         ] 
         { src = "images/github.svg" 
         , description = bilingualstring "Github Icon" "Icono de github" language
         }
     , Element.newTabLink 
-        [ Font.size (4 * vu)
+        [ Font.size (5 * vu)
         , Font.center
         , width fill
         ] 
