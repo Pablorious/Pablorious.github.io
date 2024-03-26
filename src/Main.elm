@@ -73,7 +73,7 @@ view model =
         ]
         <| column
             [ width (if model.width > model.height then 
-                    fill |> maximum (max 768  <| round 0.66 * model.vu // 100)
+                    fill |> maximum (max 768  <| round 0.75 * model.width)
                 else
                     fill)
             , centerX
