@@ -12272,7 +12272,7 @@ var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
 var $mdgriffith$elm_ui$Element$inFront = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
 };
-var $author$project$Main$Green = {$: 'Green'};
+var $author$project$Main$Magenta = {$: 'Magenta'};
 var $author$project$Main$name = F2(
 	function (vu, style) {
 		return A2(
@@ -12285,7 +12285,7 @@ var $author$project$Main$name = F2(
 					$mdgriffith$elm_ui$Element$Font$size(8 * vu),
 					$mdgriffith$elm_ui$Element$Font$center,
 					$mdgriffith$elm_ui$Element$Font$color(
-					$author$project$Main$solarized_color_to_color($author$project$Main$Green)),
+					$author$project$Main$solarized_color_to_color($author$project$Main$Magenta)),
 					$mdgriffith$elm_ui$Element$Background$color(
 					A2($author$project$Main$translate_color, style, $author$project$Main$Header))
 				]),
@@ -12328,7 +12328,7 @@ var $author$project$Main$title_image = F2(
 					$mdgriffith$elm_ui$Element$centerY,
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(27 * vu))
+					$mdgriffith$elm_ui$Element$px(30 * vu))
 				]),
 			{
 				description: A3($author$project$Main$bilingualstring, 'Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme.', 'Fotografía de la NASA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados.', language),
@@ -12375,7 +12375,7 @@ var $author$project$Main$title_card = F3(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(25 * vu))
+							$mdgriffith$elm_ui$Element$px(30 * vu))
 						]),
 					$mdgriffith$elm_ui$Element$none)
 				]));
@@ -12398,10 +12398,7 @@ var $author$project$Main$view = function (model) {
 					$mdgriffith$elm_ui$Element$width(
 					(_Utils_cmp(model.width, model.height) > 0) ? A2(
 						$mdgriffith$elm_ui$Element$maximum,
-						A2(
-							$elm$core$Basics$max,
-							768,
-							(($elm$core$Basics$round(0.66) * model.vu) / 100) | 0),
+						A2($elm$core$Basics$max, 768, 0),
 						$mdgriffith$elm_ui$Element$fill) : $mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$centerX,
 					$mdgriffith$elm_ui$Element$Font$color(

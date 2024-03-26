@@ -73,7 +73,7 @@ view model =
         ]
         <| column
             [ width (if model.width > model.height then 
-                    fill |> maximum (max 768  <| round 0.75 * model.width)
+                    fill |> maximum  (max 768 0)
                 else
                     fill)
             , centerX
@@ -128,7 +128,7 @@ title_image vu language =
         [ centerX
         , centerY
         , width fill
-        , height <| px (27 * vu)] 
+        , height <| px (30 * vu)] 
         { src = "images/solarized_butterfly.png"
         , description = bilingualstring 
             "Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme."
@@ -154,7 +154,7 @@ title_card vu style language =
                             ] 
                             [profile_pic vu style language]
         ]
-        [ title_image vu language, el [ height <| px (25 * vu)] Element.none ]
+        [ title_image vu language, el [ height <| px (30 * vu)] Element.none ]
 
 profile_pic: Vu -> SolarizedStyle -> Language -> Element Msg
 profile_pic vu style language = 
@@ -182,7 +182,7 @@ name vu style = el
     , padding 5 
     , Font.size (8 * vu)
     , Font.center
-    , Font.color <| solarized_color_to_color Green
+    , Font.color <| solarized_color_to_color Magenta
     , Background.color <| translate_color style Header
     ]
     (text "Pablo Reboredo-Segovia")
