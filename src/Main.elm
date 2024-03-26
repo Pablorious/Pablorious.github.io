@@ -61,6 +61,7 @@ bilingualstring english spanish language =
     case language of 
         Eng -> english
         Span -> spanish
+
 view : Model -> Html.Html Msg
 view model =
     layout 
@@ -72,7 +73,7 @@ view model =
         ]
         <| column
             [ width (if model.width > model.height then 
-                    fill |> maximum (max 768 <|33 * model.vu)
+                    fill |> maximum (max 768  <| round 0.66 * model.vu // 100)
                 else
                     fill)
             , centerX
