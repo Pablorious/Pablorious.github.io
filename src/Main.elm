@@ -44,7 +44,6 @@ initialModel flags =
     , vu = calculatevu flags.width flags.height
     }, Cmd.none)
 
-
 type Msg = NoAction 
          | ToggleStyle
          | ToggleLanguage
@@ -62,7 +61,6 @@ bilingualstring english spanish language =
     case language of 
         Eng -> english
         Span -> spanish
-
 view : Model -> Html.Html Msg
 view model =
     layout 
@@ -74,7 +72,7 @@ view model =
         ]
         <| column
             [ width (if model.width > model.height then 
-                    (fill |> maximum 768)
+                    (fill |> maximum (max 768 33 * model.vu))
                 else
                     fill)
             , centerX
@@ -97,7 +95,7 @@ style_toggle_button vu language =
         [] 
         { onPress = Just ToggleStyle
         , label = image 
-            [ width <| px (5 * vu)
+            [ width <| px (5 * vu) 
             , height <| px (5 * vu)
             , rotate 3.141592
             ] 
@@ -122,6 +120,72 @@ language_toggle_button vu language =
             { onPress = Just ToggleLanguage
             , label = text "🇺🇸"
             }
+
+title_image: Vu -> Language -> Element Msg
+title_image vu language = 
+    image 
+        [ centerX
+        , centerY
+        , width fill
+        , height <| px (27 * vu)] 
+        { src = "images/solarized_butterfly.png"
+        , description = bilingualstring 
+            "Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme."
+            "Fotografía de la NASA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados."
+            language
+        }
+
+title_card : Vu -> SolarizedStyle -> Language -> Element Msg
+title_card vu style language = 
+    column 
+        [ centerX
+        , Border.width 1
+        , Border.rounded 5
+        , Border.color <| translate_color style Comment
+        , Background.color <| translate_color style Header
+        , width fill
+        , height fill
+        , spacing 10
+        , inFront <| column [ centerY
+                            , width fill
+                            , below <| name vu style
+                            , padding 10
+                            ] 
+                            [profile_pic vu style language]
+        ]
+        [ title_image vu language, el [ height <| px (25 * vu)] Element.none ]
+
+profile_pic: Vu -> SolarizedStyle -> Language -> Element Msg
+profile_pic vu style language = 
+    image 
+        [ centerX
+        , centerY
+        , width <| px (27 * vu)
+        , height <| px (27 * vu)
+        , Border.rounded 150
+        , Border.width 1
+        , Border.color <| translate_color style Comment
+        , clip] 
+        { src = "images/my_face.jpg"
+        , description = 
+            bilingualstring 
+            "Picture of a long haired man in a suit smiling near a picture of musician playing saxophone"
+            "Imagen de un hombre de pelo largo con traje sonriendo cerca de una imagen de un músico tocando el saxofón"
+            language
+        }
+
+name: Vu -> SolarizedStyle -> Element Msg
+name vu style = el 
+    [ centerX
+    , centerY
+    , padding 5 
+    , Font.size (8 * vu)
+    , Font.center
+    , Font.color <| solarized_color_to_color Green
+    , Background.color <| translate_color style Header
+    ]
+    (text "Pablo Reboredo-Segovia")
+
 
 color_converter_toggle_button: Vu -> Language -> Element Msg
 color_converter_toggle_button vu language = 
@@ -210,71 +274,6 @@ github_link vu style language = row (main_column_element style)
         , label = text "Github"
         }
     ]
-
-title_image: Vu -> Language -> Element Msg
-title_image vu language = 
-    image 
-        [ centerX
-        , centerY
-        , width fill
-        , height <| px (27 * vu)] 
-        { src = "images/solarized_butterfly.png"
-        , description = bilingualstring 
-            "Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme."
-            "Fotografía de la NASA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados."
-            language
-        }
-
-title_card : Vu -> SolarizedStyle -> Language -> Element Msg
-title_card vu style language = 
-    column 
-        [ centerX
-        , Border.width 1
-        , Border.rounded 5
-        , Border.color <| translate_color style Comment
-        , Background.color <| translate_color style Header
-        , width fill
-        , height fill
-        , spacing 10
-        , inFront <| column [ centerY
-                            , width fill
-                            , below <| name vu style
-                            , padding 10
-                            ] 
-                            [profile_pic vu style language]
-        ]
-        [ title_image vu language, el [ height <| px (25 * vu)] Element.none ]
-
-profile_pic: Vu -> SolarizedStyle -> Language -> Element Msg
-profile_pic vu style language = 
-    image 
-        [ centerX
-        , centerY
-        , width <| px (27 * vu)
-        , height <| px (27 * vu)
-        , Border.rounded 150
-        , Border.width 1
-        , Border.color <| translate_color style Comment
-        , clip] 
-        { src = "images/my_face.jpg"
-        , description = 
-            bilingualstring 
-            "Picture of a long haired man in a suit smiling near a picture of musician playing saxophone"
-            "Imagen de un hombre de pelo largo con traje sonriendo cerca de una imagen de un músico tocando el saxofón"
-            language
-        }
-
-name: Vu -> SolarizedStyle -> Element Msg
-name vu style = el 
-    [ centerX
-    , centerY
-    , padding 5 
-    , Font.size (8 * vu)
-    , Font.center
-    , Font.color <| solarized_color_to_color Green
-    , Background.color <| translate_color style Header
-    ]
-    (text "Pablo Reboredo-Segovia")
 
 main_column_element: SolarizedStyle -> List (Attribute Msg)
 main_column_element style = 

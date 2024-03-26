@@ -12396,7 +12396,10 @@ var $author$project$Main$view = function (model) {
 			_List_fromArray(
 				[
 					$mdgriffith$elm_ui$Element$width(
-					(_Utils_cmp(model.width, model.height) > 0) ? A2($mdgriffith$elm_ui$Element$maximum, 768, $mdgriffith$elm_ui$Element$fill) : $mdgriffith$elm_ui$Element$fill),
+					(_Utils_cmp(model.width, model.height) > 0) ? A2(
+						$mdgriffith$elm_ui$Element$maximum,
+						A2($elm$core$Basics$max, 768, 33) * model.vu,
+						$mdgriffith$elm_ui$Element$fill) : $mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$centerX,
 					$mdgriffith$elm_ui$Element$Font$color(
 					A2($author$project$Main$translate_color, model.style, $author$project$Main$Foreground)),
