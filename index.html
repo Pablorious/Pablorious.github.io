@@ -1,11 +1,10 @@
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Pablo's Page</title>
+    <meta charset="UTF-8">
+    <title>Pablo's Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <script src="main.js"></script>
     <script>
         class ColorConverter extends HTMLElement {
@@ -158,129 +157,6 @@
         }
         customElements.define('color-converter',ColorConverter)
     </script>
-    <script>
-      class FractalMountain extends HTMLElement {
-        constructor() {
-	    super();
-	    this.shadow = this.attachShadow({mode: 'open'})
-	    this.shadowRoot.innerHTML = `
-                    <style> 
-                        #generateMountain{
-                            background-color: rgb(42,161,152);
-                            padding: 1em;
-                            margin-top: 1em;
-                            margin-right: 5px; /* add a margin to the buttons */
-                            color: white;
-                            border: none;
-                            cursor: pointer;
-                        }
-
-                        #canvas {
-                            flex-grow: 1;
-                            vertical-align: top;
-			    width:100%;
-			    max-width: 100%;
-			    max-height: 100%;
-                        }
-                    </style>
-		    <button id="generateMountain">Generate Mountain</button>
-		    <canvas id="canvas"></canvas>
-                    `; 
-	    
-	    const canvas = this.shadow.querySelector("#canvas");
-	    canvas.imageSmoothingEnabled =  false;
-	    const ctx = canvas.getContext('2d');
-
-	    let img = new Image;
-	    let source = canvas.toDataURL();
-
-
-	    let temp_canvas = document.createElement('canvas');
-	    const temp_canvas_context = temp_canvas.getContext("2d");
-	    temp_canvas.width = 1080;
-	    temp_canvas.height = 768;
-
-	    function _generateMountain(height,color,amplitude) {
-
-		let ratio = canvas.width/canvas.height;
-
-		let starting_height = height;
-		let start_point = [0, starting_height];
-		let end_point = [temp_canvas.width, starting_height];
-		let points = [start_point, end_point];
-		let iterations = 10;
-
-		function rand(min, max) {
-		    return Math.floor(Math.random() * (max - min + 1) + min);
-		}
-
-		function _genVariantPoint(p1, p2, amount) {
-		    let x = (p1[0] + p2[0]) / 2;
-		    let y = (p1[1] + p2[1]) / 2 + rand(-amount, amount);
-		    return [x, y];
-		}
-		    
-		function _genVariantPointList(point_list, amount) {
-		    let new_point_list = [point_list[0]];
-		    for (let i = 0; i < point_list.length - 1; i++) {
-			let p1 = point_list[i];
-			let p2 = point_list[i + 1];
-			new_point_list.push(_genVariantPoint(p1, p2, amount));
-			new_point_list.push(p2);
-		    }
-		    return new_point_list;
-		}
-
-		for (let i = 0; i < iterations; i++) {
-		    points = _genVariantPointList(points, amplitude / Math.pow(2,i));
-		}
-
-		temp_canvas_context.beginPath();
-		temp_canvas_context.moveTo(points[0][0], points[0][1]);
-		for (let i = 1; i < points.length; i++) {
-		    let x = points[i][0];
-		    let y = points[i][1];
-		    temp_canvas_context.lineTo(x, y);
-		}
-		temp_canvas_context.lineTo(temp_canvas.width, temp_canvas.height);
-		temp_canvas_context.lineTo(0, temp_canvas.height);
-		temp_canvas_context.fillStyle = color;
-		temp_canvas_context.fill();
-		temp_canvas_context.stroke();
-
-		source = temp_canvas.toDataURL();
-	    }
-	    
-	    function render() {
-		img.onload = () => {
-		    ctx.imageSmoothingEnabled = false;
-		    ctx.drawImage(img,0,0,canvas.width,canvas.height)
-		}
-		img.src = source;
-	    }
-
-	    function flexCanvasSize() {
-		setSize();
-		render();
-	    }
-
-	    window.onresize = flexCanvasSize;
-
-	    let button = this.shadow.querySelector("#generateMountain");
-	    
-	    button.addEventListener('click', function() {
-		let starting_height = temp_canvas.height * 1/3;
-
-		_generateMountain(starting_height+0,'#38004F',50)
-		_generateMountain(starting_height+100,'#300048',125);
-		_generateMountain(starting_height+200,'#200040',150);
-		
-		render();
-	    });
-        }
-      }
-      customElements.define('fractal-mountain', FractalMountain);
-    </script>
 </head>
 <body>
   <div id="myapp"></div>
@@ -297,7 +173,7 @@
 	, window.innerHeight || 0
 	)
       }
-  });
-  </script>
-</body>
+    });
+    </script>
+    </body>
 </html>

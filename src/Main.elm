@@ -62,6 +62,18 @@ bilingualstring english spanish language =
         Eng -> english
         Span -> spanish
 
+main_column_element: SolarizedStyle -> List (Attribute Msg)
+main_column_element style = 
+    [ Border.width 1
+    , Border.color <| translate_color style Comment
+    , Border.rounded 5
+    , Background.color <| translate_color style Header 
+    , centerX
+    , padding 10
+    , spacing 10
+    , width fill]
+
+
 view : Model -> Html.Html Msg
 view model =
     layout 
@@ -86,9 +98,58 @@ view model =
                 ]
             , title_card model.vu model.style model.language
             , resume model.vu model.style model.language
-            , color_converter model.vu model.style model.language model.color_converter_visible
             , github_link model.vu model.style model.language
+            , color_converter model.vu model.style model.language model.color_converter_visible
+            , useful_websites model.vu model.style model.language
             ]
+icon_image: Vu -> Language -> {src : String , english_desc : String, spanish_desc : String} -> Element Msg
+icon_image vu language {src, english_desc, spanish_desc} =
+    image
+        [ width <| px (6 * vu)
+        , height <| px (6 * vu)
+        ]
+        { src = src
+        , description = bilingualstring english_desc spanish_desc language
+        }
+
+useful_websites: Vu -> SolarizedStyle -> Language -> Element Msg
+useful_websites vu style language = 
+    wrappedRow
+    [spacing 5, width fill] 
+    [ row (main_column_element style ) 
+        [ icon_image vu language
+            { src = "images/elm.svg"
+            , english_desc = "Elm Icon"
+            , spanish_desc = "Icono de Elm-UI"
+            }
+        , Element.newTabLink
+            [ width fill
+            , centerX
+            , Font.size (6 * vu)
+            , Font.center
+            ]
+            { url = "https://elm-lang.org/"
+            , label = text "Elm"
+            }
+        ]
+    , row (main_column_element style ) 
+        [ icon_image vu language
+            { src = "images/elm.svg"
+            , english_desc = "Elm-UI Icon"
+            , spanish_desc = "Icono de Elm-UI"
+            }
+        , Element.newTabLink 
+            [ width fill
+            , centerX
+            , Font.size (6 * vu)
+            , Font.center
+            ] 
+            { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
+            , label = text "Elm-UI" 
+            }
+        ]
+    ]
+
 
 style_toggle_button: Vu -> Language -> Element Msg
 style_toggle_button vu language = 
@@ -146,11 +207,11 @@ title_card vu style language =
         , Background.color <| translate_color style Header
         , width fill
         , height fill
-        , spacing 10
+        , spacing vu
         , inFront <| column [ centerY
                             , width fill
-                            , below <| name vu style
-                            , padding 10
+                            , below <| name vu style language
+                            , padding vu
                             ] 
                             [profile_pic vu style language]
         ]
@@ -175,8 +236,8 @@ profile_pic vu style language =
             language
         }
 
-name: Vu -> SolarizedStyle -> Element Msg
-name vu style = el 
+name: Vu -> SolarizedStyle -> Language -> Element Msg
+name vu style language = el 
     [ centerX
     , centerY
     , padding 5 
@@ -184,6 +245,14 @@ name vu style = el
     , Font.center
     , Font.color <| solarized_color_to_color Magenta
     , Background.color <| translate_color style Header
+    , below <| (el [width fill, Font.size ( 3 * vu )
+        , Font.color <| solarized_color_to_color Green
+        , Font.center ] (text 
+            <| bilingualstring 
+                "Programmer / Mathematician / Designer / Musician"
+                "Programador / Matemático / Diseñador / Músico" 
+                language
+            ))
     ]
     (text "Pablo Reboredo-Segovia")
 
@@ -192,16 +261,10 @@ color_converter_toggle_button: Vu -> Language -> Element Msg
 color_converter_toggle_button vu language = 
     row [width fill]
     [
-        image 
-        [ width <| px (6 * vu)
-        , height <| px (6 * vu)
-        ]
-        { src = "images/hammer.svg"
-        , description = 
-            bilingualstring 
-            "Hammer icon" 
-            "Icono de martillo" 
-            language 
+        icon_image vu language
+        { src = "images/tools.svg"
+        , english_desc = "Hammer icon" 
+        , spanish_desc = "Icono de martillo" 
         }
         ,
         Element.Input.button 
@@ -236,15 +299,10 @@ color_converter vu style language visible =
 resume vu style language = 
     row 
     ( main_column_element style ) 
-    [ image 
-        [ width <| px (6 * vu)
-        , height <| px (6 * vu)
-        ]
-        { src = "images/resume.png"
-        , description = bilingualstring
-            "Resume Icon"
-            "Icono de un Currículum"
-            language
+    [ icon_image vu language 
+        { src = "images/file.svg"
+        , english_desc = "Resume Icon"
+        , spanish_desc = "Icono de un Currículum"
         }
     , Element.newTabLink 
         [ width fill
@@ -259,12 +317,10 @@ resume vu style language =
     ]
 
 github_link vu style language = row (main_column_element style)
-    [ image 
-        [ width <| px (6 * vu)
-        , height <| px (6 * vu)
-        ] 
+    [ icon_image vu language
         { src = "images/github.svg" 
-        , description = bilingualstring "Github Icon" "Icono de github" language
+        , english_desc = "Github Icon" 
+        , spanish_desc = "Icono de github" 
         }
     , Element.newTabLink 
         [ Font.size (6 * vu)
@@ -275,17 +331,6 @@ github_link vu style language = row (main_column_element style)
         , label = text "Github"
         }
     ]
-
-main_column_element: SolarizedStyle -> List (Attribute Msg)
-main_column_element style = 
-    [ Border.width 1
-    , Border.color <| translate_color style Comment
-    , Border.rounded 5
-    , Background.color <| translate_color style Header 
-    , centerX
-    , padding 10
-    , spacing 10
-    , width fill]
 
 translate_color: SolarizedStyle -> SwappingColor -> Color
 translate_color style swap =

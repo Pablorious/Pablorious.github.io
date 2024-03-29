@@ -11498,6 +11498,25 @@ var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
 	return {$: 'Px', a: a};
 };
 var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
+var $author$project$Main$icon_image = F3(
+	function (vu, language, _v0) {
+		var src = _v0.src;
+		var english_desc = _v0.english_desc;
+		var spanish_desc = _v0.spanish_desc;
+		return A2(
+			$mdgriffith$elm_ui$Element$image,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width(
+					$mdgriffith$elm_ui$Element$px(6 * vu)),
+					$mdgriffith$elm_ui$Element$height(
+					$mdgriffith$elm_ui$Element$px(6 * vu))
+				]),
+			{
+				description: A3($author$project$Main$bilingualstring, english_desc, spanish_desc, language),
+				src: src
+			});
+	});
 var $mdgriffith$elm_ui$Internal$Model$AsRow = {$: 'AsRow'};
 var $mdgriffith$elm_ui$Internal$Model$asRow = $mdgriffith$elm_ui$Internal$Model$AsRow;
 var $mdgriffith$elm_ui$Element$row = F2(
@@ -11544,19 +11563,11 @@ var $author$project$Main$color_converter_toggle_button = F2(
 				]),
 			_List_fromArray(
 				[
-					A2(
-					$mdgriffith$elm_ui$Element$image,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(6 * vu)),
-							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(6 * vu))
-						]),
-					{
-						description: A3($author$project$Main$bilingualstring, 'Hammer icon', 'Icono de martillo', language),
-						src: 'images/hammer.svg'
-					}),
+					A3(
+					$author$project$Main$icon_image,
+					vu,
+					language,
+					{english_desc: 'Hammer icon', spanish_desc: 'Icono de martillo', src: 'images/tools.svg'}),
 					A2(
 					$mdgriffith$elm_ui$Element$Input$button,
 					_List_fromArray(
@@ -11855,19 +11866,11 @@ var $author$project$Main$github_link = F3(
 			$author$project$Main$main_column_element(style),
 			_List_fromArray(
 				[
-					A2(
-					$mdgriffith$elm_ui$Element$image,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(6 * vu)),
-							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(6 * vu))
-						]),
-					{
-						description: A3($author$project$Main$bilingualstring, 'Github Icon', 'Icono de github', language),
-						src: 'images/github.svg'
-					}),
+					A3(
+					$author$project$Main$icon_image,
+					vu,
+					language,
+					{english_desc: 'Github Icon', spanish_desc: 'Icono de github', src: 'images/github.svg'}),
 					A2(
 					$mdgriffith$elm_ui$Element$newTabLink,
 					_List_fromArray(
@@ -12176,19 +12179,11 @@ var $author$project$Main$resume = F3(
 			$author$project$Main$main_column_element(style),
 			_List_fromArray(
 				[
-					A2(
-					$mdgriffith$elm_ui$Element$image,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(6 * vu)),
-							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(6 * vu))
-						]),
-					{
-						description: A3($author$project$Main$bilingualstring, 'Resume Icon', 'Icono de un Currículum', language),
-						src: 'images/resume.png'
-					}),
+					A3(
+					$author$project$Main$icon_image,
+					vu,
+					language,
+					{english_desc: 'Resume Icon', spanish_desc: 'Icono de un Currículum', src: 'images/file.svg'}),
 					A2(
 					$mdgriffith$elm_ui$Element$newTabLink,
 					_List_fromArray(
@@ -12272,9 +12267,10 @@ var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
 var $mdgriffith$elm_ui$Element$inFront = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
 };
+var $author$project$Main$Green = {$: 'Green'};
 var $author$project$Main$Magenta = {$: 'Magenta'};
-var $author$project$Main$name = F2(
-	function (vu, style) {
+var $author$project$Main$name = F3(
+	function (vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$el,
 			_List_fromArray(
@@ -12287,7 +12283,20 @@ var $author$project$Main$name = F2(
 					$mdgriffith$elm_ui$Element$Font$color(
 					$author$project$Main$solarized_color_to_color($author$project$Main$Magenta)),
 					$mdgriffith$elm_ui$Element$Background$color(
-					A2($author$project$Main$translate_color, style, $author$project$Main$Header))
+					A2($author$project$Main$translate_color, style, $author$project$Main$Header)),
+					$mdgriffith$elm_ui$Element$below(
+					A2(
+						$mdgriffith$elm_ui$Element$el,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+								$mdgriffith$elm_ui$Element$Font$size(3 * vu),
+								$mdgriffith$elm_ui$Element$Font$color(
+								$author$project$Main$solarized_color_to_color($author$project$Main$Green)),
+								$mdgriffith$elm_ui$Element$Font$center
+							]),
+						$mdgriffith$elm_ui$Element$text(
+							A3($author$project$Main$bilingualstring, 'Programmer / Mathematician / Designer / Musician', 'Programador / Matemático / Diseñador / Músico', language))))
 				]),
 			$mdgriffith$elm_ui$Element$text('Pablo Reboredo-Segovia'));
 	});
@@ -12350,7 +12359,7 @@ var $author$project$Main$title_card = F3(
 					A2($author$project$Main$translate_color, style, $author$project$Main$Header)),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$spacing(10),
+					$mdgriffith$elm_ui$Element$spacing(vu),
 					$mdgriffith$elm_ui$Element$inFront(
 					A2(
 						$mdgriffith$elm_ui$Element$column,
@@ -12359,8 +12368,8 @@ var $author$project$Main$title_card = F3(
 								$mdgriffith$elm_ui$Element$centerY,
 								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 								$mdgriffith$elm_ui$Element$below(
-								A2($author$project$Main$name, vu, style)),
-								$mdgriffith$elm_ui$Element$padding(10)
+								A3($author$project$Main$name, vu, style, language)),
+								$mdgriffith$elm_ui$Element$padding(vu)
 							]),
 						_List_fromArray(
 							[
@@ -12378,6 +12387,257 @@ var $author$project$Main$title_card = F3(
 							$mdgriffith$elm_ui$Element$px(30 * vu))
 						]),
 					$mdgriffith$elm_ui$Element$none)
+				]));
+	});
+var $mdgriffith$elm_ui$Internal$Model$Padding = F5(
+	function (a, b, c, d, e) {
+		return {$: 'Padding', a: a, b: b, c: c, d: d, e: e};
+	});
+var $mdgriffith$elm_ui$Internal$Model$Spaced = F3(
+	function (a, b, c) {
+		return {$: 'Spaced', a: a, b: b, c: c};
+	});
+var $mdgriffith$elm_ui$Internal$Model$extractSpacingAndPadding = function (attrs) {
+	return A3(
+		$elm$core$List$foldr,
+		F2(
+			function (attr, _v0) {
+				var pad = _v0.a;
+				var spacing = _v0.b;
+				return _Utils_Tuple2(
+					function () {
+						if (pad.$ === 'Just') {
+							var x = pad.a;
+							return pad;
+						} else {
+							if ((attr.$ === 'StyleClass') && (attr.b.$ === 'PaddingStyle')) {
+								var _v3 = attr.b;
+								var name = _v3.a;
+								var t = _v3.b;
+								var r = _v3.c;
+								var b = _v3.d;
+								var l = _v3.e;
+								return $elm$core$Maybe$Just(
+									A5($mdgriffith$elm_ui$Internal$Model$Padding, name, t, r, b, l));
+							} else {
+								return $elm$core$Maybe$Nothing;
+							}
+						}
+					}(),
+					function () {
+						if (spacing.$ === 'Just') {
+							var x = spacing.a;
+							return spacing;
+						} else {
+							if ((attr.$ === 'StyleClass') && (attr.b.$ === 'SpacingStyle')) {
+								var _v6 = attr.b;
+								var name = _v6.a;
+								var x = _v6.b;
+								var y = _v6.c;
+								return $elm$core$Maybe$Just(
+									A3($mdgriffith$elm_ui$Internal$Model$Spaced, name, x, y));
+							} else {
+								return $elm$core$Maybe$Nothing;
+							}
+						}
+					}());
+			}),
+		_Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
+		attrs);
+};
+var $mdgriffith$elm_ui$Internal$Model$paddingNameFloat = F4(
+	function (top, right, bottom, left) {
+		return 'pad-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(top) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(right) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(bottom) + ('-' + $mdgriffith$elm_ui$Internal$Model$floatClass(left)))))));
+	});
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $mdgriffith$elm_ui$Element$wrappedRow = F2(
+	function (attrs, children) {
+		var _v0 = $mdgriffith$elm_ui$Internal$Model$extractSpacingAndPadding(attrs);
+		var padded = _v0.a;
+		var spaced = _v0.b;
+		if (spaced.$ === 'Nothing') {
+			return A4(
+				$mdgriffith$elm_ui$Internal$Model$element,
+				$mdgriffith$elm_ui$Internal$Model$asRow,
+				$mdgriffith$elm_ui$Internal$Model$div,
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.wrapped)))),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+						A2(
+							$elm$core$List$cons,
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+							attrs))),
+				$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
+		} else {
+			var _v2 = spaced.a;
+			var spaceName = _v2.a;
+			var x = _v2.b;
+			var y = _v2.c;
+			var newPadding = function () {
+				if (padded.$ === 'Just') {
+					var _v5 = padded.a;
+					var name = _v5.a;
+					var t = _v5.b;
+					var r = _v5.c;
+					var b = _v5.d;
+					var l = _v5.e;
+					if ((_Utils_cmp(r, x / 2) > -1) && (_Utils_cmp(b, y / 2) > -1)) {
+						var newTop = t - (y / 2);
+						var newRight = r - (x / 2);
+						var newLeft = l - (x / 2);
+						var newBottom = b - (y / 2);
+						return $elm$core$Maybe$Just(
+							A2(
+								$mdgriffith$elm_ui$Internal$Model$StyleClass,
+								$mdgriffith$elm_ui$Internal$Flag$padding,
+								A5(
+									$mdgriffith$elm_ui$Internal$Model$PaddingStyle,
+									A4($mdgriffith$elm_ui$Internal$Model$paddingNameFloat, newTop, newRight, newBottom, newLeft),
+									newTop,
+									newRight,
+									newBottom,
+									newLeft)));
+					} else {
+						return $elm$core$Maybe$Nothing;
+					}
+				} else {
+					return $elm$core$Maybe$Nothing;
+				}
+			}();
+			if (newPadding.$ === 'Just') {
+				var pad = newPadding.a;
+				return A4(
+					$mdgriffith$elm_ui$Internal$Model$element,
+					$mdgriffith$elm_ui$Internal$Model$asRow,
+					$mdgriffith$elm_ui$Internal$Model$div,
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.wrapped)))),
+						A2(
+							$elm$core$List$cons,
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+							A2(
+								$elm$core$List$cons,
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+								_Utils_ap(
+									attrs,
+									_List_fromArray(
+										[pad]))))),
+					$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
+			} else {
+				var halfY = -(y / 2);
+				var halfX = -(x / 2);
+				return A4(
+					$mdgriffith$elm_ui$Internal$Model$element,
+					$mdgriffith$elm_ui$Internal$Model$asEl,
+					$mdgriffith$elm_ui$Internal$Model$div,
+					attrs,
+					$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+						_List_fromArray(
+							[
+								A4(
+								$mdgriffith$elm_ui$Internal$Model$element,
+								$mdgriffith$elm_ui$Internal$Model$asRow,
+								$mdgriffith$elm_ui$Internal$Model$div,
+								A2(
+									$elm$core$List$cons,
+									$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.wrapped)))),
+									A2(
+										$elm$core$List$cons,
+										$mdgriffith$elm_ui$Internal$Model$Attr(
+											A2(
+												$elm$html$Html$Attributes$style,
+												'margin',
+												$elm$core$String$fromFloat(halfY) + ('px' + (' ' + ($elm$core$String$fromFloat(halfX) + 'px'))))),
+										A2(
+											$elm$core$List$cons,
+											$mdgriffith$elm_ui$Internal$Model$Attr(
+												A2(
+													$elm$html$Html$Attributes$style,
+													'width',
+													'calc(100% + ' + ($elm$core$String$fromInt(x) + 'px)'))),
+											A2(
+												$elm$core$List$cons,
+												$mdgriffith$elm_ui$Internal$Model$Attr(
+													A2(
+														$elm$html$Html$Attributes$style,
+														'height',
+														'calc(100% + ' + ($elm$core$String$fromInt(y) + 'px)'))),
+												A2(
+													$elm$core$List$cons,
+													A2(
+														$mdgriffith$elm_ui$Internal$Model$StyleClass,
+														$mdgriffith$elm_ui$Internal$Flag$spacing,
+														A3($mdgriffith$elm_ui$Internal$Model$SpacingStyle, spaceName, x, y)),
+													_List_Nil))))),
+								$mdgriffith$elm_ui$Internal$Model$Unkeyed(children))
+							])));
+			}
+		}
+	});
+var $author$project$Main$useful_websites = F3(
+	function (vu, style, language) {
+		return A2(
+			$mdgriffith$elm_ui$Element$wrappedRow,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(5),
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$row,
+					$author$project$Main$main_column_element(style),
+					_List_fromArray(
+						[
+							A3(
+							$author$project$Main$icon_image,
+							vu,
+							language,
+							{english_desc: 'Elm Icon', spanish_desc: 'Icono de Elm-UI', src: 'images/elm.svg'}),
+							A2(
+							$mdgriffith$elm_ui$Element$newTabLink,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$Font$size(6 * vu),
+									$mdgriffith$elm_ui$Element$Font$center
+								]),
+							{
+								label: $mdgriffith$elm_ui$Element$text('Elm'),
+								url: 'https://elm-lang.org/'
+							})
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$row,
+					$author$project$Main$main_column_element(style),
+					_List_fromArray(
+						[
+							A3(
+							$author$project$Main$icon_image,
+							vu,
+							language,
+							{english_desc: 'Elm-UI Icon', spanish_desc: 'Icono de Elm-UI', src: 'images/elm.svg'}),
+							A2(
+							$mdgriffith$elm_ui$Element$newTabLink,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$Font$size(6 * vu),
+									$mdgriffith$elm_ui$Element$Font$center
+								]),
+							{
+								label: $mdgriffith$elm_ui$Element$text('Elm-UI'),
+								url: 'https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   '
+							})
+						]))
 				]));
 	});
 var $author$project$Main$view = function (model) {
@@ -12417,8 +12677,9 @@ var $author$project$Main$view = function (model) {
 						])),
 					A3($author$project$Main$title_card, model.vu, model.style, model.language),
 					A3($author$project$Main$resume, model.vu, model.style, model.language),
+					A3($author$project$Main$github_link, model.vu, model.style, model.language),
 					A4($author$project$Main$color_converter, model.vu, model.style, model.language, model.color_converter_visible),
-					A3($author$project$Main$github_link, model.vu, model.style, model.language)
+					A3($author$project$Main$useful_websites, model.vu, model.style, model.language)
 				])));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
