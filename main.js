@@ -5198,16 +5198,15 @@ var $elm$core$Task$perform = F2(
 	});
 var $elm$browser$Browser$element = _Browser_element;
 var $elm$json$Json$Decode$field = _Json_decodeField;
-var $author$project$Main$Dark = {$: 'Dark'};
-var $author$project$Main$Eng = {$: 'Eng'};
+var $author$project$Solarized$Dark = {$: 'Dark'};
+var $author$project$Bilingual$English = {$: 'English'};
 var $elm$core$Basics$min = F2(
 	function (x, y) {
 		return (_Utils_cmp(x, y) < 0) ? x : y;
 	});
-var $author$project$Main$calculatevu = F2(
-	function (w, h) {
-		return (A2($elm$core$Basics$min, w, h) / 100) | 0;
-	});
+var $author$project$VisualUnits$calculatevu = function (dims) {
+	return (A2($elm$core$Basics$min, dims.width, dims.height) / 100) | 0;
+};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$initialModel = function (flags) {
@@ -5215,18 +5214,18 @@ var $author$project$Main$initialModel = function (flags) {
 		{
 			color_converter_visible: false,
 			height: flags.height,
-			language: $author$project$Main$Eng,
-			style: $author$project$Main$Dark,
-			vu: A2($author$project$Main$calculatevu, flags.width, flags.height),
+			language: $author$project$Bilingual$English,
+			style: $author$project$Solarized$Dark,
+			vu: $author$project$VisualUnits$calculatevu(
+				{height: flags.height, width: flags.width}),
 			width: flags.width
 		},
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$json$Json$Decode$int = _Json_decodeInt;
-var $author$project$Main$NewViewportSize = F2(
-	function (a, b) {
-		return {$: 'NewViewportSize', a: a, b: b};
-	});
+var $author$project$Main$NewViewportze = function (a) {
+	return {$: 'NewViewportze', a: a};
+};
 var $elm$browser$Browser$Events$Window = {$: 'Window'};
 var $elm$browser$Browser$Events$MySub = F3(
 	function (a, b, c) {
@@ -5645,11 +5644,12 @@ var $author$project$Main$subscriptions = function (_v0) {
 	return $elm$browser$Browser$Events$onResize(
 		F2(
 			function (w, h) {
-				return A2($author$project$Main$NewViewportSize, w, h);
+				return $author$project$Main$NewViewportze(
+					{height: h, width: w});
 			}));
 };
-var $author$project$Main$Light = {$: 'Light'};
-var $author$project$Main$Span = {$: 'Span'};
+var $author$project$Solarized$Light = {$: 'Light'};
+var $author$project$Bilingual$Spanish = {$: 'Spanish'};
 var $elm$core$Basics$round = _Basics_round;
 var $author$project$Main$update = F2(
 	function (msg, model) {
@@ -5662,28 +5662,28 @@ var $author$project$Main$update = F2(
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
-							{style: $author$project$Main$Light}),
+							{style: $author$project$Solarized$Light}),
 						$elm$core$Platform$Cmd$none);
 				} else {
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
-							{style: $author$project$Main$Dark}),
+							{style: $author$project$Solarized$Dark}),
 						$elm$core$Platform$Cmd$none);
 				}
 			case 'ToggleLanguage':
 				var _v2 = model.language;
-				if (_v2.$ === 'Eng') {
+				if (_v2.$ === 'English') {
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
-							{language: $author$project$Main$Span}),
+							{language: $author$project$Bilingual$Spanish}),
 						$elm$core$Platform$Cmd$none);
 				} else {
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
-							{language: $author$project$Main$Eng}),
+							{language: $author$project$Bilingual$English}),
 						$elm$core$Platform$Cmd$none);
 				}
 			case 'ToggleColorConverterVisible':
@@ -5696,16 +5696,15 @@ var $author$project$Main$update = F2(
 						model,
 						{color_converter_visible: true}),
 					$elm$core$Platform$Cmd$none);
-			case 'NewViewportSize':
-				var w = msg.a;
-				var h = msg.b;
+			case 'NewViewportze':
+				var dims = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							height: h,
-							vu: A2($author$project$Main$calculatevu, w, h),
-							width: w
+							height: dims.height,
+							vu: $author$project$VisualUnits$calculatevu(dims),
+							width: dims.width
 						}),
 					$elm$core$Platform$Cmd$none);
 			default:
@@ -5719,73 +5718,7 @@ var $author$project$Main$update = F2(
 					$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$Main$Background = {$: 'Background'};
-var $author$project$Main$Foreground = {$: 'Foreground'};
-var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
-	return {$: 'AlignX', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Model$CenterX = {$: 'CenterX'};
-var $mdgriffith$elm_ui$Element$centerX = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$CenterX);
-var $mdgriffith$elm_ui$Internal$Model$Colored = F3(
-	function (a, b, c) {
-		return {$: 'Colored', a: a, b: b, c: c};
-	});
-var $mdgriffith$elm_ui$Internal$Model$StyleClass = F2(
-	function (a, b) {
-		return {$: 'StyleClass', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$Flag = function (a) {
-	return {$: 'Flag', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Flag$Second = function (a) {
-	return {$: 'Second', a: a};
-};
-var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
-var $mdgriffith$elm_ui$Internal$Flag$flag = function (i) {
-	return (i > 31) ? $mdgriffith$elm_ui$Internal$Flag$Second(1 << (i - 32)) : $mdgriffith$elm_ui$Internal$Flag$Flag(1 << i);
-};
-var $mdgriffith$elm_ui$Internal$Flag$bgColor = $mdgriffith$elm_ui$Internal$Flag$flag(8);
-var $mdgriffith$elm_ui$Internal$Model$floatClass = function (x) {
-	return $elm$core$String$fromInt(
-		$elm$core$Basics$round(x * 255));
-};
-var $mdgriffith$elm_ui$Internal$Model$formatColorClass = function (_v0) {
-	var red = _v0.a;
-	var green = _v0.b;
-	var blue = _v0.c;
-	var alpha = _v0.d;
-	return $mdgriffith$elm_ui$Internal$Model$floatClass(red) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(green) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(blue) + ('-' + $mdgriffith$elm_ui$Internal$Model$floatClass(alpha))))));
-};
-var $mdgriffith$elm_ui$Element$Background$color = function (clr) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$bgColor,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Colored,
-			'bg-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
-			'background-color',
-			clr));
-};
-var $mdgriffith$elm_ui$Internal$Flag$fontColor = $mdgriffith$elm_ui$Internal$Flag$flag(14);
-var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontColor,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Colored,
-			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
-			'color',
-			fontColor));
-};
 var $author$project$Main$ToggleColorConverterVisible = {$: 'ToggleColorConverterVisible'};
-var $author$project$Main$bilingualstring = F3(
-	function (english, spanish, language) {
-		if (language.$ === 'Eng') {
-			return english;
-		} else {
-			return spanish;
-		}
-	});
 var $mdgriffith$elm_ui$Internal$Model$Attr = function (a) {
 	return {$: 'Attr', a: a};
 };
@@ -5909,6 +5842,16 @@ var $mdgriffith$elm_ui$Internal$Model$addKeyedChildren = F3(
 	});
 var $mdgriffith$elm_ui$Internal$Model$AsParagraph = {$: 'AsParagraph'};
 var $mdgriffith$elm_ui$Internal$Model$asParagraph = $mdgriffith$elm_ui$Internal$Model$AsParagraph;
+var $mdgriffith$elm_ui$Internal$Flag$Flag = function (a) {
+	return {$: 'Flag', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Flag$Second = function (a) {
+	return {$: 'Second', a: a};
+};
+var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
+var $mdgriffith$elm_ui$Internal$Flag$flag = function (i) {
+	return (i > 31) ? $mdgriffith$elm_ui$Internal$Flag$Second(1 << (i - 32)) : $mdgriffith$elm_ui$Internal$Flag$Flag(1 << i);
+};
 var $mdgriffith$elm_ui$Internal$Flag$alignBottom = $mdgriffith$elm_ui$Internal$Flag$flag(41);
 var $mdgriffith$elm_ui$Internal$Flag$alignRight = $mdgriffith$elm_ui$Internal$Flag$flag(40);
 var $mdgriffith$elm_ui$Internal$Flag$centerX = $mdgriffith$elm_ui$Internal$Flag$flag(42);
@@ -5950,6 +5893,10 @@ var $mdgriffith$elm_ui$Internal$Model$lengthClassName = function (x) {
 var $elm$core$Tuple$second = function (_v0) {
 	var y = _v0.b;
 	return y;
+};
+var $mdgriffith$elm_ui$Internal$Model$floatClass = function (x) {
+	return $elm$core$String$fromInt(
+		$elm$core$Basics$round(x * 255));
 };
 var $mdgriffith$elm_ui$Internal$Model$transformClass = function (transform) {
 	switch (transform.$) {
@@ -11422,6 +11369,19 @@ var $mdgriffith$elm_ui$Element$Input$button = F2(
 	});
 var $mdgriffith$elm_ui$Internal$Flag$fontAlignment = $mdgriffith$elm_ui$Internal$Flag$flag(12);
 var $mdgriffith$elm_ui$Element$Font$center = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textCenter);
+var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
+	return {$: 'AlignX', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Model$CenterX = {$: 'CenterX'};
+var $mdgriffith$elm_ui$Element$centerX = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$CenterX);
+var $author$project$Bilingual$choose_language = F2(
+	function (bstring, language) {
+		if (language.$ === 'English') {
+			return bstring.english;
+		} else {
+			return bstring.spanish;
+		}
+	});
 var $mdgriffith$elm_ui$Element$el = F2(
 	function (attrs, child) {
 		return A4(
@@ -11498,11 +11458,10 @@ var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
 	return {$: 'Px', a: a};
 };
 var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
-var $author$project$Main$icon_image = F3(
+var $author$project$Templates$icon_image = F3(
 	function (vu, language, _v0) {
 		var src = _v0.src;
-		var english_desc = _v0.english_desc;
-		var spanish_desc = _v0.spanish_desc;
+		var desc = _v0.desc;
 		return A2(
 			$mdgriffith$elm_ui$Element$image,
 			_List_fromArray(
@@ -11513,7 +11472,7 @@ var $author$project$Main$icon_image = F3(
 					$mdgriffith$elm_ui$Element$px(6 * vu))
 				]),
 			{
-				description: A3($author$project$Main$bilingualstring, english_desc, spanish_desc, language),
+				description: A2($author$project$Bilingual$choose_language, desc, language),
 				src: src
 			});
 	});
@@ -11540,6 +11499,10 @@ var $mdgriffith$elm_ui$Element$row = F2(
 var $mdgriffith$elm_ui$Internal$Model$FontSize = function (a) {
 	return {$: 'FontSize', a: a};
 };
+var $mdgriffith$elm_ui$Internal$Model$StyleClass = F2(
+	function (a, b) {
+		return {$: 'StyleClass', a: a, b: b};
+	});
 var $mdgriffith$elm_ui$Internal$Flag$fontSize = $mdgriffith$elm_ui$Internal$Flag$flag(4);
 var $mdgriffith$elm_ui$Element$Font$size = function (i) {
 	return A2(
@@ -11564,10 +11527,13 @@ var $author$project$Main$color_converter_toggle_button = F2(
 			_List_fromArray(
 				[
 					A3(
-					$author$project$Main$icon_image,
+					$author$project$Templates$icon_image,
 					vu,
 					language,
-					{english_desc: 'Hammer icon', spanish_desc: 'Icono de martillo', src: 'images/tools.svg'}),
+					{
+						desc: {english: 'Hammer icon', spanish: 'Icono de martillo'},
+						src: 'images/tools.svg'
+					}),
 					A2(
 					$mdgriffith$elm_ui$Element$Input$button,
 					_List_fromArray(
@@ -11585,7 +11551,10 @@ var $author$project$Main$color_converter_toggle_button = F2(
 									$mdgriffith$elm_ui$Element$Font$size(6 * vu)
 								]),
 							$mdgriffith$elm_ui$Element$text(
-								A3($author$project$Main$bilingualstring, 'Color Converter', 'Convertidor de Colores', language))),
+								A2(
+									$author$project$Bilingual$choose_language,
+									{english: 'Color Converter', spanish: 'Convertidor de Colores'},
+									language))),
 						onPress: $elm$core$Maybe$Just($author$project$Main$ToggleColorConverterVisible)
 					})
 				]));
@@ -11616,8 +11585,30 @@ var $elm$core$Basics$always = F2(
 	});
 var $mdgriffith$elm_ui$Internal$Model$unstyled = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Unstyled, $elm$core$Basics$always);
 var $mdgriffith$elm_ui$Element$html = $mdgriffith$elm_ui$Internal$Model$unstyled;
-var $author$project$Main$Comment = {$: 'Comment'};
-var $author$project$Main$Header = {$: 'Header'};
+var $author$project$Solarized$Comment = {$: 'Comment'};
+var $author$project$Solarized$Header = {$: 'Header'};
+var $mdgriffith$elm_ui$Internal$Model$Colored = F3(
+	function (a, b, c) {
+		return {$: 'Colored', a: a, b: b, c: c};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$bgColor = $mdgriffith$elm_ui$Internal$Flag$flag(8);
+var $mdgriffith$elm_ui$Internal$Model$formatColorClass = function (_v0) {
+	var red = _v0.a;
+	var green = _v0.b;
+	var blue = _v0.c;
+	var alpha = _v0.d;
+	return $mdgriffith$elm_ui$Internal$Model$floatClass(red) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(green) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(blue) + ('-' + $mdgriffith$elm_ui$Internal$Model$floatClass(alpha))))));
+};
+var $mdgriffith$elm_ui$Element$Background$color = function (clr) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$bgColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'bg-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
+			'background-color',
+			clr));
+};
 var $mdgriffith$elm_ui$Internal$Flag$borderColor = $mdgriffith$elm_ui$Internal$Flag$flag(28);
 var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
 	return A2(
@@ -11677,6 +11668,44 @@ var $mdgriffith$elm_ui$Element$spacing = function (x) {
 			x,
 			x));
 };
+var $author$project$Solarized$Base0 = {$: 'Base0'};
+var $author$project$Solarized$Base00 = {$: 'Base00'};
+var $author$project$Solarized$Base01 = {$: 'Base01'};
+var $author$project$Solarized$Base02 = {$: 'Base02'};
+var $author$project$Solarized$Base03 = {$: 'Base03'};
+var $author$project$Solarized$Base1 = {$: 'Base1'};
+var $author$project$Solarized$Base2 = {$: 'Base2'};
+var $author$project$Solarized$Base3 = {$: 'Base3'};
+var $author$project$Solarized$style_generic = F2(
+	function (style, swap) {
+		if (style.$ === 'Dark') {
+			switch (swap.$) {
+				case 'Foreground':
+					return $author$project$Solarized$Base0;
+				case 'Background':
+					return $author$project$Solarized$Base03;
+				case 'Comment':
+					return $author$project$Solarized$Base01;
+				case 'Header':
+					return $author$project$Solarized$Base02;
+				default:
+					return $author$project$Solarized$Base1;
+			}
+		} else {
+			switch (swap.$) {
+				case 'Foreground':
+					return $author$project$Solarized$Base00;
+				case 'Background':
+					return $author$project$Solarized$Base3;
+				case 'Header':
+					return $author$project$Solarized$Base2;
+				case 'Emphasis':
+					return $author$project$Solarized$Base01;
+				default:
+					return $author$project$Solarized$Base1;
+			}
+		}
+	});
 var $mdgriffith$elm_ui$Internal$Model$Rgba = F4(
 	function (a, b, c, d) {
 		return {$: 'Rgba', a: a, b: b, c: c, d: d};
@@ -11685,7 +11714,7 @@ var $mdgriffith$elm_ui$Element$rgb255 = F3(
 	function (red, green, blue) {
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
 	});
-var $author$project$Main$solarized_color_to_color = function (color) {
+var $author$project$Solarized$translate = function (color) {
 	switch (color.$) {
 		case 'Base03':
 			return A3($mdgriffith$elm_ui$Element$rgb255, 0, 43, 54);
@@ -11721,48 +11750,10 @@ var $author$project$Main$solarized_color_to_color = function (color) {
 			return A3($mdgriffith$elm_ui$Element$rgb255, 133, 153, 0);
 	}
 };
-var $author$project$Main$Base0 = {$: 'Base0'};
-var $author$project$Main$Base00 = {$: 'Base00'};
-var $author$project$Main$Base01 = {$: 'Base01'};
-var $author$project$Main$Base02 = {$: 'Base02'};
-var $author$project$Main$Base03 = {$: 'Base03'};
-var $author$project$Main$Base1 = {$: 'Base1'};
-var $author$project$Main$Base2 = {$: 'Base2'};
-var $author$project$Main$Base3 = {$: 'Base3'};
-var $author$project$Main$swappingcolor_to_solarized_color = F2(
-	function (style, swap) {
-		if (style.$ === 'Dark') {
-			switch (swap.$) {
-				case 'Foreground':
-					return $author$project$Main$Base0;
-				case 'Background':
-					return $author$project$Main$Base03;
-				case 'Comment':
-					return $author$project$Main$Base01;
-				case 'Header':
-					return $author$project$Main$Base02;
-				default:
-					return $author$project$Main$Base1;
-			}
-		} else {
-			switch (swap.$) {
-				case 'Foreground':
-					return $author$project$Main$Base00;
-				case 'Background':
-					return $author$project$Main$Base3;
-				case 'Header':
-					return $author$project$Main$Base2;
-				case 'Emphasis':
-					return $author$project$Main$Base01;
-				default:
-					return $author$project$Main$Base1;
-			}
-		}
-	});
-var $author$project$Main$translate_color = F2(
-	function (style, swap) {
-		return $author$project$Main$solarized_color_to_color(
-			A2($author$project$Main$swappingcolor_to_solarized_color, style, swap));
+var $author$project$Solarized$translate_generic = F2(
+	function (style, generic) {
+		return $author$project$Solarized$translate(
+			A2($author$project$Solarized$style_generic, style, generic));
 	});
 var $mdgriffith$elm_ui$Internal$Model$BorderWidth = F5(
 	function (a, b, c, d, e) {
@@ -11780,15 +11771,15 @@ var $mdgriffith$elm_ui$Element$Border$width = function (v) {
 			v,
 			v));
 };
-var $author$project$Main$main_column_element = function (style) {
+var $author$project$Templates$main_column_element = function (style) {
 	return _List_fromArray(
 		[
 			$mdgriffith$elm_ui$Element$Border$width(1),
 			$mdgriffith$elm_ui$Element$Border$color(
-			A2($author$project$Main$translate_color, style, $author$project$Main$Comment)),
+			A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment)),
 			$mdgriffith$elm_ui$Element$Border$rounded(5),
 			$mdgriffith$elm_ui$Element$Background$color(
-			A2($author$project$Main$translate_color, style, $author$project$Main$Header)),
+			A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Header)),
 			$mdgriffith$elm_ui$Element$centerX,
 			$mdgriffith$elm_ui$Element$padding(10),
 			$mdgriffith$elm_ui$Element$spacing(10),
@@ -11800,7 +11791,7 @@ var $author$project$Main$color_converter = F4(
 	function (vu, style, language, visible) {
 		return visible ? A2(
 			$mdgriffith$elm_ui$Element$column,
-			$author$project$Main$main_column_element(style),
+			$author$project$Templates$main_column_element(style),
 			_List_fromArray(
 				[
 					A2($author$project$Main$color_converter_toggle_button, vu, language),
@@ -11814,8 +11805,43 @@ var $author$project$Main$color_converter = F4(
 						A3($elm$html$Html$node, 'color-converter', _List_Nil, _List_Nil)))
 				])) : A2(
 			$mdgriffith$elm_ui$Element$el,
-			$author$project$Main$main_column_element(style),
+			$author$project$Templates$main_column_element(style),
 			A2($author$project$Main$color_converter_toggle_button, vu, language));
+	});
+var $author$project$Solarized$Foreground = {$: 'Foreground'};
+var $mdgriffith$elm_ui$Internal$Flag$fontColor = $mdgriffith$elm_ui$Internal$Flag$flag(14);
+var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
+			'color',
+			fontColor));
+};
+var $mdgriffith$elm_ui$Internal$Model$Max = F2(
+	function (a, b) {
+		return {$: 'Max', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Element$maximum = F2(
+	function (i, l) {
+		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
+	});
+var $author$project$Main$dynamic_column_style = F4(
+	function (w, h, vu, style) {
+		return _List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width(
+				(_Utils_cmp(w, h) > 0) ? A2(
+					$mdgriffith$elm_ui$Element$maximum,
+					A2($elm$core$Basics$max, 768, 150 * vu),
+					$mdgriffith$elm_ui$Element$fill) : $mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$centerX,
+				$mdgriffith$elm_ui$Element$Font$color(
+				A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Foreground)),
+				$mdgriffith$elm_ui$Element$spacing(5)
+			]);
 	});
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
@@ -11863,14 +11889,17 @@ var $author$project$Main$github_link = F3(
 	function (vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
-			$author$project$Main$main_column_element(style),
+			$author$project$Templates$main_column_element(style),
 			_List_fromArray(
 				[
 					A3(
-					$author$project$Main$icon_image,
+					$author$project$Templates$icon_image,
 					vu,
 					language,
-					{english_desc: 'Github Icon', spanish_desc: 'Icono de github', src: 'images/github.svg'}),
+					{
+						desc: {english: 'Github Icon', spanish: 'Icono de github'},
+						src: 'images/github.svg'
+					}),
 					A2(
 					$mdgriffith$elm_ui$Element$newTabLink,
 					_List_fromArray(
@@ -11888,29 +11917,20 @@ var $author$project$Main$github_link = F3(
 var $author$project$Main$ToggleLanguage = {$: 'ToggleLanguage'};
 var $author$project$Main$language_toggle_button = F2(
 	function (vu, language) {
-		if (language.$ === 'Eng') {
-			return A2(
-				$mdgriffith$elm_ui$Element$Input$button,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$size(6 * vu)
-					]),
-				{
-					label: $mdgriffith$elm_ui$Element$text('🇦🇷'),
-					onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
-				});
-		} else {
-			return A2(
-				$mdgriffith$elm_ui$Element$Input$button,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$size(6 * vu)
-					]),
-				{
-					label: $mdgriffith$elm_ui$Element$text('🇺🇸'),
-					onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
-				});
-		}
+		return A2(
+			$mdgriffith$elm_ui$Element$Input$button,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Font$size(6 * vu)
+				]),
+			{
+				label: $mdgriffith$elm_ui$Element$text(
+					A2(
+						$author$project$Bilingual$choose_language,
+						{english: '🇦🇷', spanish: '🇺🇸'},
+						language)),
+				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
+			});
 	});
 var $mdgriffith$elm_ui$Internal$Model$OnlyDynamic = F2(
 	function (a, b) {
@@ -12164,26 +12184,32 @@ var $mdgriffith$elm_ui$Element$layoutWith = F3(
 	});
 var $mdgriffith$elm_ui$Element$layout = $mdgriffith$elm_ui$Element$layoutWith(
 	{options: _List_Nil});
-var $mdgriffith$elm_ui$Internal$Model$Max = F2(
-	function (a, b) {
-		return {$: 'Max', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Element$maximum = F2(
-	function (i, l) {
-		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
-	});
+var $author$project$Solarized$Background = {$: 'Background'};
+var $author$project$Main$page_attributes = function (style) {
+	return _List_fromArray(
+		[
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+			$mdgriffith$elm_ui$Element$padding(10),
+			$mdgriffith$elm_ui$Element$spacing(10),
+			$mdgriffith$elm_ui$Element$Background$color(
+			A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Background))
+		]);
+};
 var $author$project$Main$resume = F3(
 	function (vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
-			$author$project$Main$main_column_element(style),
+			$author$project$Templates$main_column_element(style),
 			_List_fromArray(
 				[
 					A3(
-					$author$project$Main$icon_image,
+					$author$project$Templates$icon_image,
 					vu,
 					language,
-					{english_desc: 'Resume Icon', spanish_desc: 'Icono de un Currículum', src: 'images/file.svg'}),
+					{
+						desc: {english: 'Resume Icon', spanish: 'Icono de un Currículum'},
+						src: 'images/file.svg'
+					}),
 					A2(
 					$mdgriffith$elm_ui$Element$newTabLink,
 					_List_fromArray(
@@ -12195,9 +12221,113 @@ var $author$project$Main$resume = F3(
 						]),
 					{
 						label: $mdgriffith$elm_ui$Element$text(
-							A3($author$project$Main$bilingualstring, 'Resume', 'Currículum', language)),
+							A2(
+								$author$project$Bilingual$choose_language,
+								{english: 'Resume', spanish: 'Currículum'},
+								language)),
 						url: 'documents/resume.pdf'
 					})
+				]));
+	});
+var $mdgriffith$elm_ui$Internal$Model$AlignY = function (a) {
+	return {$: 'AlignY', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Model$CenterY = {$: 'CenterY'};
+var $mdgriffith$elm_ui$Element$centerY = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$CenterY);
+var $mdgriffith$elm_ui$Internal$Flag$borderStyle = $mdgriffith$elm_ui$Internal$Flag$flag(11);
+var $mdgriffith$elm_ui$Element$Border$dashed = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$borderStyle, $mdgriffith$elm_ui$Internal$Style$classes.borderDashed);
+var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
+var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
+var $mdgriffith$elm_ui$Element$Border$widthXY = F2(
+	function (x, y) {
+		return A2(
+			$mdgriffith$elm_ui$Internal$Model$StyleClass,
+			$mdgriffith$elm_ui$Internal$Flag$borderWidth,
+			A5(
+				$mdgriffith$elm_ui$Internal$Model$BorderWidth,
+				'b-' + ($elm$core$String$fromInt(x) + ('-' + $elm$core$String$fromInt(y))),
+				y,
+				x,
+				y,
+				x));
+	});
+var $mdgriffith$elm_ui$Element$Border$widthEach = function (_v0) {
+	var bottom = _v0.bottom;
+	var top = _v0.top;
+	var left = _v0.left;
+	var right = _v0.right;
+	return (_Utils_eq(top, bottom) && _Utils_eq(left, right)) ? (_Utils_eq(top, right) ? $mdgriffith$elm_ui$Element$Border$width(top) : A2($mdgriffith$elm_ui$Element$Border$widthXY, left, top)) : A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderWidth,
+		A5(
+			$mdgriffith$elm_ui$Internal$Model$BorderWidth,
+			'b-' + ($elm$core$String$fromInt(top) + ('-' + ($elm$core$String$fromInt(right) + ('-' + ($elm$core$String$fromInt(bottom) + ('-' + $elm$core$String$fromInt(left))))))),
+			top,
+			right,
+			bottom,
+			left));
+};
+var $author$project$Main$dashed_spacer = function (style) {
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$el,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$height(
+						$mdgriffith$elm_ui$Element$px(2)),
+						$mdgriffith$elm_ui$Element$Border$widthEach(
+						{bottom: 1, left: 0, right: 0, top: 0}),
+						$mdgriffith$elm_ui$Element$Border$color(
+						A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment)),
+						$mdgriffith$elm_ui$Element$Border$dashed
+					]),
+				$mdgriffith$elm_ui$Element$none),
+				A2(
+				$mdgriffith$elm_ui$Element$el,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$height(
+						$mdgriffith$elm_ui$Element$px(2))
+					]),
+				$mdgriffith$elm_ui$Element$none)
+			]));
+};
+var $author$project$Main$section = F3(
+	function (vu, style, language) {
+		return A2(
+			$mdgriffith$elm_ui$Element$row,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$centerY,
+					$mdgriffith$elm_ui$Element$spacing(5)
+				]),
+			_List_fromArray(
+				[
+					$author$project$Main$dashed_spacer(style),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Font$size(2 * vu),
+							$mdgriffith$elm_ui$Element$Font$color(
+							A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment))
+						]),
+					$mdgriffith$elm_ui$Element$text(
+						A2(
+							$author$project$Bilingual$choose_language,
+							{english: 'this websites resources', spanish: 'recursos de este sitio web'},
+							language))),
+					$author$project$Main$dashed_spacer(style)
 				]));
 	});
 var $author$project$Main$ToggleStyle = {$: 'ToggleStyle'};
@@ -12219,8 +12349,8 @@ var $mdgriffith$elm_ui$Element$rotate = function (angle) {
 			_Utils_Tuple3(0, 0, 1),
 			angle));
 };
-var $author$project$Main$style_toggle_button = F2(
-	function (vu, language) {
+var $author$project$Main$style_toggle_button = F3(
+	function (vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$Input$button,
 			_List_Nil,
@@ -12233,11 +12363,14 @@ var $author$project$Main$style_toggle_button = F2(
 							$mdgriffith$elm_ui$Element$px(5 * vu)),
 							$mdgriffith$elm_ui$Element$height(
 							$mdgriffith$elm_ui$Element$px(5 * vu)),
-							$mdgriffith$elm_ui$Element$rotate(3.141592)
+							_Utils_eq(style, $author$project$Solarized$Dark) ? $mdgriffith$elm_ui$Element$rotate(3.141592) : $mdgriffith$elm_ui$Element$rotate(0)
 						]),
 					{
-						description: A3($author$project$Main$bilingualstring, 'toggle style', 'alternar estilo', language),
-						src: 'images/solarized.png'
+						description: A2(
+							$author$project$Bilingual$choose_language,
+							{english: 'toggle style', spanish: 'alternar estilo'},
+							language),
+						src: 'images/yin-yang.svg'
 					}),
 				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleStyle)
 			});
@@ -12258,17 +12391,11 @@ var $mdgriffith$elm_ui$Element$createNearby = F2(
 var $mdgriffith$elm_ui$Element$below = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$Below, element);
 };
-var $mdgriffith$elm_ui$Internal$Model$AlignY = function (a) {
-	return {$: 'AlignY', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Model$CenterY = {$: 'CenterY'};
-var $mdgriffith$elm_ui$Element$centerY = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$CenterY);
 var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
 var $mdgriffith$elm_ui$Element$inFront = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
 };
-var $author$project$Main$Green = {$: 'Green'};
-var $author$project$Main$Magenta = {$: 'Magenta'};
+var $author$project$Solarized$Red = {$: 'Red'};
 var $author$project$Main$name = F3(
 	function (vu, style, language) {
 		return A2(
@@ -12281,9 +12408,9 @@ var $author$project$Main$name = F3(
 					$mdgriffith$elm_ui$Element$Font$size(8 * vu),
 					$mdgriffith$elm_ui$Element$Font$center,
 					$mdgriffith$elm_ui$Element$Font$color(
-					$author$project$Main$solarized_color_to_color($author$project$Main$Magenta)),
+					$author$project$Solarized$translate($author$project$Solarized$Red)),
 					$mdgriffith$elm_ui$Element$Background$color(
-					A2($author$project$Main$translate_color, style, $author$project$Main$Header)),
+					A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Header)),
 					$mdgriffith$elm_ui$Element$below(
 					A2(
 						$mdgriffith$elm_ui$Element$el,
@@ -12292,16 +12419,17 @@ var $author$project$Main$name = F3(
 								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 								$mdgriffith$elm_ui$Element$Font$size(3 * vu),
 								$mdgriffith$elm_ui$Element$Font$color(
-								$author$project$Main$solarized_color_to_color($author$project$Main$Green)),
+								A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment)),
 								$mdgriffith$elm_ui$Element$Font$center
 							]),
 						$mdgriffith$elm_ui$Element$text(
-							A3($author$project$Main$bilingualstring, 'Programmer / Mathematician / Designer / Musician', 'Programador / Matemático / Diseñador / Músico', language))))
+							A2(
+								$author$project$Bilingual$choose_language,
+								{english: 'Programmer / Mathematician / Designer / Musician', spanish: 'Programador / Matemático / Diseñador / Músico'},
+								language))))
 				]),
 			$mdgriffith$elm_ui$Element$text('Pablo Reboredo-Segovia'));
 	});
-var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
-var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
 var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
 var $mdgriffith$elm_ui$Element$clip = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clip);
 var $author$project$Main$profile_pic = F3(
@@ -12319,11 +12447,14 @@ var $author$project$Main$profile_pic = F3(
 					$mdgriffith$elm_ui$Element$Border$rounded(150),
 					$mdgriffith$elm_ui$Element$Border$width(1),
 					$mdgriffith$elm_ui$Element$Border$color(
-					A2($author$project$Main$translate_color, style, $author$project$Main$Comment)),
+					A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment)),
 					$mdgriffith$elm_ui$Element$clip
 				]),
 			{
-				description: A3($author$project$Main$bilingualstring, 'Picture of a long haired man in a suit smiling near a picture of musician playing saxophone', 'Imagen de un hombre de pelo largo con traje sonriendo cerca de una imagen de un músico tocando el saxofón', language),
+				description: A2(
+					$author$project$Bilingual$choose_language,
+					{english: 'Picture of a long haired man in a suit smiling near a picture of musician playing saxophone', spanish: 'Imagen de un hombre de pelo largo con traje sonriendo cerca de una imagen de un músico tocando el saxofón'},
+					language),
 				src: 'images/my_face.jpg'
 			});
 	});
@@ -12340,7 +12471,10 @@ var $author$project$Main$title_image = F2(
 					$mdgriffith$elm_ui$Element$px(30 * vu))
 				]),
 			{
-				description: A3($author$project$Main$bilingualstring, 'Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme.', 'Fotografía de la NASA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados.', language),
+				description: A2(
+					$author$project$Bilingual$choose_language,
+					{english: 'Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme.', spanish: 'Fotografía de la NA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados.'},
+					language),
 				src: 'images/solarized_butterfly.png'
 			});
 	});
@@ -12354,9 +12488,9 @@ var $author$project$Main$title_card = F3(
 					$mdgriffith$elm_ui$Element$Border$width(1),
 					$mdgriffith$elm_ui$Element$Border$rounded(5),
 					$mdgriffith$elm_ui$Element$Border$color(
-					A2($author$project$Main$translate_color, style, $author$project$Main$Comment)),
+					A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment)),
 					$mdgriffith$elm_ui$Element$Background$color(
-					A2($author$project$Main$translate_color, style, $author$project$Main$Header)),
+					A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Header)),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$spacing(vu),
@@ -12388,6 +12522,42 @@ var $author$project$Main$title_card = F3(
 						]),
 					$mdgriffith$elm_ui$Element$none)
 				]));
+	});
+var $author$project$Templates$website_link = F4(
+	function (_v0, vu, style, language) {
+		var url = _v0.url;
+		var url_label = _v0.url_label;
+		var image_src = _v0.image_src;
+		var image_desc = _v0.image_desc;
+		return A2(
+			$mdgriffith$elm_ui$Element$newTabLink,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			{
+				label: A2(
+					$mdgriffith$elm_ui$Element$row,
+					$author$project$Templates$main_column_element(style),
+					_List_fromArray(
+						[
+							A3(
+							$author$project$Templates$icon_image,
+							vu,
+							language,
+							{desc: image_desc, src: image_src}),
+							A2(
+							$mdgriffith$elm_ui$Element$el,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+									$mdgriffith$elm_ui$Element$Font$center
+								]),
+							$mdgriffith$elm_ui$Element$text(
+								A2($author$project$Bilingual$choose_language, url_label, language)))
+						])),
+				url: url
+			});
 	});
 var $mdgriffith$elm_ui$Internal$Model$Padding = F5(
 	function (a, b, c, d, e) {
@@ -12590,95 +12760,63 @@ var $author$project$Main$useful_websites = F3(
 				]),
 			_List_fromArray(
 				[
-					A2(
-					$mdgriffith$elm_ui$Element$row,
-					$author$project$Main$main_column_element(style),
-					_List_fromArray(
-						[
-							A3(
-							$author$project$Main$icon_image,
-							vu,
-							language,
-							{english_desc: 'Elm Icon', spanish_desc: 'Icono de Elm-UI', src: 'images/elm.svg'}),
-							A2(
-							$mdgriffith$elm_ui$Element$newTabLink,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-									$mdgriffith$elm_ui$Element$centerX,
-									$mdgriffith$elm_ui$Element$Font$size(6 * vu),
-									$mdgriffith$elm_ui$Element$Font$center
-								]),
-							{
-								label: $mdgriffith$elm_ui$Element$text('Elm'),
-								url: 'https://elm-lang.org/'
-							})
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$row,
-					$author$project$Main$main_column_element(style),
-					_List_fromArray(
-						[
-							A3(
-							$author$project$Main$icon_image,
-							vu,
-							language,
-							{english_desc: 'Elm-UI Icon', spanish_desc: 'Icono de Elm-UI', src: 'images/elm.svg'}),
-							A2(
-							$mdgriffith$elm_ui$Element$newTabLink,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-									$mdgriffith$elm_ui$Element$centerX,
-									$mdgriffith$elm_ui$Element$Font$size(6 * vu),
-									$mdgriffith$elm_ui$Element$Font$center
-								]),
-							{
-								label: $mdgriffith$elm_ui$Element$text('Elm-UI'),
-								url: 'https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   '
-							})
-						]))
+					A4(
+					$author$project$Templates$website_link,
+					{
+						image_desc: {english: 'Elm Icon', spanish: 'Icono de Elm-UI'},
+						image_src: 'images/elm.svg',
+						url: 'https://elm-lang.org/',
+						url_label: {english: 'Elm', spanish: 'Elm'}
+					},
+					vu,
+					style,
+					language),
+					A4(
+					$author$project$Templates$website_link,
+					{
+						image_desc: {english: 'Elm-UI Icon', spanish: 'Icono de Elm-UI'},
+						image_src: 'images/elm.svg',
+						url: 'https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   ',
+						url_label: {english: 'Elm-UI', spanish: 'Elm-IU'}
+					},
+					vu,
+					style,
+					language),
+					A4(
+					$author$project$Templates$website_link,
+					{
+						image_desc: {english: 'Wikipedia Icon', spanish: 'Icono de Wikipedia'},
+						image_src: 'images/wikipedia.svg',
+						url: 'https://en.wikipedia.org/wiki/Solarized',
+						url_label: {english: 'Solarized Colorscheme', spanish: 'Esquema de Colored Solarizados'}
+					},
+					vu,
+					style,
+					language)
 				]));
 	});
 var $author$project$Main$view = function (model) {
 	return A2(
 		$mdgriffith$elm_ui$Element$layout,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$padding(10),
-				$mdgriffith$elm_ui$Element$spacing(10),
-				$mdgriffith$elm_ui$Element$Background$color(
-				A2($author$project$Main$translate_color, model.style, $author$project$Main$Background))
-			]),
+		$author$project$Main$page_attributes(model.style),
 		A2(
 			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$width(
-					(_Utils_cmp(model.width, model.height) > 0) ? A2(
-						$mdgriffith$elm_ui$Element$maximum,
-						A2($elm$core$Basics$max, 768, 150 * model.vu),
-						$mdgriffith$elm_ui$Element$fill) : $mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$Font$color(
-					A2($author$project$Main$translate_color, model.style, $author$project$Main$Foreground)),
-					$mdgriffith$elm_ui$Element$spacing(5)
-				]),
+			A4($author$project$Main$dynamic_column_style, model.width, model.height, model.vu, model.style),
 			_List_fromArray(
 				[
 					A2(
 					$mdgriffith$elm_ui$Element$row,
-					$author$project$Main$main_column_element(model.style),
+					$author$project$Templates$main_column_element(model.style),
 					_List_fromArray(
 						[
-							A2($author$project$Main$style_toggle_button, model.vu, model.language),
+							A3($author$project$Main$style_toggle_button, model.vu, model.style, model.language),
 							A2($author$project$Main$language_toggle_button, model.vu, model.language)
 						])),
 					A3($author$project$Main$title_card, model.vu, model.style, model.language),
 					A3($author$project$Main$resume, model.vu, model.style, model.language),
 					A3($author$project$Main$github_link, model.vu, model.style, model.language),
 					A4($author$project$Main$color_converter, model.vu, model.style, model.language, model.color_converter_visible),
+					A3($author$project$Main$section, model.vu, model.style, model.language),
 					A3($author$project$Main$useful_websites, model.vu, model.style, model.language)
 				])));
 };

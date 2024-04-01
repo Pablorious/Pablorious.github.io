@@ -9,15 +9,13 @@ import Element.Input
 import Browser.Events as E
 import Browser.Dom as D
 import Html exposing(node)
-
-type SolarizedStyle = Dark | Light
-type Language = Eng | Span
-
-type alias Px = Int
-type alias Vu = Int
+import Bilingual exposing (..)
+import VisualUnits exposing (..)
+import Solarized exposing (..)
+import Templates exposing (..)
 
 type alias Model =
-    { style: SolarizedStyle
+    { style: Style
     , color_converter_visible: Bool
     , language: Language
     , width : Px
@@ -30,157 +28,182 @@ type alias Flags =
     , height: Px
     }
 
-calculatevu : Px -> Px -> Vu
-calculatevu w h =
-    (min w h) // 100
-
 initialModel : Flags -> (Model, Cmd a)
 initialModel flags =
     ( { style = Dark
     , color_converter_visible = False
-    , language = Eng
+    , language = English
     , width = flags.width
     , height = flags.height
-    , vu = calculatevu flags.width flags.height
+    , vu = calculatevu {width = flags.width, height = flags.height}
     }, Cmd.none)
 
 type Msg = NoAction 
          | ToggleStyle
          | ToggleLanguage
          | ToggleColorConverterVisible
-         | NewViewportSize Px Px
+         | NewViewportze { width: Px, height: Px }
          | GotInitialViewport D.Viewport
 
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    E.onResize (\w h -> NewViewportSize w h)
-
-bilingualstring : String -> String -> Language -> String
-bilingualstring english spanish language = 
-    case language of 
-        Eng -> english
-        Span -> spanish
-
-main_column_element: SolarizedStyle -> List (Attribute Msg)
-main_column_element style = 
-    [ Border.width 1
-    , Border.color <| translate_color style Comment
-    , Border.rounded 5
-    , Background.color <| translate_color style Header 
-    , centerX
-    , padding 10
-    , spacing 10
-    , width fill]
-
+    E.onResize (\w h  -> NewViewportze {width = w, height = h})
 
 view : Model -> Html.Html Msg
 view model =
     layout 
-        [ width fill
-        , padding 10
-        , spacing 10
-        , Background.color 
-            <| translate_color model.style Background
-        ]
+        (page_attributes model.style)
         <| column
-            [ width (if model.width > model.height then 
-                    fill |> maximum  (max 768 <| 150 * model.vu)
-                else
-                    fill)
-            , centerX
-            , Font.color <| translate_color model.style Foreground
-            , spacing 5
-            ]
+            (dynamic_column_style model.width model.height model.vu model.style)
             [ row (main_column_element model.style) 
-                [ style_toggle_button model.vu model.language
+                [ style_toggle_button model.vu model.style model.language
                 , language_toggle_button model.vu model.language
                 ]
             , title_card model.vu model.style model.language
             , resume model.vu model.style model.language
             , github_link model.vu model.style model.language
             , color_converter model.vu model.style model.language model.color_converter_visible
+            , section model.vu model.style model.language
             , useful_websites model.vu model.style model.language
             ]
-icon_image: Vu -> Language -> {src : String , english_desc : String, spanish_desc : String} -> Element Msg
-icon_image vu language {src, english_desc, spanish_desc} =
-    image
-        [ width <| px (6 * vu)
-        , height <| px (6 * vu)
-        ]
-        { src = src
-        , description = bilingualstring english_desc spanish_desc language
-        }
 
-useful_websites: Vu -> SolarizedStyle -> Language -> Element Msg
+page_attributes style =
+    [ width fill
+        , padding 10
+        , spacing 10
+        , Background.color 
+            <| translate_generic style Background
+        ]
+
+dynamic_column_style w h vu style = 
+    [ width 
+        ( if w > h then 
+            fill |> maximum  (max 768 <| 150 * vu)
+        else
+            fill
+        )
+    , centerX
+    , Font.color <| translate_generic style Foreground
+    , spacing 5
+    ]
+
+dashed_spacer : Style -> Element Msg
+dashed_spacer style = 
+    column [width fill ] 
+        [ el 
+            [ width fill
+            , height (px 2)
+            , Border.widthEach 
+                { bottom = 1
+                , left = 0
+                , right = 0
+                , top = 0
+                }
+            , Border.color 
+                <| translate_generic style Comment
+            , Border.dashed
+            ]
+            none
+        , el 
+            [ width fill
+            , height (px 2)
+            ] 
+            none
+        ]
+
+section vu style language =
+   row [ width fill
+        , centerY
+        , spacing 5]
+        [ dashed_spacer style
+        , el 
+            [ Font.size (2 * vu)
+            , Font.color <| translate_generic style Comment
+            ] 
+            (text <|
+                choose_language
+                    { english = "this websites resources"
+                    , spanish = "recursos de este sitio web"
+                    } language
+            )
+        , dashed_spacer style
+        ]
+
+useful_websites: Vu -> Style -> Language -> Element Msg
 useful_websites vu style language = 
     wrappedRow
     [spacing 5, width fill] 
-    [ row (main_column_element style ) 
-        [ icon_image vu language
-            { src = "images/elm.svg"
-            , english_desc = "Elm Icon"
-            , spanish_desc = "Icono de Elm-UI"
+    [website_link  
+        { url = "https://elm-lang.org/"
+        , image_src = "images/elm.svg"
+        , image_desc = 
+            { english = "Elm Icon"
+            , spanish = "Icono de Elm-UI"
             }
-        , Element.newTabLink
-            [ width fill
-            , centerX
-            , Font.size (6 * vu)
-            , Font.center
-            ]
-            { url = "https://elm-lang.org/"
-            , label = text "Elm"
+        , url_label = 
+            { english = "Elm"
+            , spanish = "Elm"
             }
-        ]
-    , row (main_column_element style ) 
-        [ icon_image vu language
-            { src = "images/elm.svg"
-            , english_desc = "Elm-UI Icon"
-            , spanish_desc = "Icono de Elm-UI"
+        } vu style language
+    , website_link
+        { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
+        , image_src = "images/elm.svg"
+        , image_desc = 
+            { english = "Elm-UI Icon"
+            , spanish = "Icono de Elm-UI"
             }
-        , Element.newTabLink 
-            [ width fill
-            , centerX
-            , Font.size (6 * vu)
-            , Font.center
-            ] 
-            { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
-            , label = text "Elm-UI" 
+        , url_label = 
+            { english = "Elm-UI"
+            , spanish = "Elm-IU"
             }
-        ]
+        } vu style language
+    , website_link
+        { url = "https://en.wikipedia.org/wiki/Solarized"
+        , image_src = "images/wikipedia.svg"
+        , image_desc = 
+            { english = "Wikipedia Icon"
+            , spanish = "Icono de Wikipedia"
+            }
+        , url_label = 
+            { english = "Solarized Colorscheme"
+            , spanish = "Esquema de Colored Solarizados"
+            }
+        } vu style language
     ]
 
 
-style_toggle_button: Vu -> Language -> Element Msg
-style_toggle_button vu language = 
+style_toggle_button: Vu -> Style -> Language -> Element Msg
+style_toggle_button vu style language = 
     Element.Input.button 
         [] 
         { onPress = Just ToggleStyle
         , label = image 
             [ width <| px (5 * vu) 
             , height <| px (5 * vu)
-            , rotate 3.141592
+            , ( if (style == Dark)
+                then rotate 3.141592
+                else rotate 0
+                )
             ] 
-            { src = "images/solarized.png" 
+            { src = "images/yin-yang.svg" 
             , description = 
-                bilingualstring 
-                    "toggle style" 
-                    "alternar estilo" 
-                    language
+                choose_language 
+                { english = "toggle style" 
+                , spanish = "alternar estilo" 
+                } language
             }
         }
 
 language_toggle_button: Vu -> Language -> Element Msg
 language_toggle_button vu language = 
-    case language of 
-        Eng -> Element.Input.button [Font.size <| (6 * vu)] 
+        Element.Input.button [Font.size <| (6 * vu)] 
             { onPress = Just ToggleLanguage
-            , label = text "🇦🇷"
-            }
-
-        Span -> Element.Input.button [Font.size <| (6 * vu)] 
-            { onPress = Just ToggleLanguage
-            , label = text "🇺🇸"
+            , label = text <| 
+                choose_language
+                { english = "🇦🇷"
+                , spanish = "🇺🇸"
+                } language
             }
 
 title_image: Vu -> Language -> Element Msg
@@ -191,20 +214,20 @@ title_image vu language =
         , width fill
         , height <| px (30 * vu)] 
         { src = "images/solarized_butterfly.png"
-        , description = bilingualstring 
-            "Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme."
-            "Fotografía de la NASA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados."
-            language
+        , description = choose_language 
+            { english = "Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme."
+            , spanish = "Fotografía de la NA de la Nebulosa de la Mariposa, cambiada de colores para representarla dentro del esquema de colores solarizados."
+            } language
         }
 
-title_card : Vu -> SolarizedStyle -> Language -> Element Msg
+title_card : Vu -> Style -> Language -> Element Msg
 title_card vu style language = 
     column 
         [ centerX
         , Border.width 1
         , Border.rounded 5
-        , Border.color <| translate_color style Comment
-        , Background.color <| translate_color style Header
+        , Border.color <| translate_generic style Comment
+        , Background.color <| translate_generic style Header
         , width fill
         , height fill
         , spacing vu
@@ -217,7 +240,7 @@ title_card vu style language =
         ]
         [ title_image vu language, el [ height <| px (30 * vu)] Element.none ]
 
-profile_pic: Vu -> SolarizedStyle -> Language -> Element Msg
+profile_pic: Vu -> Style -> Language -> Element Msg
 profile_pic vu style language = 
     image 
         [ centerX
@@ -226,32 +249,34 @@ profile_pic vu style language =
         , height <| px (27 * vu)
         , Border.rounded 150
         , Border.width 1
-        , Border.color <| translate_color style Comment
-        , clip] 
+        , Border.color <| translate_generic style Comment
+        , clip
+        ] 
         { src = "images/my_face.jpg"
         , description = 
-            bilingualstring 
-            "Picture of a long haired man in a suit smiling near a picture of musician playing saxophone"
-            "Imagen de un hombre de pelo largo con traje sonriendo cerca de una imagen de un músico tocando el saxofón"
+            choose_language 
+            { english = "Picture of a long haired man in a suit smiling near a picture of musician playing saxophone"
+            , spanish = "Imagen de un hombre de pelo largo con traje sonriendo cerca de una imagen de un músico tocando el saxofón"
+            }
             language
         }
 
-name: Vu -> SolarizedStyle -> Language -> Element Msg
+name: Vu -> Style -> Language -> Element Msg
 name vu style language = el 
     [ centerX
     , centerY
     , padding 5 
     , Font.size (8 * vu)
     , Font.center
-    , Font.color <| solarized_color_to_color Magenta
-    , Background.color <| translate_color style Header
+    , Font.color <| translate Red
+    , Background.color <| translate_generic style Header
     , below <| (el [width fill, Font.size ( 3 * vu )
-        , Font.color <| solarized_color_to_color Green
+        , Font.color <| translate_generic style Comment
         , Font.center ] (text 
-            <| bilingualstring 
-                "Programmer / Mathematician / Designer / Musician"
-                "Programador / Matemático / Diseñador / Músico" 
-                language
+            <| choose_language 
+                { english = "Programmer / Mathematician / Designer / Musician"
+                , spanish = "Programador / Matemático / Diseñador / Músico" 
+                } language
             ))
     ]
     (text "Pablo Reboredo-Segovia")
@@ -263,8 +288,10 @@ color_converter_toggle_button vu language =
     [
         icon_image vu language
         { src = "images/tools.svg"
-        , english_desc = "Hammer icon" 
-        , spanish_desc = "Icono de martillo" 
+        , desc = 
+            { english = "Hammer icon" 
+            , spanish = "Icono de martillo" 
+            }
         }
         ,
         Element.Input.button 
@@ -278,10 +305,10 @@ color_converter_toggle_button vu language =
                 , Font.size (6 * vu)
                 ] 
                 (text 
-                    <| bilingualstring 
-                        "Color Converter" 
-                        "Convertidor de Colores" 
-                        language
+                    <| choose_language 
+                        { english = "Color Converter" 
+                        , spanish = "Convertidor de Colores"
+                        } language
                 )
             }
     ]
@@ -296,13 +323,16 @@ color_converter vu style language visible =
     else
         el (main_column_element style) <| color_converter_toggle_button vu language
 
+resume: Vu -> Style -> Language -> Element Msg
 resume vu style language = 
     row 
     ( main_column_element style ) 
     [ icon_image vu language 
         { src = "images/file.svg"
-        , english_desc = "Resume Icon"
-        , spanish_desc = "Icono de un Currículum"
+        , desc = 
+            { english = "Resume Icon"
+            , spanish = "Icono de un Currículum"
+            }
         }
     , Element.newTabLink 
         [ width fill
@@ -312,15 +342,21 @@ resume vu style language =
         ] 
         { url = "documents/resume.pdf"
         , label = text 
-            <| bilingualstring "Resume" "Currículum" language
+            <| choose_language 
+                { english = "Resume" 
+                , spanish = "Currículum" 
+                } language
         }
     ]
 
+github_link : Vu -> Style -> Language -> Element Msg
 github_link vu style language = row (main_column_element style)
     [ icon_image vu language
         { src = "images/github.svg" 
-        , english_desc = "Github Icon" 
-        , spanish_desc = "Icono de github" 
+        , desc = 
+            { english = "Github Icon" 
+            , spanish = "Icono de github" 
+            }
         }
     , Element.newTabLink 
         [ Font.size (6 * vu)
@@ -329,33 +365,8 @@ github_link vu style language = row (main_column_element style)
         ] 
         { url = "https://github.com/Pablorious"
         , label = text "Github"
-        }
+        } 
     ]
-
-translate_color: SolarizedStyle -> SwappingColor -> Color
-translate_color style swap =
-    solarized_color_to_color
-    <| swappingcolor_to_solarized_color style swap
-
-solarized_color_to_color: SolarizedColor -> Color
-solarized_color_to_color color =
-    case color of
-        Base03  -> Element.rgb255   0  43  54
-        Base02  -> Element.rgb255   7  54  66 
-        Base01  -> Element.rgb255  88 110 117 
-        Base00  -> Element.rgb255 101 123 131 
-        Base0   -> Element.rgb255 131 148 150 
-        Base1   -> Element.rgb255 147 161 161 
-        Base2   -> Element.rgb255 238 232 213 
-        Base3   -> Element.rgb255 253 246 227 
-        Yellow  -> Element.rgb255 181 137   0 
-        Orange  -> Element.rgb255 203  75  22 
-        Red     -> Element.rgb255 220  50  47 
-        Magenta -> Element.rgb255 211  54 130 
-        Violet  -> Element.rgb255 108 113 196 
-        Blue    -> Element.rgb255  38 139 210 
-        Cyan    -> Element.rgb255  42 161 152 
-        Green   -> Element.rgb255 133 153   0 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -368,48 +379,21 @@ update msg model =
                 Light -> ({model | style = Dark}, Cmd.none)
         ToggleLanguage ->
             case model.language of
-                Eng -> ({model | language = Span}, Cmd.none)
-                Span -> ({model | language = Eng}, Cmd.none)
+                English -> ({model | language = Spanish}, Cmd.none)
+                Spanish -> ({model | language = English}, Cmd.none)
         ToggleColorConverterVisible ->
             if model.color_converter_visible then
                 ({model | color_converter_visible = False}, Cmd.none)
             else
                 ({model | color_converter_visible = True}, Cmd.none)
-        NewViewportSize w h ->
-            ({model | width = w, height = h, vu = calculatevu w h}, Cmd.none)
+        NewViewportze dims ->
+            ({model | width = dims.width, height = dims.height, vu = calculatevu dims}, Cmd.none)
         GotInitialViewport vp ->
             let 
                 w =  round vp.scene.width
                 h = round vp.scene.height
             in
             ({model | width = w, height = h}, Cmd.none)
-
-type SolarizedColor =
-    Base03 | Base02 | Base01 | Base00 | Base0 |
-    Base1 | Base2 | Base3 | Yellow | Orange |
-    Red | Magenta | Violet | Blue | Cyan | Green
-
-type SwappingColor =
-    Foreground | Background | Comment | Header | Emphasis 
-
-swappingcolor_to_solarized_color: SolarizedStyle -> SwappingColor -> SolarizedColor
-swappingcolor_to_solarized_color style swap =
-    case style of
-        Dark -> 
-            case swap of
-                Foreground -> Base0
-                Background -> Base03
-                Comment -> Base01
-                Header -> Base02
-                Emphasis -> Base1
-        Light ->
-            case swap of
-                Foreground -> Base00
-                Background -> Base3
-                Header -> Base2
-                Emphasis -> Base01
-                Comment -> Base1
-
 
 main : Program Flags Model Msg
 main =
