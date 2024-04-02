@@ -11,13 +11,11 @@
             constructor() {
                 super();
                 this.shadow = this.attachShadow({mode: 'open'})
-                this.shadowRoot.innerHTML = `
-                    <style> 
-                        #buttonContainer {
+                this.shadowRoot.innerHTML = 
+		`<style> #buttonContainer {
                             display: flex;
                             flex-wrap: wrap;
                         }
-
                         #fileInput,#colorsInput{
 			    font-size: 20;
                             background-color: rgb(133,153,  0);
@@ -27,15 +25,10 @@
 			    border-radius: 5px;
                             cursor: pointer;
                         }
-
                         #canvas {
                             flex-grow: 1;
 			    width: 50%;
-                        }
-
-                    </style>
-         
-                    <div id="buttonContainer">
+                        }</style><div id="buttonContainer">
                       <button id="fileInput">Choose Image</button>
                       <select id="colorsInput">
                           <option value="solarized">Solarized</option>
@@ -45,8 +38,7 @@
                       </select>
                     </div>
                     <input type="file" id="inputFile" accept="*" style="display:none"/>
-                    <canvas id="canvas"></canvas>
-                    `;        
+                    <canvas id="canvas"></canvas>`;        
 
 		this._colors = 
 		    {

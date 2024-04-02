@@ -30,13 +30,16 @@ type alias Flags =
 
 initialModel : Flags -> (Model, Cmd a)
 initialModel flags =
-    ( { style = Dark
-    , color_converter_visible = False
-    , language = English
-    , width = flags.width
-    , height = flags.height
-    , vu = calculatevu {width = flags.width, height = flags.height}
-    }, Cmd.none)
+    ( 
+        { style = Dark
+        , color_converter_visible = False
+        , language = English
+        , width = flags.width
+        , height = flags.height
+        , vu = calculatevu {width = flags.width, height = flags.height}
+        }
+        , Cmd.none
+    )
 
 type Msg = NoAction 
          | ToggleStyle
@@ -45,166 +48,98 @@ type Msg = NoAction
          | NewViewportze { width: Px, height: Px }
          | GotInitialViewport D.Viewport
 
-
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     E.onResize (\w h  -> NewViewportze {width = w, height = h})
 
 view : Model -> Html.Html Msg
 view model =
-    layout 
-        (page_attributes model.style)
-        <| column
-            (dynamic_column_style model.width model.height model.vu model.style)
-            [ row (main_column_element model.style) 
-                [ style_toggle_button model.vu model.style model.language
-                , language_toggle_button model.vu model.language
-                ]
-            , title_card model.vu model.style model.language
-            , resume model.vu model.style model.language
-            , github_link model.vu model.style model.language
-            , color_converter model.vu model.style model.language model.color_converter_visible
-            , section model.vu model.style model.language
-            , useful_websites model.vu model.style model.language
-            ]
-
-page_attributes style =
-    [ width fill
-        , padding 10
-        , spacing 10
-        , Background.color 
-            <| translate_generic style Background
-        ]
-
-dynamic_column_style w h vu style = 
-    [ width 
-        ( if w > h then 
-            fill |> maximum  (max 768 <| 150 * vu)
-        else
-            fill
-        )
-    , centerX
-    , Font.color <| translate_generic style Foreground
-    , spacing 5
+    main_template model 
+    [ menu_bar  
+    , title_card 
+    , resume 
+    , github_link 
+    , color_converter model.color_converter_visible
+    , section 
+    , useful_websites 
     ]
 
-dashed_spacer : Style -> Element Msg
-dashed_spacer style = 
-    column [width fill ] 
-        [ el 
-            [ width fill
-            , height (px 2)
-            , Border.widthEach 
-                { bottom = 1
-                , left = 0
-                , right = 0
-                , top = 0
-                }
-            , Border.color 
-                <| translate_generic style Comment
-            , Border.dashed
-            ]
-            none
-        , el 
-            [ width fill
-            , height (px 2)
-            ] 
-            none
+menu_bar : Vu -> Style -> Language -> Element Msg
+menu_bar vu style language = 
+    row (main_column_element style) 
+        [ style_toggle_button vu style language
+        , language_toggle_button vu language
         ]
-
-section vu style language =
-   row [ width fill
-        , centerY
-        , spacing 5]
-        [ dashed_spacer style
-        , el 
-            [ Font.size (3 * vu)
-            , Font.color <| translate_generic style Comment
-            ] 
-            (text <|
-                choose_language
-                    { english = "this websites resources"
-                    , spanish = "recursos de este sitio web"
-                    } language
-            )
-        , dashed_spacer style
-        ]
-
-useful_websites: Vu -> Style -> Language -> Element Msg
-useful_websites vu style language = 
-    wrappedRow
-    [spacing 5, width fill] 
-    [website_link  
-        { url = "https://elm-lang.org/"
-        , image_src = "images/elm.svg"
-        , image_desc = 
-            { english = "Elm Icon"
-            , spanish = "Icono de Elm-UI"
-            }
-        , url_label = 
-            { english = "Elm"
-            , spanish = "Elm"
-            }
-        } vu style language
-    , website_link
-        { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
-        , image_src = "images/elm.svg"
-        , image_desc = 
-            { english = "Elm-UI Icon"
-            , spanish = "Icono de Elm-UI"
-            }
-        , url_label = 
-            { english = "Elm-UI"
-            , spanish = "Elm-IU"
-            }
-        } vu style language
-    , website_link
-        { url = "https://en.wikipedia.org/wiki/Solarized"
-        , image_src = "images/wikipedia.svg"
-        , image_desc = 
-            { english = "Wikipedia Icon"
-            , spanish = "Icono de Wikipedia"
-            }
-        , url_label = 
-            { english = "Solarized Colorscheme"
-            , spanish = "Esquema de Colored Solarizados"
-            }
-        } vu style language
-    ]
-
 
 style_toggle_button: Vu -> Style -> Language -> Element Msg
 style_toggle_button vu style language = 
-    Element.Input.button 
-        [] 
-        { onPress = Just ToggleStyle
-        , label = image 
-            [ width <| px (5 * vu) 
-            , height <| px (5 * vu)
-            , ( if (style == Dark)
-                then rotate 3.141592
-                else rotate 0
-                )
-            ] 
-            { src = "images/yin-yang.svg" 
-            , description = 
-                choose_language 
-                { english = "toggle style" 
-                , spanish = "alternar estilo" 
-                } language
-            }
-        }
+    solarized_button vu style language
+    { onPress = Just ToggleStyle
+     , src = "images/yin-yang.svg" 
+    , desc = 
+        { english = "toggle style" 
+        , spanish = "alternar estilo" 
+        } 
+    }
 
 language_toggle_button: Vu -> Language -> Element Msg
 language_toggle_button vu language = 
-        Element.Input.button [Font.size <| (6 * vu)] 
-            { onPress = Just ToggleLanguage
-            , label = text <| 
-                choose_language
-                { english = "🇦🇷"
-                , spanish = "🇺🇸"
-                } language
+    Element.Input.button [Font.size <| (6 * vu)] 
+    { onPress = Just ToggleLanguage
+    , label = text <| 
+        choose_language
+        { english = "🇦🇷"
+        , spanish = "🇺🇸"
+        } language
+    }
+
+section : Vu -> Style -> Language -> Element Msg
+section vu style language =
+    labeled_hfill vu style language
+    { english = "this websites resources"
+    , spanish = "recursos de este sitio web"
+    }
+
+useful_websites : Px -> Style -> Language -> Element Msg
+useful_websites vu style language = 
+    website_list vu style language
+        [
+            { url = "https://elm-lang.org/"
+            , image_src = "images/elm.svg"
+            , image_desc = 
+                { english = "Elm Icon"
+                , spanish = "Icono de Elm-UI"
+                }
+            , url_label = 
+                { english = "Elm"
+                , spanish = "Elm"
+                }
             }
+        , 
+            { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
+            , image_src = "images/elm.svg"
+            , image_desc = 
+                { english = "Elm-UI Icon"
+                , spanish = "Icono de Elm-UI"
+                }
+            , url_label = 
+                { english = "Elm-UI"
+                , spanish = "Elm-IU"
+                }
+            } 
+        ,     
+            { url = "https://en.wikipedia.org/wiki/Solarized"
+            , image_src = "images/wikipedia.svg"
+            , image_desc = 
+                { english = "Wikipedia Icon"
+                , spanish = "Icono de Wikipedia"
+                }
+            , url_label = 
+                { english = "Solarized Colorscheme"
+                , spanish = "Esquema de Colores Solarizados"
+                }
+            } 
+        ]
 
 title_image: Vu -> Language -> Element Msg
 title_image vu language = 
@@ -231,12 +166,14 @@ title_card vu style language =
         , width fill
         , height fill
         , spacing vu
-        , inFront <| column [ centerY
-                            , width fill
-                            , below <| name vu style language
-                            , padding vu
-                            ] 
-                            [profile_pic vu style language]
+        , inFront 
+            <| column
+                [ centerY
+                , width fill
+                , below <| name vu style language
+                , padding vu
+                ] 
+                [profile_pic vu style language]
         ]
         [ title_image vu language, el [ height <| px (30 * vu)] Element.none ]
 
@@ -281,7 +218,6 @@ name vu style language = el
     ]
     (text "Pablo Reboredo-Segovia")
 
-
 color_converter_toggle_button: Vu -> Language -> Element Msg
 color_converter_toggle_button vu language = 
     row [width fill]
@@ -313,7 +249,8 @@ color_converter_toggle_button vu language =
             }
     ]
 
-color_converter vu style language visible =
+color_converter : Bool -> Vu -> Style -> Language -> Element Msg
+color_converter visible vu style language =
     if visible then
         column (main_column_element style)
         [ color_converter_toggle_button vu language

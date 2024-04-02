@@ -11788,7 +11788,7 @@ var $author$project$Templates$main_column_element = function (style) {
 };
 var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
 var $author$project$Main$color_converter = F4(
-	function (vu, style, language, visible) {
+	function (visible, vu, style, language) {
 		return visible ? A2(
 			$mdgriffith$elm_ui$Element$column,
 			$author$project$Templates$main_column_element(style),
@@ -11807,41 +11807,6 @@ var $author$project$Main$color_converter = F4(
 			$mdgriffith$elm_ui$Element$el,
 			$author$project$Templates$main_column_element(style),
 			A2($author$project$Main$color_converter_toggle_button, vu, language));
-	});
-var $author$project$Solarized$Foreground = {$: 'Foreground'};
-var $mdgriffith$elm_ui$Internal$Flag$fontColor = $mdgriffith$elm_ui$Internal$Flag$flag(14);
-var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontColor,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Colored,
-			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
-			'color',
-			fontColor));
-};
-var $mdgriffith$elm_ui$Internal$Model$Max = F2(
-	function (a, b) {
-		return {$: 'Max', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Element$maximum = F2(
-	function (i, l) {
-		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
-	});
-var $author$project$Main$dynamic_column_style = F4(
-	function (w, h, vu, style) {
-		return _List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$width(
-				(_Utils_cmp(w, h) > 0) ? A2(
-					$mdgriffith$elm_ui$Element$maximum,
-					A2($elm$core$Basics$max, 768, 150 * vu),
-					$mdgriffith$elm_ui$Element$fill) : $mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$centerX,
-				$mdgriffith$elm_ui$Element$Font$color(
-				A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Foreground)),
-				$mdgriffith$elm_ui$Element$spacing(5)
-			]);
 	});
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
@@ -11914,24 +11879,42 @@ var $author$project$Main$github_link = F3(
 					})
 				]));
 	});
-var $author$project$Main$ToggleLanguage = {$: 'ToggleLanguage'};
-var $author$project$Main$language_toggle_button = F2(
-	function (vu, language) {
-		return A2(
-			$mdgriffith$elm_ui$Element$Input$button,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$Font$size(6 * vu)
-				]),
-			{
-				label: $mdgriffith$elm_ui$Element$text(
-					A2(
-						$author$project$Bilingual$choose_language,
-						{english: '🇦🇷', spanish: '🇺🇸'},
-						language)),
-				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
-			});
+var $author$project$Solarized$Foreground = {$: 'Foreground'};
+var $mdgriffith$elm_ui$Internal$Flag$fontColor = $mdgriffith$elm_ui$Internal$Flag$flag(14);
+var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
+			'color',
+			fontColor));
+};
+var $mdgriffith$elm_ui$Internal$Model$Max = F2(
+	function (a, b) {
+		return {$: 'Max', a: a, b: b};
 	});
+var $mdgriffith$elm_ui$Element$maximum = F2(
+	function (i, l) {
+		return A2($mdgriffith$elm_ui$Internal$Model$Max, i, l);
+	});
+var $author$project$Templates$dynamic_column_style = F4(
+	function (w, h, vu, style) {
+		return _List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width(
+				(_Utils_cmp(w, h) > 0) ? A2(
+					$mdgriffith$elm_ui$Element$maximum,
+					A2($elm$core$Basics$max, 768, 150 * vu),
+					$mdgriffith$elm_ui$Element$fill) : $mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$centerX,
+				$mdgriffith$elm_ui$Element$Font$color(
+				A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Foreground)),
+				$mdgriffith$elm_ui$Element$spacing(5)
+			]);
+	});
+var $author$project$Solarized$Background = {$: 'Background'};
 var $mdgriffith$elm_ui$Internal$Model$OnlyDynamic = F2(
 	function (a, b) {
 		return {$: 'OnlyDynamic', a: a, b: b};
@@ -12184,17 +12167,119 @@ var $mdgriffith$elm_ui$Element$layoutWith = F3(
 	});
 var $mdgriffith$elm_ui$Element$layout = $mdgriffith$elm_ui$Element$layoutWith(
 	{options: _List_Nil});
-var $author$project$Solarized$Background = {$: 'Background'};
-var $author$project$Main$page_attributes = function (style) {
-	return _List_fromArray(
-		[
-			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-			$mdgriffith$elm_ui$Element$padding(10),
-			$mdgriffith$elm_ui$Element$spacing(10),
-			$mdgriffith$elm_ui$Element$Background$color(
-			A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Background))
-		]);
+var $author$project$Templates$page_attributes = function (style) {
+	return $mdgriffith$elm_ui$Element$layout(
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$padding(10),
+				$mdgriffith$elm_ui$Element$spacing(10),
+				$mdgriffith$elm_ui$Element$Background$color(
+				A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Background))
+			]));
 };
+var $author$project$Templates$main_template = F2(
+	function (model, list) {
+		return A2(
+			$author$project$Templates$page_attributes,
+			model.style,
+			A2(
+				$mdgriffith$elm_ui$Element$column,
+				A4($author$project$Templates$dynamic_column_style, model.width, model.height, model.vu, model.style),
+				A2(
+					$elm$core$List$map,
+					function (x) {
+						return A3(x, model.vu, model.style, model.language);
+					},
+					list)));
+	});
+var $author$project$Main$ToggleLanguage = {$: 'ToggleLanguage'};
+var $author$project$Main$language_toggle_button = F2(
+	function (vu, language) {
+		return A2(
+			$mdgriffith$elm_ui$Element$Input$button,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Font$size(6 * vu)
+				]),
+			{
+				label: $mdgriffith$elm_ui$Element$text(
+					A2(
+						$author$project$Bilingual$choose_language,
+						{english: '🇦🇷', spanish: '🇺🇸'},
+						language)),
+				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleLanguage)
+			});
+	});
+var $author$project$Main$ToggleStyle = {$: 'ToggleStyle'};
+var $mdgriffith$elm_ui$Internal$Model$Rotate = F2(
+	function (a, b) {
+		return {$: 'Rotate', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Model$TransformComponent = F2(
+	function (a, b) {
+		return {$: 'TransformComponent', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$rotate = $mdgriffith$elm_ui$Internal$Flag$flag(24);
+var $mdgriffith$elm_ui$Element$rotate = function (angle) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$rotate,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$Rotate,
+			_Utils_Tuple3(0, 0, 1),
+			angle));
+};
+var $author$project$Templates$menu_bar_item_attributes = F2(
+	function (vu, style) {
+		return $mdgriffith$elm_ui$Element$image(
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width(
+					$mdgriffith$elm_ui$Element$px(5 * vu)),
+					$mdgriffith$elm_ui$Element$height(
+					$mdgriffith$elm_ui$Element$px(5 * vu)),
+					_Utils_eq(style, $author$project$Solarized$Dark) ? $mdgriffith$elm_ui$Element$rotate(3.141592) : $mdgriffith$elm_ui$Element$rotate(0)
+				]));
+	});
+var $author$project$Templates$solarized_button = F4(
+	function (vu, style, language, info) {
+		return A2(
+			$mdgriffith$elm_ui$Element$Input$button,
+			_List_Nil,
+			{
+				label: A2($author$project$Templates$menu_bar_item_attributes, vu, style)(
+					{
+						description: A2($author$project$Bilingual$choose_language, info.desc, language),
+						src: info.src
+					}),
+				onPress: info.onPress
+			});
+	});
+var $author$project$Main$style_toggle_button = F3(
+	function (vu, style, language) {
+		return A4(
+			$author$project$Templates$solarized_button,
+			vu,
+			style,
+			language,
+			{
+				desc: {english: 'toggle style', spanish: 'alternar estilo'},
+				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleStyle),
+				src: 'images/yin-yang.svg'
+			});
+	});
+var $author$project$Main$menu_bar = F3(
+	function (vu, style, language) {
+		return A2(
+			$mdgriffith$elm_ui$Element$row,
+			$author$project$Templates$main_column_element(style),
+			_List_fromArray(
+				[
+					A3($author$project$Main$style_toggle_button, vu, style, language),
+					A2($author$project$Main$language_toggle_button, vu, language)
+				]));
+	});
 var $author$project$Main$resume = F3(
 	function (vu, style, language) {
 		return A2(
@@ -12267,7 +12352,7 @@ var $mdgriffith$elm_ui$Element$Border$widthEach = function (_v0) {
 			bottom,
 			left));
 };
-var $author$project$Main$dashed_spacer = function (style) {
+var $author$project$Templates$dashed_spacer = function (style) {
 	return A2(
 		$mdgriffith$elm_ui$Element$column,
 		_List_fromArray(
@@ -12301,8 +12386,8 @@ var $author$project$Main$dashed_spacer = function (style) {
 				$mdgriffith$elm_ui$Element$none)
 			]));
 };
-var $author$project$Main$section = F3(
-	function (vu, style, language) {
+var $author$project$Templates$labeled_hfill = F4(
+	function (vu, style, language, info) {
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
 			_List_fromArray(
@@ -12313,7 +12398,7 @@ var $author$project$Main$section = F3(
 				]),
 			_List_fromArray(
 				[
-					$author$project$Main$dashed_spacer(style),
+					$author$project$Templates$dashed_spacer(style),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
@@ -12323,57 +12408,18 @@ var $author$project$Main$section = F3(
 							A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment))
 						]),
 					$mdgriffith$elm_ui$Element$text(
-						A2(
-							$author$project$Bilingual$choose_language,
-							{english: 'this websites resources', spanish: 'recursos de este sitio web'},
-							language))),
-					$author$project$Main$dashed_spacer(style)
+						A2($author$project$Bilingual$choose_language, info, language))),
+					$author$project$Templates$dashed_spacer(style)
 				]));
 	});
-var $author$project$Main$ToggleStyle = {$: 'ToggleStyle'};
-var $mdgriffith$elm_ui$Internal$Model$Rotate = F2(
-	function (a, b) {
-		return {$: 'Rotate', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Model$TransformComponent = F2(
-	function (a, b) {
-		return {$: 'TransformComponent', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$rotate = $mdgriffith$elm_ui$Internal$Flag$flag(24);
-var $mdgriffith$elm_ui$Element$rotate = function (angle) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$rotate,
-		A2(
-			$mdgriffith$elm_ui$Internal$Model$Rotate,
-			_Utils_Tuple3(0, 0, 1),
-			angle));
-};
-var $author$project$Main$style_toggle_button = F3(
+var $author$project$Main$section = F3(
 	function (vu, style, language) {
-		return A2(
-			$mdgriffith$elm_ui$Element$Input$button,
-			_List_Nil,
-			{
-				label: A2(
-					$mdgriffith$elm_ui$Element$image,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(5 * vu)),
-							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(5 * vu)),
-							_Utils_eq(style, $author$project$Solarized$Dark) ? $mdgriffith$elm_ui$Element$rotate(3.141592) : $mdgriffith$elm_ui$Element$rotate(0)
-						]),
-					{
-						description: A2(
-							$author$project$Bilingual$choose_language,
-							{english: 'toggle style', spanish: 'alternar estilo'},
-							language),
-						src: 'images/yin-yang.svg'
-					}),
-				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleStyle)
-			});
+		return A4(
+			$author$project$Templates$labeled_hfill,
+			vu,
+			style,
+			language,
+			{english: 'this websites resources', spanish: 'recursos de este sitio web'});
 	});
 var $mdgriffith$elm_ui$Internal$Model$Below = {$: 'Below'};
 var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
@@ -12522,43 +12568,6 @@ var $author$project$Main$title_card = F3(
 						]),
 					$mdgriffith$elm_ui$Element$none)
 				]));
-	});
-var $author$project$Templates$website_link = F4(
-	function (_v0, vu, style, language) {
-		var url = _v0.url;
-		var url_label = _v0.url_label;
-		var image_src = _v0.image_src;
-		var image_desc = _v0.image_desc;
-		return A2(
-			$mdgriffith$elm_ui$Element$newTabLink,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-				]),
-			{
-				label: A2(
-					$mdgriffith$elm_ui$Element$row,
-					$author$project$Templates$main_column_element(style),
-					_List_fromArray(
-						[
-							A3(
-							$author$project$Templates$icon_image,
-							vu,
-							language,
-							{desc: image_desc, src: image_src}),
-							A2(
-							$mdgriffith$elm_ui$Element$el,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-									$mdgriffith$elm_ui$Element$Font$center,
-									$mdgriffith$elm_ui$Element$Font$size(6 * vu)
-								]),
-							$mdgriffith$elm_ui$Element$text(
-								A2($author$project$Bilingual$choose_language, url_label, language)))
-						])),
-				url: url
-			});
 	});
 var $mdgriffith$elm_ui$Internal$Model$Padding = F5(
 	function (a, b, c, d, e) {
@@ -12750,8 +12759,8 @@ var $mdgriffith$elm_ui$Element$wrappedRow = F2(
 			}
 		}
 	});
-var $author$project$Main$useful_websites = F3(
-	function (vu, style, language) {
+var $author$project$Templates$website_list = F4(
+	function (vu, style, language, websites) {
 		return A2(
 			$mdgriffith$elm_ui$Element$wrappedRow,
 			_List_fromArray(
@@ -12759,67 +12768,85 @@ var $author$project$Main$useful_websites = F3(
 					$mdgriffith$elm_ui$Element$spacing(5),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 				]),
+			A2(
+				$elm$core$List$map,
+				function (web_link) {
+					return A2(
+						$mdgriffith$elm_ui$Element$newTabLink,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							]),
+						{
+							label: A2(
+								$mdgriffith$elm_ui$Element$row,
+								$author$project$Templates$main_column_element(style),
+								_List_fromArray(
+									[
+										A3(
+										$author$project$Templates$icon_image,
+										vu,
+										language,
+										{desc: web_link.image_desc, src: web_link.image_src}),
+										A2(
+										$mdgriffith$elm_ui$Element$el,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+												$mdgriffith$elm_ui$Element$Font$center,
+												$mdgriffith$elm_ui$Element$Font$size(6 * vu)
+											]),
+										$mdgriffith$elm_ui$Element$text(
+											A2($author$project$Bilingual$choose_language, web_link.url_label, language)))
+									])),
+							url: web_link.url
+						});
+				},
+				websites));
+	});
+var $author$project$Main$useful_websites = F3(
+	function (vu, style, language) {
+		return A4(
+			$author$project$Templates$website_list,
+			vu,
+			style,
+			language,
 			_List_fromArray(
 				[
-					A4(
-					$author$project$Templates$website_link,
 					{
-						image_desc: {english: 'Elm Icon', spanish: 'Icono de Elm-UI'},
-						image_src: 'images/elm.svg',
-						url: 'https://elm-lang.org/',
-						url_label: {english: 'Elm', spanish: 'Elm'}
-					},
-					vu,
-					style,
-					language),
-					A4(
-					$author$project$Templates$website_link,
+					image_desc: {english: 'Elm Icon', spanish: 'Icono de Elm-UI'},
+					image_src: 'images/elm.svg',
+					url: 'https://elm-lang.org/',
+					url_label: {english: 'Elm', spanish: 'Elm'}
+				},
 					{
-						image_desc: {english: 'Elm-UI Icon', spanish: 'Icono de Elm-UI'},
-						image_src: 'images/elm.svg',
-						url: 'https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   ',
-						url_label: {english: 'Elm-UI', spanish: 'Elm-IU'}
-					},
-					vu,
-					style,
-					language),
-					A4(
-					$author$project$Templates$website_link,
+					image_desc: {english: 'Elm-UI Icon', spanish: 'Icono de Elm-UI'},
+					image_src: 'images/elm.svg',
+					url: 'https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   ',
+					url_label: {english: 'Elm-UI', spanish: 'Elm-IU'}
+				},
 					{
-						image_desc: {english: 'Wikipedia Icon', spanish: 'Icono de Wikipedia'},
-						image_src: 'images/wikipedia.svg',
-						url: 'https://en.wikipedia.org/wiki/Solarized',
-						url_label: {english: 'Solarized Colorscheme', spanish: 'Esquema de Colored Solarizados'}
-					},
-					vu,
-					style,
-					language)
+					image_desc: {english: 'Wikipedia Icon', spanish: 'Icono de Wikipedia'},
+					image_src: 'images/wikipedia.svg',
+					url: 'https://en.wikipedia.org/wiki/Solarized',
+					url_label: {english: 'Solarized Colorscheme', spanish: 'Esquema de Colores Solarizados'}
+				}
 				]));
 	});
 var $author$project$Main$view = function (model) {
 	return A2(
-		$mdgriffith$elm_ui$Element$layout,
-		$author$project$Main$page_attributes(model.style),
-		A2(
-			$mdgriffith$elm_ui$Element$column,
-			A4($author$project$Main$dynamic_column_style, model.width, model.height, model.vu, model.style),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$row,
-					$author$project$Templates$main_column_element(model.style),
-					_List_fromArray(
-						[
-							A3($author$project$Main$style_toggle_button, model.vu, model.style, model.language),
-							A2($author$project$Main$language_toggle_button, model.vu, model.language)
-						])),
-					A3($author$project$Main$title_card, model.vu, model.style, model.language),
-					A3($author$project$Main$resume, model.vu, model.style, model.language),
-					A3($author$project$Main$github_link, model.vu, model.style, model.language),
-					A4($author$project$Main$color_converter, model.vu, model.style, model.language, model.color_converter_visible),
-					A3($author$project$Main$section, model.vu, model.style, model.language),
-					A3($author$project$Main$useful_websites, model.vu, model.style, model.language)
-				])));
+		$author$project$Templates$main_template,
+		model,
+		_List_fromArray(
+			[
+				$author$project$Main$menu_bar,
+				$author$project$Main$title_card,
+				$author$project$Main$resume,
+				$author$project$Main$github_link,
+				$author$project$Main$color_converter(model.color_converter_visible),
+				$author$project$Main$section,
+				$author$project$Main$useful_websites
+			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
 	{init: $author$project$Main$initialModel, subscriptions: $author$project$Main$subscriptions, update: $author$project$Main$update, view: $author$project$Main$view});
