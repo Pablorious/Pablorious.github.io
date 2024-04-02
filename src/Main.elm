@@ -118,7 +118,7 @@ section vu style language =
         , spacing 5]
         [ dashed_spacer style
         , el 
-            [ Font.size (2 * vu)
+            [ Font.size (3 * vu)
             , Font.color <| translate_generic style Comment
             ] 
             (text <|
@@ -270,7 +270,7 @@ name vu style language = el
     , Font.center
     , Font.color <| translate Red
     , Background.color <| translate_generic style Header
-    , below <| (el [width fill, Font.size ( 3 * vu )
+    , below <| (el [width fill, Font.size ( 4 * vu )
         , Font.color <| translate_generic style Comment
         , Font.center ] (text 
             <| choose_language 

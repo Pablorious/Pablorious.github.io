@@ -35,7 +35,7 @@ website_link {url, url_label, image_src, image_desc} vu style language =
             { src = image_src
             , desc = image_desc
             }
-        , el [width fill, Font.center] (text <| choose_language 
+        , el [width fill, Font.center, Font.size (6 * vu)] (text <| choose_language 
             url_label language)
         ]
     }

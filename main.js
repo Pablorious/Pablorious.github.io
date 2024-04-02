@@ -12318,7 +12318,7 @@ var $author$project$Main$section = F3(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$size(2 * vu),
+							$mdgriffith$elm_ui$Element$Font$size(3 * vu),
 							$mdgriffith$elm_ui$Element$Font$color(
 							A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment))
 						]),
@@ -12417,7 +12417,7 @@ var $author$project$Main$name = F3(
 						_List_fromArray(
 							[
 								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$Font$size(3 * vu),
+								$mdgriffith$elm_ui$Element$Font$size(4 * vu),
 								$mdgriffith$elm_ui$Element$Font$color(
 								A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment)),
 								$mdgriffith$elm_ui$Element$Font$center
@@ -12551,7 +12551,8 @@ var $author$project$Templates$website_link = F4(
 							_List_fromArray(
 								[
 									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-									$mdgriffith$elm_ui$Element$Font$center
+									$mdgriffith$elm_ui$Element$Font$center,
+									$mdgriffith$elm_ui$Element$Font$size(6 * vu)
 								]),
 							$mdgriffith$elm_ui$Element$text(
 								A2($author$project$Bilingual$choose_language, url_label, language)))
