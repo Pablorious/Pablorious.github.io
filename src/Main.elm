@@ -59,8 +59,15 @@ view model =
     , title_card 
     , resume 
     , github_link 
+    , section 
+        { english = "web tools I've developed"
+        , spanish = ""
+        }
     , color_converter model.color_converter_visible
     , section 
+        { english = "this websites resources"
+        , spanish = "recursos de este sitio web"
+        }
     , useful_websites 
     ]
 
@@ -92,54 +99,6 @@ language_toggle_button vu language =
         , spanish = "🇺🇸"
         } language
     }
-
-section : Vu -> Style -> Language -> Element Msg
-section vu style language =
-    labeled_hfill vu style language
-    { english = "this websites resources"
-    , spanish = "recursos de este sitio web"
-    }
-
-useful_websites : Px -> Style -> Language -> Element Msg
-useful_websites vu style language = 
-    website_list vu style language
-        [
-            { url = "https://elm-lang.org/"
-            , image_src = "images/elm.svg"
-            , image_desc = 
-                { english = "Elm Icon"
-                , spanish = "Icono de Elm-UI"
-                }
-            , url_label = 
-                { english = "Elm"
-                , spanish = "Elm"
-                }
-            }
-        , 
-            { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
-            , image_src = "images/elm.svg"
-            , image_desc = 
-                { english = "Elm-UI Icon"
-                , spanish = "Icono de Elm-UI"
-                }
-            , url_label = 
-                { english = "Elm-UI"
-                , spanish = "Elm-IU"
-                }
-            } 
-        ,     
-            { url = "https://en.wikipedia.org/wiki/Solarized"
-            , image_src = "images/wikipedia.svg"
-            , image_desc = 
-                { english = "Wikipedia Icon"
-                , spanish = "Icono de Wikipedia"
-                }
-            , url_label = 
-                { english = "Solarized Colorscheme"
-                , spanish = "Esquema de Colores Solarizados"
-                }
-            } 
-        ]
 
 title_image: Vu -> Language -> Element Msg
 title_image vu language = 
@@ -218,23 +177,83 @@ name vu style language = el
     ]
     (text "Pablo Reboredo-Segovia")
 
-color_converter_toggle_button: Vu -> Language -> Element Msg
-color_converter_toggle_button vu language = 
-    row [width fill]
-    [
-        icon_image vu language
-        { src = "images/tools.svg"
-        , desc = 
-            { english = "Hammer icon" 
-            , spanish = "Icono de martillo" 
-            }
-        }
-        ,
-        Element.Input.button 
-            [ width fill
-            , centerX
-            , Font.center
+resume: Vu -> Style -> Language -> Element Msg
+resume vu style language = 
+    Element.newTabLink 
+        ( main_column_element style 
+        ++
+        [ Font.size (6 * vu)
+        , Font.center
+        , inFront 
+        <| el 
+            [ alignLeft
+            , centerY
+            , moveRight 5
             ] 
+            <| icon_image vu language 
+                { src = "images/file.svg"
+                , desc = 
+                    { english = "Resume Icon"
+                    , spanish = "Icono de un Currículum"
+                    }
+                }
+        ] 
+        )
+        { url = "documents/resume.pdf"
+        , label = text 
+            <| choose_language 
+                { english = "Resume" 
+                , spanish = "Currículum" 
+                } language
+        }
+
+github_link : Vu -> Style -> Language -> Element Msg
+github_link vu style language = 
+    Element.newTabLink 
+        ( main_column_element style ++
+        [ Font.size (6 * vu)
+        , Font.center
+        , width fill
+        , inFront 
+
+        <| el 
+            [ alignLeft
+            , centerY
+            , moveRight 5
+            ] 
+            <| icon_image vu language 
+                { src = "images/github.svg" 
+                , desc = 
+                    { english = "Github Icon" 
+                    , spanish = "Icono de github" 
+                    }
+                }
+        ] 
+        )
+        { url = "https://github.com/Pablorious"
+        , label = text "Github"
+        } 
+
+color_converter_toggle_button: Vu -> Style -> Language -> Element Msg
+color_converter_toggle_button vu style language = 
+    Element.Input.button 
+        (main_column_element style
+        ++ [ Font.center
+            , inFront
+            <| el 
+                [ alignLeft
+                , centerY
+                , moveRight 5
+                ] 
+                <| icon_image vu language 
+                { src = "images/tools.svg"
+                , desc = 
+                    { english = "Hammer icon" 
+                    , spanish = "Icono de martillo" 
+                    }
+                } 
+            ] 
+        )
             { onPress = Just ToggleColorConverterVisible
             , label = el 
                 [ centerX 
@@ -247,63 +266,66 @@ color_converter_toggle_button vu language =
                         } language
                 )
             }
-    ]
+    
 
 color_converter : Bool -> Vu -> Style -> Language -> Element Msg
 color_converter visible vu style language =
     if visible then
-        column (main_column_element style)
-        [ color_converter_toggle_button vu language
+        column [width fill]
+        [ color_converter_toggle_button vu style language
         , el [width fill ] 
             <| html <| node "color-converter" [] [] 
         ]
     else
-        el (main_column_element style) <| color_converter_toggle_button vu language
+        el [width fill] <| color_converter_toggle_button vu style language
 
-resume: Vu -> Style -> Language -> Element Msg
-resume vu style language = 
-    row 
-    ( main_column_element style ) 
-    [ icon_image vu language 
-        { src = "images/file.svg"
-        , desc = 
-            { english = "Resume Icon"
-            , spanish = "Icono de un Currículum"
-            }
-        }
-    , Element.newTabLink 
-        [ width fill
-        , centerX
-        , Font.size (6 * vu)
-        , Font.center
-        ] 
-        { url = "documents/resume.pdf"
-        , label = text 
-            <| choose_language 
-                { english = "Resume" 
-                , spanish = "Currículum" 
-                } language
-        }
-    ]
 
-github_link : Vu -> Style -> Language -> Element Msg
-github_link vu style language = row (main_column_element style)
-    [ icon_image vu language
-        { src = "images/github.svg" 
-        , desc = 
-            { english = "Github Icon" 
-            , spanish = "Icono de github" 
+section : BilingualString -> Vu -> Style -> Language -> Element Msg
+section bstring vu style language =
+    labeled_hfill vu style language
+    bstring 
+
+useful_websites : Px -> Style -> Language -> Element Msg
+useful_websites vu style language = 
+    website_list vu style language
+        [
+            { url = "https://elm-lang.org/"
+            , image_src = "images/elm.svg"
+            , image_desc = 
+                { english = "Elm Icon"
+                , spanish = "Icono de Elm-UI"
+                }
+            , url_label = 
+                { english = "Elm"
+                , spanish = "Elm"
+                }
             }
-        }
-    , Element.newTabLink 
-        [ Font.size (6 * vu)
-        , Font.center
-        , width fill
-        ] 
-        { url = "https://github.com/Pablorious"
-        , label = text "Github"
-        } 
-    ]
+        , 
+            { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
+            , image_src = "images/elm.svg"
+            , image_desc = 
+                { english = "Elm-UI Icon"
+                , spanish = "Icono de Elm-UI"
+                }
+            , url_label = 
+                { english = "Elm-UI"
+                , spanish = "Elm-IU"
+                }
+            } 
+        ,     
+            { url = "https://en.wikipedia.org/wiki/Solarized"
+            , image_src = "images/wikipedia.svg"
+            , image_desc = 
+                { english = "Wikipedia Icon"
+                , spanish = "Icono de Wikipedia"
+                }
+            , url_label = 
+                { english = "Solarized Colorscheme"
+                , spanish = "Esquema de Colores Solarizados"
+                }
+            } 
+        ]
+
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
