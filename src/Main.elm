@@ -57,16 +57,20 @@ view model =
     main_template model 
     [ menu_bar  
     , title_card 
+    , section 
+        { english = "My work"
+        , spanish = "Mi trabajo"
+        }
     , resume 
     , github_link 
     , section 
         { english = "web tools I've developed"
-        , spanish = ""
+        , spanish = "herramientas web que he desarrollado"
         }
     , color_converter model.color_converter_visible
     , section 
-        { english = "this websites resources"
-        , spanish = "recursos de este sitio web"
+        { english = "resources used for this websites"
+        , spanish = "recursos usado para este sitio web"
         }
     , useful_websites 
     ]
@@ -144,7 +148,7 @@ profile_pic vu style language =
         , width <| px (27 * vu)
         , height <| px (27 * vu)
         , Border.rounded 150
-        , Border.width 1
+        , Border.width 2
         , Border.color <| translate_generic style Comment
         , clip
         ] 
@@ -237,53 +241,47 @@ github_link vu style language =
 color_converter_toggle_button: Vu -> Style -> Language -> Element Msg
 color_converter_toggle_button vu style language = 
     Element.Input.button 
-        (main_column_element style
-        ++ [ Font.center
-            , inFront
-            <| el 
-                [ alignLeft
-                , centerY
-                , moveRight 5
-                ] 
-                <| icon_image vu language 
-                { src = "images/tools.svg"
-                , desc = 
-                    { english = "Hammer icon" 
-                    , spanish = "Icono de martillo" 
-                    }
-                } 
-            ] 
-        )
-            { onPress = Just ToggleColorConverterVisible
-            , label = el 
-                [ centerX 
-                , Font.size (6 * vu)
-                ] 
-                (text 
-                    <| choose_language 
-                        { english = "Color Converter" 
-                        , spanish = "Convertidor de Colores"
-                        } language
-                )
+    [ width fill 
+    , Font.center
+    , inFront
+    <| el 
+        [ alignLeft
+        , centerY
+        , moveRight 5
+        ] 
+    <| icon_image vu language 
+        { src = "images/tools.svg"
+        , desc = 
+            { english = "Hammer icon" 
+            , spanish = "Icono de martillo" 
             }
-    
+        } 
+    ] 
+    { onPress = Just ToggleColorConverterVisible
+    , label = 
+        el 
+        [ centerX 
+        , Font.size (6 * vu)
+        ] 
+        (text 
+            <| choose_language 
+            { english = "Color Converter" 
+            , spanish = "Convertidor de Colores"
+            } language
+        )
+    }
 
 color_converter : Bool -> Vu -> Style -> Language -> Element Msg
 color_converter visible vu style language =
     if visible then
-        column [width fill]
+        column (main_column_element style)
         [ color_converter_toggle_button vu style language
         , el [width fill ] 
             <| html <| node "color-converter" [] [] 
         ]
     else
-        el [width fill] <| color_converter_toggle_button vu style language
+        el (main_column_element style) <| color_converter_toggle_button vu style language
 
-
-section : BilingualString -> Vu -> Style -> Language -> Element Msg
-section bstring vu style language =
-    labeled_hfill vu style language
-    bstring 
 
 useful_websites : Px -> Style -> Language -> Element Msg
 useful_websites vu style language = 

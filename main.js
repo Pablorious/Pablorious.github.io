@@ -11406,6 +11406,10 @@ var $mdgriffith$elm_ui$Element$el = F2(
 				_List_fromArray(
 					[child])));
 	});
+var $mdgriffith$elm_ui$Internal$Model$Fill = function (a) {
+	return {$: 'Fill', a: a};
+};
+var $mdgriffith$elm_ui$Element$fill = $mdgriffith$elm_ui$Internal$Model$Fill(1);
 var $elm$html$Html$Attributes$alt = $elm$html$Html$Attributes$stringProperty('alt');
 var $elm$html$Html$Attributes$src = function (url) {
 	return A2(
@@ -11495,15 +11499,113 @@ var $mdgriffith$elm_ui$Element$createNearby = F2(
 var $mdgriffith$elm_ui$Element$inFront = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
 };
+var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
+	return {$: 'MoveX', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Model$TransformComponent = F2(
+	function (a, b) {
+		return {$: 'TransformComponent', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
+var $mdgriffith$elm_ui$Element$moveRight = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveX,
+		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
+};
+var $mdgriffith$elm_ui$Internal$Model$FontSize = function (a) {
+	return {$: 'FontSize', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Model$StyleClass = F2(
+	function (a, b) {
+		return {$: 'StyleClass', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$fontSize = $mdgriffith$elm_ui$Internal$Flag$flag(4);
+var $mdgriffith$elm_ui$Element$Font$size = function (i) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontSize,
+		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
+};
+var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
+	return {$: 'Text', a: a};
+};
+var $mdgriffith$elm_ui$Element$text = function (content) {
+	return $mdgriffith$elm_ui$Internal$Model$Text(content);
+};
+var $author$project$Main$color_converter_toggle_button = F3(
+	function (vu, style, language) {
+		return A2(
+			$mdgriffith$elm_ui$Element$Input$button,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$Font$center,
+					$mdgriffith$elm_ui$Element$inFront(
+					A2(
+						$mdgriffith$elm_ui$Element$el,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$alignLeft,
+								$mdgriffith$elm_ui$Element$centerY,
+								$mdgriffith$elm_ui$Element$moveRight(5)
+							]),
+						A3(
+							$author$project$Templates$icon_image,
+							vu,
+							language,
+							{
+								desc: {english: 'Hammer icon', spanish: 'Icono de martillo'},
+								src: 'images/tools.svg'
+							})))
+				]),
+			{
+				label: A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$centerX,
+							$mdgriffith$elm_ui$Element$Font$size(6 * vu)
+						]),
+					$mdgriffith$elm_ui$Element$text(
+						A2(
+							$author$project$Bilingual$choose_language,
+							{english: 'Color Converter', spanish: 'Convertidor de Colores'},
+							language))),
+				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleColorConverterVisible)
+			});
+	});
+var $mdgriffith$elm_ui$Internal$Model$AsColumn = {$: 'AsColumn'};
+var $mdgriffith$elm_ui$Internal$Model$asColumn = $mdgriffith$elm_ui$Internal$Model$AsColumn;
+var $mdgriffith$elm_ui$Element$column = F2(
+	function (attrs, children) {
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asColumn,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentTop + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.contentLeft)),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+						attrs))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
+	});
+var $elm$core$Basics$always = F2(
+	function (a, _v0) {
+		return a;
+	});
+var $mdgriffith$elm_ui$Internal$Model$unstyled = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Unstyled, $elm$core$Basics$always);
+var $mdgriffith$elm_ui$Element$html = $mdgriffith$elm_ui$Internal$Model$unstyled;
 var $author$project$Solarized$Comment = {$: 'Comment'};
 var $author$project$Solarized$Header = {$: 'Header'};
 var $mdgriffith$elm_ui$Internal$Model$Colored = F3(
 	function (a, b, c) {
 		return {$: 'Colored', a: a, b: b, c: c};
-	});
-var $mdgriffith$elm_ui$Internal$Model$StyleClass = F2(
-	function (a, b) {
-		return {$: 'StyleClass', a: a, b: b};
 	});
 var $mdgriffith$elm_ui$Internal$Flag$bgColor = $mdgriffith$elm_ui$Internal$Flag$flag(8);
 var $mdgriffith$elm_ui$Internal$Model$formatColorClass = function (_v0) {
@@ -11534,10 +11636,6 @@ var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
 			'border-color',
 			clr));
 };
-var $mdgriffith$elm_ui$Internal$Model$Fill = function (a) {
-	return {$: 'Fill', a: a};
-};
-var $mdgriffith$elm_ui$Element$fill = $mdgriffith$elm_ui$Internal$Model$Fill(1);
 var $mdgriffith$elm_ui$Internal$Model$PaddingStyle = F5(
 	function (a, b, c, d, e) {
 		return {$: 'PaddingStyle', a: a, b: b, c: c, d: d, e: e};
@@ -11704,114 +11802,12 @@ var $author$project$Templates$main_column_element = function (style) {
 			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 		]);
 };
-var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
-	return {$: 'MoveX', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Model$TransformComponent = F2(
-	function (a, b) {
-		return {$: 'TransformComponent', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
-var $mdgriffith$elm_ui$Element$moveRight = function (x) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$moveX,
-		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
-};
-var $mdgriffith$elm_ui$Internal$Model$FontSize = function (a) {
-	return {$: 'FontSize', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Flag$fontSize = $mdgriffith$elm_ui$Internal$Flag$flag(4);
-var $mdgriffith$elm_ui$Element$Font$size = function (i) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontSize,
-		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
-};
-var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
-	return {$: 'Text', a: a};
-};
-var $mdgriffith$elm_ui$Element$text = function (content) {
-	return $mdgriffith$elm_ui$Internal$Model$Text(content);
-};
-var $author$project$Main$color_converter_toggle_button = F3(
-	function (vu, style, language) {
-		return A2(
-			$mdgriffith$elm_ui$Element$Input$button,
-			_Utils_ap(
-				$author$project$Templates$main_column_element(style),
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$inFront(
-						A2(
-							$mdgriffith$elm_ui$Element$el,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$alignLeft,
-									$mdgriffith$elm_ui$Element$centerY,
-									$mdgriffith$elm_ui$Element$moveRight(5)
-								]),
-							A3(
-								$author$project$Templates$icon_image,
-								vu,
-								language,
-								{
-									desc: {english: 'Hammer icon', spanish: 'Icono de martillo'},
-									src: 'images/tools.svg'
-								})))
-					])),
-			{
-				label: A2(
-					$mdgriffith$elm_ui$Element$el,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$Font$size(6 * vu)
-						]),
-					$mdgriffith$elm_ui$Element$text(
-						A2(
-							$author$project$Bilingual$choose_language,
-							{english: 'Color Converter', spanish: 'Convertidor de Colores'},
-							language))),
-				onPress: $elm$core$Maybe$Just($author$project$Main$ToggleColorConverterVisible)
-			});
-	});
-var $mdgriffith$elm_ui$Internal$Model$AsColumn = {$: 'AsColumn'};
-var $mdgriffith$elm_ui$Internal$Model$asColumn = $mdgriffith$elm_ui$Internal$Model$AsColumn;
-var $mdgriffith$elm_ui$Element$column = F2(
-	function (attrs, children) {
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asColumn,
-			$mdgriffith$elm_ui$Internal$Model$div,
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentTop + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.contentLeft)),
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-					A2(
-						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
-						attrs))),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
-	});
-var $elm$core$Basics$always = F2(
-	function (a, _v0) {
-		return a;
-	});
-var $mdgriffith$elm_ui$Internal$Model$unstyled = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Unstyled, $elm$core$Basics$always);
-var $mdgriffith$elm_ui$Element$html = $mdgriffith$elm_ui$Internal$Model$unstyled;
 var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
 var $author$project$Main$color_converter = F4(
 	function (visible, vu, style, language) {
 		return visible ? A2(
 			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-				]),
+			$author$project$Templates$main_column_element(style),
 			_List_fromArray(
 				[
 					A3($author$project$Main$color_converter_toggle_button, vu, style, language),
@@ -11825,10 +11821,7 @@ var $author$project$Main$color_converter = F4(
 						A3($elm$html$Html$node, 'color-converter', _List_Nil, _List_Nil)))
 				])) : A2(
 			$mdgriffith$elm_ui$Element$el,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-				]),
+			$author$project$Templates$main_column_element(style),
 			A3($author$project$Main$color_converter_toggle_button, vu, style, language));
 	});
 var $elm$html$Html$Attributes$href = function (url) {
@@ -12428,8 +12421,8 @@ var $author$project$Templates$dashed_spacer = function (style) {
 				$mdgriffith$elm_ui$Element$none)
 			]));
 };
-var $author$project$Templates$labeled_hfill = F4(
-	function (vu, style, language, info) {
+var $author$project$Templates$section = F4(
+	function (info, vu, style, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$row,
 			_List_fromArray(
@@ -12453,10 +12446,6 @@ var $author$project$Templates$labeled_hfill = F4(
 						A2($author$project$Bilingual$choose_language, info, language))),
 					$author$project$Templates$dashed_spacer(style)
 				]));
-	});
-var $author$project$Main$section = F4(
-	function (bstring, vu, style, language) {
-		return A4($author$project$Templates$labeled_hfill, vu, style, language, bstring);
 	});
 var $mdgriffith$elm_ui$Internal$Model$Below = {$: 'Below'};
 var $mdgriffith$elm_ui$Element$below = function (element) {
@@ -12512,7 +12501,7 @@ var $author$project$Main$profile_pic = F3(
 					$mdgriffith$elm_ui$Element$height(
 					$mdgriffith$elm_ui$Element$px(27 * vu)),
 					$mdgriffith$elm_ui$Element$Border$rounded(150),
-					$mdgriffith$elm_ui$Element$Border$width(1),
+					$mdgriffith$elm_ui$Element$Border$width(2),
 					$mdgriffith$elm_ui$Element$Border$color(
 					A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment)),
 					$mdgriffith$elm_ui$Element$clip
@@ -12862,13 +12851,15 @@ var $author$project$Main$view = function (model) {
 			[
 				$author$project$Main$menu_bar,
 				$author$project$Main$title_card,
+				$author$project$Templates$section(
+				{english: 'My work', spanish: 'Mi trabajo'}),
 				$author$project$Main$resume,
 				$author$project$Main$github_link,
-				$author$project$Main$section(
-				{english: 'web tools I\'ve developed', spanish: ''}),
+				$author$project$Templates$section(
+				{english: 'web tools I\'ve developed', spanish: 'herramientas web que he desarrollado'}),
 				$author$project$Main$color_converter(model.color_converter_visible),
-				$author$project$Main$section(
-				{english: 'this websites resources', spanish: 'recursos de este sitio web'}),
+				$author$project$Templates$section(
+				{english: 'resources used for this websites', spanish: 'recursos usado para este sitio web'}),
 				$author$project$Main$useful_websites
 			]));
 };

@@ -107,7 +107,7 @@ solarized_button vu style language info=
             }
         }
 
-labeled_hfill vu style language info =
+section info vu style language=
     row [ width fill
         , centerY
         , spacing 5]
