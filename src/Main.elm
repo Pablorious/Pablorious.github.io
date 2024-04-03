@@ -134,7 +134,6 @@ title_card vu style language =
                 [ centerY
                 , width fill
                 , below <| name vu style language
-                , padding vu
                 ] 
                 [profile_pic vu style language]
         ]
