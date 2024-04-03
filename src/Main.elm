@@ -58,8 +58,8 @@ view model =
     [ menu_bar  
     , title_card 
     , section 
-        { english = "My work"
-        , spanish = "Mi trabajo"
+        { english = "my work"
+        , spanish = "mi trabajo"
         }
     , resume 
     , github_link 
@@ -129,7 +129,6 @@ title_card vu style language =
         , Background.color <| translate_generic style Header
         , width fill
         , height fill
-        , spacing vu
         , inFront 
             <| column
                 [ centerY
@@ -139,7 +138,7 @@ title_card vu style language =
                 ] 
                 [profile_pic vu style language]
         ]
-        [ title_image vu language, el [ height <| px (30 * vu)] Element.none ]
+        [ title_image vu language, solid_spacer style, el [ height <| px (30 * vu)] Element.none ]
 
 profile_pic: Vu -> Style -> Language -> Element Msg
 profile_pic vu style language = 
@@ -193,7 +192,7 @@ resume vu style language =
         <| el 
             [ alignLeft
             , centerY
-            , moveRight 5
+            , moveRight 10
             ] 
             <| icon_image vu language 
                 { src = "images/file.svg"
@@ -224,7 +223,7 @@ github_link vu style language =
         <| el 
             [ alignLeft
             , centerY
-            , moveRight 5
+            , moveRight 10
             ] 
             <| icon_image vu language 
                 { src = "images/github.svg" 
@@ -248,7 +247,6 @@ color_converter_toggle_button vu style language =
     <| el 
         [ alignLeft
         , centerY
-        , moveRight 5
         ] 
     <| icon_image vu language 
         { src = "images/tools.svg"

@@ -33,6 +33,12 @@ page_attributes style =
             <| translate_generic style Background
         ])
 
+solid_spacer style =
+    el [ width fill
+        , height (px 1)
+        , Background.color 
+            <| translate_generic style Comment
+        ] none
 dashed_spacer style = 
     column [width fill ] 
         [ el 
@@ -55,6 +61,7 @@ dashed_spacer style =
             ] 
             none
         ]
+
 
 
 dynamic_column_style w h vu style = 

@@ -11499,20 +11499,6 @@ var $mdgriffith$elm_ui$Element$createNearby = F2(
 var $mdgriffith$elm_ui$Element$inFront = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
 };
-var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
-	return {$: 'MoveX', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Model$TransformComponent = F2(
-	function (a, b) {
-		return {$: 'TransformComponent', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
-var $mdgriffith$elm_ui$Element$moveRight = function (x) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		$mdgriffith$elm_ui$Internal$Flag$moveX,
-		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
-};
 var $mdgriffith$elm_ui$Internal$Model$FontSize = function (a) {
 	return {$: 'FontSize', a: a};
 };
@@ -11545,11 +11531,7 @@ var $author$project$Main$color_converter_toggle_button = F3(
 					A2(
 						$mdgriffith$elm_ui$Element$el,
 						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$alignLeft,
-								$mdgriffith$elm_ui$Element$centerY,
-								$mdgriffith$elm_ui$Element$moveRight(5)
-							]),
+							[$mdgriffith$elm_ui$Element$alignLeft, $mdgriffith$elm_ui$Element$centerY]),
 						A3(
 							$author$project$Templates$icon_image,
 							vu,
@@ -11824,6 +11806,20 @@ var $author$project$Main$color_converter = F4(
 			$author$project$Templates$main_column_element(style),
 			A3($author$project$Main$color_converter_toggle_button, vu, style, language));
 	});
+var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
+	return {$: 'MoveX', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Model$TransformComponent = F2(
+	function (a, b) {
+		return {$: 'TransformComponent', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
+var $mdgriffith$elm_ui$Element$moveRight = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveX,
+		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
+};
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
 		$elm$html$Html$Attributes$stringProperty,
@@ -11884,7 +11880,7 @@ var $author$project$Main$github_link = F3(
 								[
 									$mdgriffith$elm_ui$Element$alignLeft,
 									$mdgriffith$elm_ui$Element$centerY,
-									$mdgriffith$elm_ui$Element$moveRight(5)
+									$mdgriffith$elm_ui$Element$moveRight(10)
 								]),
 							A3(
 								$author$project$Templates$icon_image,
@@ -12334,7 +12330,7 @@ var $author$project$Main$resume = F3(
 								[
 									$mdgriffith$elm_ui$Element$alignLeft,
 									$mdgriffith$elm_ui$Element$centerY,
-									$mdgriffith$elm_ui$Element$moveRight(5)
+									$mdgriffith$elm_ui$Element$moveRight(10)
 								]),
 							A3(
 								$author$project$Templates$icon_image,
@@ -12514,6 +12510,19 @@ var $author$project$Main$profile_pic = F3(
 				src: 'images/my_face.jpg'
 			});
 	});
+var $author$project$Templates$solid_spacer = function (style) {
+	return A2(
+		$mdgriffith$elm_ui$Element$el,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$height(
+				$mdgriffith$elm_ui$Element$px(1)),
+				$mdgriffith$elm_ui$Element$Background$color(
+				A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment))
+			]),
+		$mdgriffith$elm_ui$Element$none);
+};
 var $author$project$Main$title_image = F2(
 	function (vu, language) {
 		return A2(
@@ -12549,7 +12558,6 @@ var $author$project$Main$title_card = F3(
 					A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Header)),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$spacing(vu),
 					$mdgriffith$elm_ui$Element$inFront(
 					A2(
 						$mdgriffith$elm_ui$Element$column,
@@ -12569,6 +12577,7 @@ var $author$project$Main$title_card = F3(
 			_List_fromArray(
 				[
 					A2($author$project$Main$title_image, vu, language),
+					$author$project$Templates$solid_spacer(style),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
@@ -12852,7 +12861,7 @@ var $author$project$Main$view = function (model) {
 				$author$project$Main$menu_bar,
 				$author$project$Main$title_card,
 				$author$project$Templates$section(
-				{english: 'My work', spanish: 'Mi trabajo'}),
+				{english: 'my work', spanish: 'mi trabajo'}),
 				$author$project$Main$resume,
 				$author$project$Main$github_link,
 				$author$project$Templates$section(
