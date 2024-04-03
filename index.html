@@ -17,9 +17,11 @@
                             flex-wrap: wrap;
                         }
                         #fileInput,#colorsInput{
-			    font-size: 20;
+			    font-size: 16;
                             background-color: rgb(133,153,  0);
                             margin-right: 10px; /* add a margin to the buttons */
+			    margin-bottom: 10px;
+			    padding: 5px;
                             color: white;
 			    border: 1px solid rgb(133,153,  0);
 			    border-radius: 5px;
@@ -27,18 +29,14 @@
                         }
                         #canvas {
                             flex-grow: 1;
-			    width: 50%;
+			    width: 100%;
                         }</style><div id="buttonContainer">
                       <button id="fileInput">Choose Image</button>
                       <select id="colorsInput">
                           <option value="solarized">Solarized</option>
                           <option value="grayscale">Grayscale</option>
                           <option value="neons">Neons</option>
-                          <option value="black and white">Black and White</option>
-                      </select>
-                    </div>
-                    <input type="file" id="inputFile" accept="*" style="display:none"/>
-                    <canvas id="canvas"></canvas>`;        
+                          <option value="black and white">Black and White</option></select></div><input type="file" id="inputFile" accept="*" style="display:none"/><canvas id="canvas"></canvas>`;        
 
 		this._colors = 
 		    {

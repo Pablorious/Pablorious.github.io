@@ -11785,6 +11785,21 @@ var $author$project$Templates$main_column_element = function (style) {
 		]);
 };
 var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
+var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
+var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
+var $author$project$Templates$solid_spacer = function (style) {
+	return A2(
+		$mdgriffith$elm_ui$Element$el,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$height(
+				$mdgriffith$elm_ui$Element$px(1)),
+				$mdgriffith$elm_ui$Element$Background$color(
+				A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment))
+			]),
+		$mdgriffith$elm_ui$Element$none);
+};
 var $author$project$Main$color_converter = F4(
 	function (visible, vu, style, language) {
 		return visible ? A2(
@@ -11793,6 +11808,7 @@ var $author$project$Main$color_converter = F4(
 			_List_fromArray(
 				[
 					A3($author$project$Main$color_converter_toggle_button, vu, style, language),
+					$author$project$Templates$solid_spacer(style),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
@@ -12352,8 +12368,6 @@ var $author$project$Main$resume = F3(
 	});
 var $mdgriffith$elm_ui$Internal$Flag$borderStyle = $mdgriffith$elm_ui$Internal$Flag$flag(11);
 var $mdgriffith$elm_ui$Element$Border$dashed = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$borderStyle, $mdgriffith$elm_ui$Internal$Style$classes.borderDashed);
-var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 'Empty'};
-var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
 var $mdgriffith$elm_ui$Element$Border$widthXY = F2(
 	function (x, y) {
 		return A2(
@@ -12510,19 +12524,6 @@ var $author$project$Main$profile_pic = F3(
 				src: 'images/my_face.jpg'
 			});
 	});
-var $author$project$Templates$solid_spacer = function (style) {
-	return A2(
-		$mdgriffith$elm_ui$Element$el,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$height(
-				$mdgriffith$elm_ui$Element$px(1)),
-				$mdgriffith$elm_ui$Element$Background$color(
-				A2($author$project$Solarized$translate_generic, style, $author$project$Solarized$Comment))
-			]),
-		$mdgriffith$elm_ui$Element$none);
-};
 var $author$project$Main$title_image = F2(
 	function (vu, language) {
 		return A2(
@@ -12566,8 +12567,7 @@ var $author$project$Main$title_card = F3(
 								$mdgriffith$elm_ui$Element$centerY,
 								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 								$mdgriffith$elm_ui$Element$below(
-								A3($author$project$Main$name, vu, style, language)),
-								$mdgriffith$elm_ui$Element$padding(vu)
+								A3($author$project$Main$name, vu, style, language))
 							]),
 						_List_fromArray(
 							[
@@ -12868,7 +12868,7 @@ var $author$project$Main$view = function (model) {
 				{english: 'web tools I\'ve developed', spanish: 'herramientas web que he desarrollado'}),
 				$author$project$Main$color_converter(model.color_converter_visible),
 				$author$project$Templates$section(
-				{english: 'resources used for this websites', spanish: 'recursos usado para este sitio web'}),
+				{english: 'resources used for this website', spanish: 'recursos usado para este sitio web'}),
 				$author$project$Main$useful_websites
 			]));
 };

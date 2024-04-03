@@ -274,6 +274,7 @@ color_converter visible vu style language =
     if visible then
         column (main_column_element style)
         [ color_converter_toggle_button vu style language
+        , solid_spacer style
         , el [width fill ] 
             <| html <| node "color-converter" [] [] 
         ]
