@@ -110,7 +110,8 @@ title_image vu language =
         [ centerX
         , centerY
         , width fill
-        , height <| px (30 * vu)] 
+        , height <| px (30 * vu)
+        ] 
         { src = "images/solarized_butterfly.png"
         , description = choose_language 
             { english = "Nasa photo of The Butterfly Nebula, colorswapped to be represented within the solarized colorscheme."
@@ -174,8 +175,8 @@ name vu style language = el
         , Font.color <| translate_generic style Comment
         , Font.center ] (text 
             <| choose_language 
-                { english = "Programmer / Mathematician / Designer / Musician"
-                , spanish = "Programador / Matemático / Diseñador / Músico" 
+                { english = "Programmer / Mathematician / Designer"
+                , spanish = "Programador / Matemático / Diseñador" 
                 } language
             ))
     ]

@@ -12481,7 +12481,7 @@ var $author$project$Main$name = F3(
 						$mdgriffith$elm_ui$Element$text(
 							A2(
 								$author$project$Bilingual$choose_language,
-								{english: 'Programmer / Mathematician / Designer / Musician', spanish: 'Programador / Matemático / Diseñador / Músico'},
+								{english: 'Programmer / Mathematician / Designer', spanish: 'Programador / Matemático / Diseñador'},
 								language))))
 				]),
 			$mdgriffith$elm_ui$Element$text('Pablo Reboredo-Segovia'));
