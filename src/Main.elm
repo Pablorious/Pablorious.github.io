@@ -69,7 +69,7 @@ view model =
         }
     , color_converter model.color_converter_visible
     , section 
-        { english = "resources used for this websites"
+        { english = "resources used for this website"
         , spanish = "recursos usado para este sitio web"
         }
     , useful_websites 
