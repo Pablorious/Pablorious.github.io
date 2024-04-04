@@ -147,7 +147,7 @@ title_card vu style language =
         [ centerX
         , Border.width 1
         , Border.rounded 5
-        , Border.color <| translate_generic style Comment
+        , Border.color <| translate Red
         , Background.color <| translate_generic style Header
         , width fill
         , height fill
@@ -159,7 +159,7 @@ title_card vu style language =
                 ] 
                 [profile_pic vu style language]
         ]
-        [ title_image vu language, solid_spacer style, el [ height <| px (30 * vu)] Element.none ]
+        [ title_image vu language, solid_spacer Red, el [ height <| px (30 * vu)] Element.none ]
 
 profile_pic: Vu -> Style -> Language -> Element Msg
 profile_pic vu style language = 
@@ -170,7 +170,7 @@ profile_pic vu style language =
         , height <| px (27 * vu)
         , Border.rounded 150
         , Border.width 2
-        , Border.color <| translate_generic style Comment
+        , Border.color <| translate Red
         , clip
         ] 
         { src = "images/my_face.jpg"
@@ -209,6 +209,8 @@ resume vu style language =
         ++
         [ Font.size (6 * vu)
         , Font.center
+        , Border.color (translate Violet)
+        , Font.color (translate Violet)
         , inFront 
         <| el 
             [ alignLeft
@@ -239,6 +241,8 @@ github_link vu style language =
         [ Font.size (6 * vu)
         , Font.center
         , width fill
+        , Border.color (translate Yellow)
+        , Font.color (translate Yellow)
         , inFront 
 
         <| el 
@@ -294,9 +298,13 @@ color_converter_toggle_button vu language =
 color_converter : Bool -> Vu -> Style -> Language -> Element Msg
 color_converter visible vu style language =
     if visible then
-        column (main_column_element style)
+        column ((main_column_element style) ++
+        [ Border.color (translate Orange) 
+        , Font.color (translate Orange)
+        ])
+
         [ color_converter_toggle_button vu language
-        , solid_spacer style
+        , solid_spacer Orange
         , el [width fill ] 
             <| html 
             <| node "color-converter" 
@@ -306,7 +314,11 @@ color_converter visible vu style language =
             ] [] 
         ]
     else
-        el (main_column_element style) <| color_converter_toggle_button vu language
+        el 
+        ( (main_column_element style) ++
+        [ Border.color (translate Orange)
+        , Font.color (translate Orange)
+        ]) <| color_converter_toggle_button vu language
 
 
 useful_websites : Px -> Style -> Language -> Element Msg

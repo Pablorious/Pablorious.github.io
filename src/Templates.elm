@@ -33,11 +33,11 @@ page_attributes style =
             <| translate_generic style Background
         ])
 
-solid_spacer style =
+solid_spacer color =
     el [ width fill
         , height (px 1)
         , Background.color 
-            <| translate_generic style Comment
+            <| translate color
         ] none
 dashed_spacer style = 
     column [width fill ] 
@@ -93,7 +93,7 @@ website_list vu style language websites =
         Element.newTabLink [width fill]
         { url = web_link.url
         , label =
-            row (main_column_element style )
+            row ( (main_column_element style ) ++ [Border.color (translate_generic style Comment)])
                 [ icon_image vu language { src = web_link.image_src, desc = web_link.image_desc}
                 , el 
                     [ width fill, Font.center, Font.size (6 * vu)] 
