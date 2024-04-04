@@ -26,12 +26,20 @@ type alias Model =
 type alias Flags =
     { width: Px
     , height: Px
+    , style: Bool
     }
+
+darkmode: Bool -> Style
+darkmode bool =
+    if bool then
+        Dark
+    else
+        Light
 
 initialModel : Flags -> (Model, Cmd a)
 initialModel flags =
     ( 
-        { style = Dark
+        { style = darkmode flags.style
         , color_converter_visible = False
         , language = English
         , width = flags.width
@@ -47,6 +55,7 @@ type Msg = NoAction
          | ToggleColorConverterVisible
          | NewViewportze { width: Px, height: Px }
          | GotInitialViewport D.Viewport
+         | GotStylePreference Bool
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
@@ -237,8 +246,8 @@ github_link vu style language =
         , label = text "Github"
         } 
 
-color_converter_toggle_button: Vu -> Style -> Language -> Element Msg
-color_converter_toggle_button vu style language = 
+color_converter_toggle_button: Vu -> Language -> Element Msg
+color_converter_toggle_button vu language = 
     Element.Input.button 
     [ width fill 
     , Font.center
@@ -273,20 +282,19 @@ color_converter : Bool -> Vu -> Style -> Language -> Element Msg
 color_converter visible vu style language =
     if visible then
         column (main_column_element style)
-        [ color_converter_toggle_button vu style language
+        [ color_converter_toggle_button vu language
         , solid_spacer style
         , el [width fill ] 
             <| html <| node "color-converter" [] [] 
         ]
     else
-        el (main_column_element style) <| color_converter_toggle_button vu style language
+        el (main_column_element style) <| color_converter_toggle_button vu language
 
 
 useful_websites : Px -> Style -> Language -> Element Msg
 useful_websites vu style language = 
     website_list vu style language
-        [
-            { url = "https://elm-lang.org/"
+        [ { url = "https://elm-lang.org/"
             , image_src = "images/elm.svg"
             , image_desc = 
                 { english = "Elm Icon"
@@ -297,8 +305,7 @@ useful_websites vu style language =
                 , spanish = "Elm"
                 }
             }
-        , 
-            { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
+        , { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/   "
             , image_src = "images/elm.svg"
             , image_desc = 
                 { english = "Elm-UI Icon"
@@ -309,8 +316,7 @@ useful_websites vu style language =
                 , spanish = "Elm-IU"
                 }
             } 
-        ,     
-            { url = "https://en.wikipedia.org/wiki/Solarized"
+        , { url = "https://en.wikipedia.org/wiki/Solarized"
             , image_src = "images/wikipedia.svg"
             , image_desc = 
                 { english = "Wikipedia Icon"
@@ -350,6 +356,9 @@ update msg model =
                 h = round vp.scene.height
             in
             ({model | width = w, height = h}, Cmd.none)
+        GotStylePreference bool->
+            ({model | style = darkmode bool } , Cmd.none)
+
 
 main : Program Flags Model Msg
 main =

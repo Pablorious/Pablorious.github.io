@@ -4883,6 +4883,7 @@ var $elm$core$Result$isOk = function (result) {
 	}
 };
 var $elm$json$Json$Decode$andThen = _Json_andThen;
+var $elm$json$Json$Decode$bool = _Json_decodeBool;
 var $elm$json$Json$Decode$map = _Json_map1;
 var $elm$json$Json$Decode$map2 = _Json_map2;
 var $elm$json$Json$Decode$succeed = _Json_succeed;
@@ -5198,7 +5199,6 @@ var $elm$core$Task$perform = F2(
 	});
 var $elm$browser$Browser$element = _Browser_element;
 var $elm$json$Json$Decode$field = _Json_decodeField;
-var $author$project$Solarized$Dark = {$: 'Dark'};
 var $author$project$Bilingual$English = {$: 'English'};
 var $elm$core$Basics$min = F2(
 	function (x, y) {
@@ -5206,6 +5206,11 @@ var $elm$core$Basics$min = F2(
 	});
 var $author$project$VisualUnits$calculatevu = function (dims) {
 	return (A2($elm$core$Basics$min, dims.width, dims.height) / 100) | 0;
+};
+var $author$project$Solarized$Dark = {$: 'Dark'};
+var $author$project$Solarized$Light = {$: 'Light'};
+var $author$project$Main$darkmode = function (bool) {
+	return bool ? $author$project$Solarized$Dark : $author$project$Solarized$Light;
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -5215,7 +5220,7 @@ var $author$project$Main$initialModel = function (flags) {
 			color_converter_visible: false,
 			height: flags.height,
 			language: $author$project$Bilingual$English,
-			style: $author$project$Solarized$Dark,
+			style: $author$project$Main$darkmode(flags.style),
 			vu: $author$project$VisualUnits$calculatevu(
 				{height: flags.height, width: flags.width}),
 			width: flags.width
@@ -5648,7 +5653,6 @@ var $author$project$Main$subscriptions = function (_v0) {
 					{height: h, width: w});
 			}));
 };
-var $author$project$Solarized$Light = {$: 'Light'};
 var $author$project$Bilingual$Spanish = {$: 'Spanish'};
 var $elm$core$Basics$round = _Basics_round;
 var $author$project$Main$update = F2(
@@ -5707,7 +5711,7 @@ var $author$project$Main$update = F2(
 							width: dims.width
 						}),
 					$elm$core$Platform$Cmd$none);
-			default:
+			case 'GotInitialViewport':
 				var vp = msg.a;
 				var w = $elm$core$Basics$round(vp.scene.width);
 				var h = $elm$core$Basics$round(vp.scene.height);
@@ -5715,6 +5719,15 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{height: h, width: w}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				var bool = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							style: $author$project$Main$darkmode(bool)
+						}),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -11519,8 +11532,8 @@ var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
 var $mdgriffith$elm_ui$Element$text = function (content) {
 	return $mdgriffith$elm_ui$Internal$Model$Text(content);
 };
-var $author$project$Main$color_converter_toggle_button = F3(
-	function (vu, style, language) {
+var $author$project$Main$color_converter_toggle_button = F2(
+	function (vu, language) {
 		return A2(
 			$mdgriffith$elm_ui$Element$Input$button,
 			_List_fromArray(
@@ -11807,7 +11820,7 @@ var $author$project$Main$color_converter = F4(
 			$author$project$Templates$main_column_element(style),
 			_List_fromArray(
 				[
-					A3($author$project$Main$color_converter_toggle_button, vu, style, language),
+					A2($author$project$Main$color_converter_toggle_button, vu, language),
 					$author$project$Templates$solid_spacer(style),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
@@ -11820,7 +11833,7 @@ var $author$project$Main$color_converter = F4(
 				])) : A2(
 			$mdgriffith$elm_ui$Element$el,
 			$author$project$Templates$main_column_element(style),
-			A3($author$project$Main$color_converter_toggle_button, vu, style, language));
+			A2($author$project$Main$color_converter_toggle_button, vu, language));
 	});
 var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
 	return {$: 'MoveX', a: a};
@@ -12880,10 +12893,15 @@ _Platform_export({'Main':{'init':$author$project$Main$main(
 		function (width) {
 			return A2(
 				$elm$json$Json$Decode$andThen,
-				function (height) {
-					return $elm$json$Json$Decode$succeed(
-						{height: height, width: width});
+				function (style) {
+					return A2(
+						$elm$json$Json$Decode$andThen,
+						function (height) {
+							return $elm$json$Json$Decode$succeed(
+								{height: height, style: style, width: width});
+						},
+						A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$int));
 				},
-				A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$int));
+				A2($elm$json$Json$Decode$field, 'style', $elm$json$Json$Decode$bool));
 		},
 		A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$int)))(0)}});}(this));

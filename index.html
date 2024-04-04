@@ -162,6 +162,7 @@
 	( document.documentElement.clientHeight || 0
 	, window.innerHeight || 0
 	)
+      , style : window.matchMedia("(prefers-color-scheme: dark)").matches
       }
     });
     </script>
