@@ -1,3 +1,3 @@
 all:
-	elm make src/Main.elm --output=main.js
+	elm make src/Main.elm --optimize --output=main.js
 

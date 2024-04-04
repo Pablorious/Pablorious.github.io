@@ -8,6 +8,35 @@
     <script src="main.js"></script>
     <script>
         class ColorConverter extends HTMLElement {
+	    attributeChangedCallback() { this.setStyle(); }
+	    static get observedAttributes () {return ['style'];}
+
+	    setStyle () {
+		const colorscheme = this.getAttribute('style');
+		
+		const colorsinput = this.shadowRoot.querySelector('#colorsInput');
+		const fileinput = this.shadowRoot.querySelector('#fileInput');
+		
+		console.log(colorscheme);
+		if (colorscheme === "True") {
+		    console.log("executing darkmode styles for colorconverter");
+		    colorsinput.style.backgroundColor = "rgb(0,43,54)";
+		    fileinput.style.backgroundColor = "rgb(0,43,54)";
+		    colorsinput.style.color = "rgb(131,148,150)";
+		    fileInput.style.color = "rgb(131,148,150)";
+		    fileinput.style.border = "1px solid rgb( 88, 110, 117)";
+		    colorsinput.style.border = "1px solid rgb( 88, 110, 117)";
+		} else {
+		    console.log("executing lightmode styles for colorconverter");
+		    colorsinput.style.backgroundColor = "rgb(253,246,227)";
+		    fileinput.style.backgroundColor = "rgb(253,246,227)";
+		    colorsinput.style.color = "rgb(101,123,131)";
+		    fileinput.style.color = "rgb(101,123,131)";
+		    fileinput.style.border = "1px solid rgb(147,161,161)";
+		    colorsinput.style.border = "1px solid rgb(147,161,161)";
+		}
+	    }
+
             constructor() {
                 super();
                 this.shadow = this.attachShadow({mode: 'open'})
@@ -17,13 +46,12 @@
                             flex-wrap: wrap;
                         }
                         #fileInput,#colorsInput{
-			    font-size: 16;
+			    font-size: min(4vh,4vw);
                             background-color: rgb(133,153,  0);
                             margin-right: 10px; /* add a margin to the buttons */
 			    margin-bottom: 10px;
-			    padding: 5px;
+			    padding: 10px;
                             color: white;
-			    border: 1px solid rgb(133,153,  0);
 			    border-radius: 5px;
                             cursor: pointer;
                         }
@@ -37,7 +65,6 @@
                           <option value="grayscale">Grayscale</option>
                           <option value="neons">Neons</option>
                           <option value="black and white">Black and White</option></select></div><input type="file" id="inputFile" accept="*" style="display:none"/><canvas id="canvas"></canvas>`;        
-
 		this._colors = 
 		    {
 		      neons: [[0,0,0],[255,0,0],[0,255,0],[0,0,255],[0,255,255],[255,0,255],[255,255,0],[255,255,255]]
@@ -62,7 +89,6 @@
 		    , grayscale : [[0,0,0],[255,255,255],[127,127,127],[63,63,63],[191,191,191]]
 		    , "black and white" : [[0,0,0],[255,255,255]]
 		    }
-                
                 this.fileInputButton = this.shadow.querySelector("#fileInput");
                 this.colorSelector = this.shadow.querySelector("#colorsInput");
                 this.imageCanvas = this.shadow.querySelector("canvas");

@@ -1,5 +1,6 @@
 module Main exposing (main)
-import Html
+import Html exposing(node)
+import Html.Attributes
 import Browser
 import Element exposing (..)
 import Element.Font as Font
@@ -8,7 +9,6 @@ import Element.Border as Border
 import Element.Input
 import Browser.Events as E
 import Browser.Dom as D
-import Html exposing(node)
 import Bilingual exposing (..)
 import VisualUnits exposing (..)
 import Solarized exposing (..)
@@ -35,6 +35,19 @@ darkmode bool =
         Dark
     else
         Light
+
+isdarkmode: Style -> Bool
+isdarkmode style =
+    case style of 
+        Dark -> True
+        Light -> False
+
+stringfrombool : Bool -> String
+stringfrombool bool =
+    if bool then
+        "True"
+    else
+        "False"
 
 initialModel : Flags -> (Model, Cmd a)
 initialModel flags =
@@ -285,7 +298,12 @@ color_converter visible vu style language =
         [ color_converter_toggle_button vu language
         , solid_spacer style
         , el [width fill ] 
-            <| html <| node "color-converter" [] [] 
+            <| html 
+            <| node "color-converter" 
+            [ Html.Attributes.attribute "style"  
+                <| stringfrombool 
+                <| isdarkmode style
+            ] [] 
         ]
     else
         el (main_column_element style) <| color_converter_toggle_button vu language
