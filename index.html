@@ -16,24 +16,34 @@
 		
 		const colorsinput = this.shadowRoot.querySelector('#colorsInput');
 		const fileinput = this.shadowRoot.querySelector('#fileInput');
+		const downloadlink = this.shadowRoot.querySelector('#downloadLink');
 		
 		console.log(colorscheme);
 		if (colorscheme === "True") {
-		    console.log("executing darkmode styles for colorconverter");
 		    colorsinput.style.backgroundColor = "rgb(0,43,54)";
 		    fileinput.style.backgroundColor = "rgb(0,43,54)";
+		    downloadlink.style.backgroundColor = "rgb(0,43,54)";
+
 		    colorsinput.style.color = "rgb(131,148,150)";
 		    fileInput.style.color = "rgb(131,148,150)";
+		    downloadlink.style.color = "rgb(131,148,150)";
+
 		    fileinput.style.border = "1px solid rgb( 88, 110, 117)";
 		    colorsinput.style.border = "1px solid rgb( 88, 110, 117)";
+		    downloadlink.style.border = "1px solid rgb( 88, 110, 117)";
+
 		} else {
-		    console.log("executing lightmode styles for colorconverter");
 		    colorsinput.style.backgroundColor = "rgb(253,246,227)";
 		    fileinput.style.backgroundColor = "rgb(253,246,227)";
+		    downloadlink.style.backgroundColor = "rgb(253,246,227)";
+		    
 		    colorsinput.style.color = "rgb(101,123,131)";
 		    fileinput.style.color = "rgb(101,123,131)";
+		    downloadlink.style.color = "rgb(101,123,131)";
+		    
 		    fileinput.style.border = "1px solid rgb(147,161,161)";
 		    colorsinput.style.border = "1px solid rgb(147,161,161)";
+		    downloadlink.style.border = "1px solid rgb(147,161,161)";
 		}
 	    }
 
@@ -45,15 +55,15 @@
                             display: flex;
                             flex-wrap: wrap;
                         }
-                        #fileInput,#colorsInput{
+                        #fileInput,#colorsInput,#downloadLink{
+			    font: inherit;
 			    font-size: min(4vh,4vw);
-                            background-color: rgb(133,153,  0);
                             margin-right: 10px; /* add a margin to the buttons */
 			    margin-bottom: 10px;
 			    padding: 10px;
-                            color: white;
-			    border-radius: 5px;
+			    border-radius: 10px;
                             cursor: pointer;
+			    text-decoration: none;
                         }
                         #canvas {
                             flex-grow: 1;
@@ -64,10 +74,10 @@
                           <option value="solarized">Solarized</option>
                           <option value="grayscale">Grayscale</option>
                           <option value="neons">Neons</option>
-                          <option value="black and white">Black and White</option></select></div><input type="file" id="inputFile" accept="*" style="display:none"/><canvas id="canvas"></canvas>`;        
+			  <option value="black and white">Black and White</option></select><a id="downloadLink">Download Image</a>
+			</div><input type="file" id="inputFile" accept="*" style="display:none"/><canvas id="canvas"></canvas>`;        
 		this._colors = 
-		    {
-		      neons: [[0,0,0],[255,0,0],[0,255,0],[0,0,255],[0,255,255],[255,0,255],[255,255,0],[255,255,255]]
+		    { neons: [[0,0,0],[255,0,0],[0,255,0],[0,0,255],[0,255,255],[255,0,255],[255,255,0],[255,255,255]]
 		    , solarized : [ [131,148,150]
 				  , [  0, 43, 54]
 				  , [  7, 54, 66]
@@ -95,6 +105,10 @@
                 this.fileInputButton.addEventListener("click", this.openFileDialog.bind(this));
                 this.colorSelector.addEventListener("change", this.updateCanvas.bind(this));
                 this.image = null;
+		
+                this.downloadLink = this.shadow.querySelector("#downloadLink");
+		this.downloadLink.download = 'colorconverted.png';
+		this.downloadLink.href = this.imageCanvas.toDataURL();
             }
              
             updateCanvas(){
