@@ -67,6 +67,11 @@
                             cursor: pointer;
 			    text-decoration: none;
                         }
+			p {
+			    text-align: center;
+			    margin: 0;
+			    padding: 0;
+			}
                         #canvas {
                             flex-grow: 1;
 			    width: 100%;
@@ -76,7 +81,7 @@
                           <option value="solarized">Solarized</option>
                           <option value="grayscale">Grayscale</option>
                           <option value="neons">Neons</option>
-			  <option value="black and white">Black and White</option></select><a id="downloadLink">Download Image</a>
+			  <option value="black and white">Black and White</option></select><a id="downloadLink"><p>Download Image</p></a>
 			</div><input type="file" id="inputFile" accept="*" style="display:none"/><canvas id="canvas"></canvas>`;        
 		this._colors = 
 		    { neons: [[0,0,0],[255,0,0],[0,255,0],[0,0,255],[0,255,255],[255,0,255],[255,255,0],[255,255,255]]
