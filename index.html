@@ -110,7 +110,6 @@
 		
                 this.downloadLink = this.shadow.querySelector("#downloadLink");
 		this.downloadLink.download = 'colorconverted.png';
-		this.downloadLink.href = this.imageCanvas.toDataURL();
             }
              
             updateCanvas(){
@@ -137,9 +136,20 @@
                     data[i + 2] = nearestColor[2];
                 }
             ctx.putImageData(imageData, 0, 0);
+
+	    var tdu = this.imageCanvas.toDataURL;
+	    HTMLCanvasElement.toDataURL = function(type){
+		var res = tdu.apply(this,arguments);
+		if (res.substr(0,6) == "data:,"){
+		    var encoder = new JPEGEncoder();
+		    return encoder.encode(this.getContext("2d").getImageData(0,0, this.image.width, this.image.height), 90);
+		}
+		else return res;
             }
 
-            openFileDialog(){
+	    this.downloadLink.href = this.imageCanvas.toDataURL("image/png").replace(/^data:image\/png/,'data:application/octet-stream');
+	    }
+            openFileDialog() {
                 const fileInput = document.createElement("input");
                 fileInput.type = "file";
 
