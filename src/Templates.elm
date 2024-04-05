@@ -17,7 +17,7 @@ main_template model list =
 main_column_element style = 
     [ Border.width 1
     , Border.color <| translate_generic style Comment
-    , Border.rounded 5
+    , Border.rounded 10
     , Background.color <| translate_generic style Header 
     , centerX
     , padding 10
@@ -31,13 +31,14 @@ page_attributes style =
         , spacing 10
         , Background.color 
             <| translate_generic style Background
+    , Font.family [ Font.typeface "Shantell Sans"]
         ])
 
-solid_spacer color =
+solid_spacer style =
     el [ width fill
         , height (px 1)
         , Background.color 
-            <| translate color
+            <| translate_generic style Comment
         ] none
 dashed_spacer style = 
     column [width fill ] 

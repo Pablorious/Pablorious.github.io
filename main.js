@@ -5725,7 +5725,6 @@ var $author$project$Main$update = F2(
 					$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$Solarized$Orange = 9;
 var $elm$virtual_dom$VirtualDom$attribute = F2(
 	function (key, value) {
 		return A2(
@@ -5734,57 +5733,6 @@ var $elm$virtual_dom$VirtualDom$attribute = F2(
 			_VirtualDom_noJavaScriptOrHtmlUri(value));
 	});
 var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
-var $mdgriffith$elm_ui$Internal$Model$Colored = F3(
-	function (a, b, c) {
-		return {$: 4, a: a, b: b, c: c};
-	});
-var $mdgriffith$elm_ui$Internal$Model$StyleClass = F2(
-	function (a, b) {
-		return {$: 4, a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$Flag = function (a) {
-	return {$: 0, a: a};
-};
-var $mdgriffith$elm_ui$Internal$Flag$Second = function (a) {
-	return {$: 1, a: a};
-};
-var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
-var $mdgriffith$elm_ui$Internal$Flag$flag = function (i) {
-	return (i > 31) ? $mdgriffith$elm_ui$Internal$Flag$Second(1 << (i - 32)) : $mdgriffith$elm_ui$Internal$Flag$Flag(1 << i);
-};
-var $mdgriffith$elm_ui$Internal$Flag$borderColor = $mdgriffith$elm_ui$Internal$Flag$flag(28);
-var $mdgriffith$elm_ui$Internal$Model$floatClass = function (x) {
-	return $elm$core$String$fromInt(
-		$elm$core$Basics$round(x * 255));
-};
-var $mdgriffith$elm_ui$Internal$Model$formatColorClass = function (_v0) {
-	var red = _v0.a;
-	var green = _v0.b;
-	var blue = _v0.c;
-	var alpha = _v0.d;
-	return $mdgriffith$elm_ui$Internal$Model$floatClass(red) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(green) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(blue) + ('-' + $mdgriffith$elm_ui$Internal$Model$floatClass(alpha))))));
-};
-var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$borderColor,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Colored,
-			'bc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
-			'border-color',
-			clr));
-};
-var $mdgriffith$elm_ui$Internal$Flag$fontColor = $mdgriffith$elm_ui$Internal$Flag$flag(14);
-var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontColor,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Colored,
-			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
-			'color',
-			fontColor));
-};
 var $author$project$Main$ToggleColorConverterVisible = {$: 3};
 var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
 	return {$: 6, a: a};
@@ -5914,6 +5862,16 @@ var $mdgriffith$elm_ui$Internal$Model$addKeyedChildren = F3(
 	});
 var $mdgriffith$elm_ui$Internal$Model$AsParagraph = 4;
 var $mdgriffith$elm_ui$Internal$Model$asParagraph = 4;
+var $mdgriffith$elm_ui$Internal$Flag$Flag = function (a) {
+	return {$: 0, a: a};
+};
+var $mdgriffith$elm_ui$Internal$Flag$Second = function (a) {
+	return {$: 1, a: a};
+};
+var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
+var $mdgriffith$elm_ui$Internal$Flag$flag = function (i) {
+	return (i > 31) ? $mdgriffith$elm_ui$Internal$Flag$Second(1 << (i - 32)) : $mdgriffith$elm_ui$Internal$Flag$Flag(1 << i);
+};
 var $mdgriffith$elm_ui$Internal$Flag$alignBottom = $mdgriffith$elm_ui$Internal$Flag$flag(41);
 var $mdgriffith$elm_ui$Internal$Flag$alignRight = $mdgriffith$elm_ui$Internal$Flag$flag(40);
 var $mdgriffith$elm_ui$Internal$Flag$centerX = $mdgriffith$elm_ui$Internal$Flag$flag(42);
@@ -5953,6 +5911,10 @@ var $mdgriffith$elm_ui$Internal$Model$lengthClassName = function (x) {
 var $elm$core$Tuple$second = function (_v0) {
 	var y = _v0.b;
 	return y;
+};
+var $mdgriffith$elm_ui$Internal$Model$floatClass = function (x) {
+	return $elm$core$String$fromInt(
+		$elm$core$Basics$round(x * 255));
 };
 var $mdgriffith$elm_ui$Internal$Model$transformClass = function (transform) {
 	switch (transform.$) {
@@ -11531,6 +11493,10 @@ var $mdgriffith$elm_ui$Element$inFront = function (element) {
 var $mdgriffith$elm_ui$Internal$Model$FontSize = function (a) {
 	return {$: 2, a: a};
 };
+var $mdgriffith$elm_ui$Internal$Model$StyleClass = F2(
+	function (a, b) {
+		return {$: 4, a: a, b: b};
+	});
 var $mdgriffith$elm_ui$Internal$Flag$fontSize = $mdgriffith$elm_ui$Internal$Flag$flag(4);
 var $mdgriffith$elm_ui$Element$Font$size = function (i) {
 	return A2(
@@ -11617,7 +11583,18 @@ var $author$project$Main$isdarkmode = function (style) {
 };
 var $author$project$Solarized$Comment = 2;
 var $author$project$Solarized$Header = 3;
+var $mdgriffith$elm_ui$Internal$Model$Colored = F3(
+	function (a, b, c) {
+		return {$: 4, a: a, b: b, c: c};
+	});
 var $mdgriffith$elm_ui$Internal$Flag$bgColor = $mdgriffith$elm_ui$Internal$Flag$flag(8);
+var $mdgriffith$elm_ui$Internal$Model$formatColorClass = function (_v0) {
+	var red = _v0.a;
+	var green = _v0.b;
+	var blue = _v0.c;
+	var alpha = _v0.d;
+	return $mdgriffith$elm_ui$Internal$Model$floatClass(red) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(green) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(blue) + ('-' + $mdgriffith$elm_ui$Internal$Model$floatClass(alpha))))));
+};
 var $mdgriffith$elm_ui$Element$Background$color = function (clr) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
@@ -11626,6 +11603,17 @@ var $mdgriffith$elm_ui$Element$Background$color = function (clr) {
 			$mdgriffith$elm_ui$Internal$Model$Colored,
 			'bg-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
 			'background-color',
+			clr));
+};
+var $mdgriffith$elm_ui$Internal$Flag$borderColor = $mdgriffith$elm_ui$Internal$Flag$flag(28);
+var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'bc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
+			'border-color',
 			clr));
 };
 var $mdgriffith$elm_ui$Internal$Model$PaddingStyle = F5(
@@ -11785,7 +11773,7 @@ var $author$project$Templates$main_column_element = function (style) {
 			$mdgriffith$elm_ui$Element$Border$width(1),
 			$mdgriffith$elm_ui$Element$Border$color(
 			A2($author$project$Solarized$translate_generic, style, 2)),
-			$mdgriffith$elm_ui$Element$Border$rounded(5),
+			$mdgriffith$elm_ui$Element$Border$rounded(10),
 			$mdgriffith$elm_ui$Element$Background$color(
 			A2($author$project$Solarized$translate_generic, style, 3)),
 			$mdgriffith$elm_ui$Element$centerX,
@@ -11797,7 +11785,7 @@ var $author$project$Templates$main_column_element = function (style) {
 var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
 var $mdgriffith$elm_ui$Internal$Model$Empty = {$: 3};
 var $mdgriffith$elm_ui$Element$none = $mdgriffith$elm_ui$Internal$Model$Empty;
-var $author$project$Templates$solid_spacer = function (color) {
+var $author$project$Templates$solid_spacer = function (style) {
 	return A2(
 		$mdgriffith$elm_ui$Element$el,
 		_List_fromArray(
@@ -11806,7 +11794,7 @@ var $author$project$Templates$solid_spacer = function (color) {
 				$mdgriffith$elm_ui$Element$height(
 				$mdgriffith$elm_ui$Element$px(1)),
 				$mdgriffith$elm_ui$Element$Background$color(
-				$author$project$Solarized$translate(color))
+				A2($author$project$Solarized$translate_generic, style, 2))
 			]),
 		$mdgriffith$elm_ui$Element$none);
 };
@@ -11817,19 +11805,11 @@ var $author$project$Main$color_converter = F4(
 	function (visible, vu, style, language) {
 		return visible ? A2(
 			$mdgriffith$elm_ui$Element$column,
-			_Utils_ap(
-				$author$project$Templates$main_column_element(style),
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Border$color(
-						$author$project$Solarized$translate(9)),
-						$mdgriffith$elm_ui$Element$Font$color(
-						$author$project$Solarized$translate(9))
-					])),
+			$author$project$Templates$main_column_element(style),
 			_List_fromArray(
 				[
 					A2($author$project$Main$color_converter_toggle_button, vu, language),
-					$author$project$Templates$solid_spacer(9),
+					$author$project$Templates$solid_spacer(style),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
@@ -11851,18 +11831,9 @@ var $author$project$Main$color_converter = F4(
 							_List_Nil)))
 				])) : A2(
 			$mdgriffith$elm_ui$Element$el,
-			_Utils_ap(
-				$author$project$Templates$main_column_element(style),
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Border$color(
-						$author$project$Solarized$translate(9)),
-						$mdgriffith$elm_ui$Element$Font$color(
-						$author$project$Solarized$translate(9))
-					])),
+			$author$project$Templates$main_column_element(style),
 			A2($author$project$Main$color_converter_toggle_button, vu, language));
 	});
-var $author$project$Solarized$Yellow = 8;
 var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
 	return {$: 0, a: a};
 };
@@ -11930,10 +11901,6 @@ var $author$project$Main$github_link = F3(
 						$mdgriffith$elm_ui$Element$Font$size(6 * vu),
 						$mdgriffith$elm_ui$Element$Font$center,
 						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$Border$color(
-						$author$project$Solarized$translate(8)),
-						$mdgriffith$elm_ui$Element$Font$color(
-						$author$project$Solarized$translate(8)),
 						$mdgriffith$elm_ui$Element$inFront(
 						A2(
 							$mdgriffith$elm_ui$Element$el,
@@ -11958,6 +11925,17 @@ var $author$project$Main$github_link = F3(
 			});
 	});
 var $author$project$Solarized$Foreground = 0;
+var $mdgriffith$elm_ui$Internal$Flag$fontColor = $mdgriffith$elm_ui$Internal$Flag$flag(14);
+var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontColor,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Colored,
+			'fc-' + $mdgriffith$elm_ui$Internal$Model$formatColorClass(fontColor),
+			'color',
+			fontColor));
+};
 var $mdgriffith$elm_ui$Internal$Model$Max = F2(
 	function (a, b) {
 		return {$: 4, a: a, b: b};
@@ -11982,6 +11960,59 @@ var $author$project$Templates$dynamic_column_style = F4(
 			]);
 	});
 var $author$project$Solarized$Background = 1;
+var $mdgriffith$elm_ui$Internal$Model$FontFamily = F2(
+	function (a, b) {
+		return {$: 1, a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$fontFamily = $mdgriffith$elm_ui$Internal$Flag$flag(5);
+var $elm$core$String$toLower = _String_toLower;
+var $elm$core$String$words = _String_words;
+var $mdgriffith$elm_ui$Internal$Model$renderFontClassName = F2(
+	function (font, current) {
+		return _Utils_ap(
+			current,
+			function () {
+				switch (font.$) {
+					case 0:
+						return 'serif';
+					case 1:
+						return 'sans-serif';
+					case 2:
+						return 'monospace';
+					case 3:
+						var name = font.a;
+						return A2(
+							$elm$core$String$join,
+							'-',
+							$elm$core$String$words(
+								$elm$core$String$toLower(name)));
+					case 4:
+						var name = font.a;
+						var url = font.b;
+						return A2(
+							$elm$core$String$join,
+							'-',
+							$elm$core$String$words(
+								$elm$core$String$toLower(name)));
+					default:
+						var name = font.a.cM;
+						return A2(
+							$elm$core$String$join,
+							'-',
+							$elm$core$String$words(
+								$elm$core$String$toLower(name)));
+				}
+			}());
+	});
+var $mdgriffith$elm_ui$Element$Font$family = function (families) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$FontFamily,
+			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
+			families));
+};
 var $mdgriffith$elm_ui$Internal$Model$OnlyDynamic = F2(
 	function (a, b) {
 		return {$: 2, a: a, b: b};
@@ -12126,54 +12157,10 @@ var $mdgriffith$elm_ui$Internal$Model$renderRoot = F3(
 					_List_fromArray(
 						[child]))));
 	});
-var $mdgriffith$elm_ui$Internal$Model$FontFamily = F2(
-	function (a, b) {
-		return {$: 1, a: a, b: b};
-	});
 var $mdgriffith$elm_ui$Internal$Model$SansSerif = {$: 1};
 var $mdgriffith$elm_ui$Internal$Model$Typeface = function (a) {
 	return {$: 3, a: a};
 };
-var $mdgriffith$elm_ui$Internal$Flag$fontFamily = $mdgriffith$elm_ui$Internal$Flag$flag(5);
-var $elm$core$String$toLower = _String_toLower;
-var $elm$core$String$words = _String_words;
-var $mdgriffith$elm_ui$Internal$Model$renderFontClassName = F2(
-	function (font, current) {
-		return _Utils_ap(
-			current,
-			function () {
-				switch (font.$) {
-					case 0:
-						return 'serif';
-					case 1:
-						return 'sans-serif';
-					case 2:
-						return 'monospace';
-					case 3:
-						var name = font.a;
-						return A2(
-							$elm$core$String$join,
-							'-',
-							$elm$core$String$words(
-								$elm$core$String$toLower(name)));
-					case 4:
-						var name = font.a;
-						var url = font.b;
-						return A2(
-							$elm$core$String$join,
-							'-',
-							$elm$core$String$words(
-								$elm$core$String$toLower(name)));
-					default:
-						var name = font.a.cM;
-						return A2(
-							$elm$core$String$join,
-							'-',
-							$elm$core$String$words(
-								$elm$core$String$toLower(name)));
-				}
-			}());
-	});
 var $mdgriffith$elm_ui$Internal$Model$rootStyle = function () {
 	var families = _List_fromArray(
 		[
@@ -12234,6 +12221,7 @@ var $mdgriffith$elm_ui$Element$layoutWith = F3(
 	});
 var $mdgriffith$elm_ui$Element$layout = $mdgriffith$elm_ui$Element$layoutWith(
 	{bq: _List_Nil});
+var $mdgriffith$elm_ui$Element$Font$typeface = $mdgriffith$elm_ui$Internal$Model$Typeface;
 var $author$project$Templates$page_attributes = function (style) {
 	return $mdgriffith$elm_ui$Element$layout(
 		_List_fromArray(
@@ -12242,7 +12230,12 @@ var $author$project$Templates$page_attributes = function (style) {
 				$mdgriffith$elm_ui$Element$padding(10),
 				$mdgriffith$elm_ui$Element$spacing(10),
 				$mdgriffith$elm_ui$Element$Background$color(
-				A2($author$project$Solarized$translate_generic, style, 1))
+				A2($author$project$Solarized$translate_generic, style, 1)),
+				$mdgriffith$elm_ui$Element$Font$family(
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$typeface('Shantell Sans')
+					]))
 			]));
 };
 var $author$project$Templates$main_template = F2(
@@ -12363,7 +12356,6 @@ var $author$project$Main$menu_bar = F3(
 					A2($author$project$Main$language_toggle_button, vu, language)
 				]));
 	});
-var $author$project$Solarized$Violet = 12;
 var $author$project$Main$resume = F3(
 	function (vu, style, language) {
 		return A2(
@@ -12374,10 +12366,6 @@ var $author$project$Main$resume = F3(
 					[
 						$mdgriffith$elm_ui$Element$Font$size(6 * vu),
 						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$Border$color(
-						$author$project$Solarized$translate(12)),
-						$mdgriffith$elm_ui$Element$Font$color(
-						$author$project$Solarized$translate(12)),
 						$mdgriffith$elm_ui$Element$inFront(
 						A2(
 							$mdgriffith$elm_ui$Element$el,
@@ -12496,11 +12484,11 @@ var $author$project$Templates$section = F4(
 					$author$project$Templates$dashed_spacer(style)
 				]));
 	});
-var $author$project$Solarized$Red = 10;
 var $mdgriffith$elm_ui$Internal$Model$Below = 1;
 var $mdgriffith$elm_ui$Element$below = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, 1, element);
 };
+var $author$project$Solarized$Red = 10;
 var $author$project$Main$name = F3(
 	function (vu, style, language) {
 		return A2(
@@ -12551,8 +12539,6 @@ var $author$project$Main$profile_pic = F3(
 					$mdgriffith$elm_ui$Element$px(27 * vu)),
 					$mdgriffith$elm_ui$Element$Border$rounded(150),
 					$mdgriffith$elm_ui$Element$Border$width(2),
-					$mdgriffith$elm_ui$Element$Border$color(
-					$author$project$Solarized$translate(10)),
 					$mdgriffith$elm_ui$Element$clip
 				]),
 			{
@@ -12563,6 +12549,20 @@ var $author$project$Main$profile_pic = F3(
 				ad: 'images/my_face.jpg'
 			});
 	});
+var $mdgriffith$elm_ui$Element$Border$roundEach = function (_v0) {
+	var topLeft = _v0.dr;
+	var topRight = _v0.ds;
+	var bottomLeft = _v0.cd;
+	var bottomRight = _v0.ce;
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderRound,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Single,
+			'br-' + ($elm$core$String$fromInt(topLeft) + ('-' + ($elm$core$String$fromInt(topRight) + ($elm$core$String$fromInt(bottomLeft) + ('-' + $elm$core$String$fromInt(bottomRight)))))),
+			'border-radius',
+			$elm$core$String$fromInt(topLeft) + ('px ' + ($elm$core$String$fromInt(topRight) + ('px ' + ($elm$core$String$fromInt(bottomRight) + ('px ' + ($elm$core$String$fromInt(bottomLeft) + 'px'))))))));
+};
 var $author$project$Main$title_image = F2(
 	function (vu, language) {
 		return A2(
@@ -12573,7 +12573,10 @@ var $author$project$Main$title_image = F2(
 					$mdgriffith$elm_ui$Element$centerY,
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$height(
-					$mdgriffith$elm_ui$Element$px(30 * vu))
+					$mdgriffith$elm_ui$Element$px(30 * vu)),
+					$mdgriffith$elm_ui$Element$clip,
+					$mdgriffith$elm_ui$Element$Border$roundEach(
+					{cd: 0, ce: 0, dr: 10, ds: 10})
 				]),
 			{
 				a8: A2(
@@ -12591,9 +12594,7 @@ var $author$project$Main$title_card = F3(
 				[
 					$mdgriffith$elm_ui$Element$centerX,
 					$mdgriffith$elm_ui$Element$Border$width(1),
-					$mdgriffith$elm_ui$Element$Border$rounded(5),
-					$mdgriffith$elm_ui$Element$Border$color(
-					$author$project$Solarized$translate(10)),
+					$mdgriffith$elm_ui$Element$Border$rounded(10),
 					$mdgriffith$elm_ui$Element$Background$color(
 					A2($author$project$Solarized$translate_generic, style, 3)),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
@@ -12616,7 +12617,7 @@ var $author$project$Main$title_card = F3(
 			_List_fromArray(
 				[
 					A2($author$project$Main$title_image, vu, language),
-					$author$project$Templates$solid_spacer(10),
+					$author$project$Templates$solid_spacer(style),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
