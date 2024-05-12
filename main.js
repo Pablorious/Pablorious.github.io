@@ -5222,7 +5222,7 @@ var $author$project$Main$initialModel = function (flags) {
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$json$Json$Decode$int = _Json_decodeInt;
-var $author$project$Main$NewViewportze = function (a) {
+var $author$project$Main$NewViewportSize = function (a) {
 	return {$: 4, a: a};
 };
 var $elm$browser$Browser$Events$Window = 1;
@@ -5643,7 +5643,7 @@ var $author$project$Main$subscriptions = function (_v0) {
 	return $elm$browser$Browser$Events$onResize(
 		F2(
 			function (w, h) {
-				return $author$project$Main$NewViewportze(
+				return $author$project$Main$NewViewportSize(
 					{p: h, r: w});
 			}));
 };
@@ -12234,7 +12234,7 @@ var $author$project$Templates$page_attributes = function (style) {
 				$mdgriffith$elm_ui$Element$Font$family(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Font$typeface('Shantell Sans')
+						$mdgriffith$elm_ui$Element$Font$typeface('Computer Modern Serif')
 					]))
 			]));
 };

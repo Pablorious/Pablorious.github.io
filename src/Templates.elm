@@ -31,7 +31,7 @@ page_attributes style =
         , spacing 10
         , Background.color 
             <| translate_generic style Background
-    , Font.family [ Font.typeface "Shantell Sans"]
+    , Font.family [ Font.typeface "Computer Modern Serif"]
         ])
 
 solid_spacer style =

@@ -59,20 +59,20 @@ initialModel flags =
         , height = flags.height
         , vu = calculatevu {width = flags.width, height = flags.height}
         }
-        , Cmd.none
+    , Cmd.none
     )
 
 type Msg = NoAction 
          | ToggleStyle
          | ToggleLanguage
          | ToggleColorConverterVisible
-         | NewViewportze { width: Px, height: Px }
+         | NewViewportSize { width: Px, height: Px }
          | GotInitialViewport D.Viewport
          | GotStylePreference Bool
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    E.onResize (\w h  -> NewViewportze {width = w, height = h})
+    E.onResize (\w h  -> NewViewportSize {width = w, height = h})
 
 view : Model -> Html.Html Msg
 view model =
@@ -373,7 +373,7 @@ update msg model =
                 ({model | color_converter_visible = False}, Cmd.none)
             else
                 ({model | color_converter_visible = True}, Cmd.none)
-        NewViewportze dims ->
+        NewViewportSize dims ->
             ({model | width = dims.width, height = dims.height, vu = calculatevu dims}, Cmd.none)
         GotInitialViewport vp ->
             let 
